@@ -57,6 +57,7 @@ class CreateSuratKeteranganTable extends Migration
                 'null' => true,
             ],
 
+            // Foreign Keys
             'mahasiswa_id' => [
                 'type' => 'INT',
                 'unsigned' => true,
@@ -68,16 +69,15 @@ class CreateSuratKeteranganTable extends Migration
                 'null' => true,
             ],
 
+            // Timestamps
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-
             'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-
             'deleted_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
