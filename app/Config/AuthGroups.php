@@ -23,7 +23,7 @@ class AuthGroups extends ShieldAuthGroups
      * --------------------------------------------------------------------
      * The group that a newly registered user is added to.
      */
-    public string $defaultGroup = 'user';
+    public string $defaultGroup = 'user_mahasiswa';
 
     /**
      * --------------------------------------------------------------------
@@ -49,18 +49,34 @@ class AuthGroups extends ShieldAuthGroups
             'title'       => 'Admin',
             'description' => 'Day to day administrators of the site.',
         ],
-        'developer' => [
-            'title'       => 'Developer',
-            'description' => 'Site programmers.',
+        'user_mahasiswa' => [
+            'title'       => 'User Mahasiswa',
+            'description' => 'Mahasiswa ITERA.', // For now, only Mahasiswa FTI
         ],
-        'user' => [
-            'title'       => 'User',
-            'description' => 'General users of the site. Often customers.',
+        'user_fakultas' => [
+            'title'       => 'User Fakultas',
+            'description' => 'Fakultas ITERA.', // For now, only Fakultas FTI
         ],
-        'beta' => [
-            'title'       => 'Beta User',
-            'description' => 'Has access to beta-level features.',
+        'user_upt_perpustakaan' => [
+            'title'       => 'User UPT Perpustakaan',
+            'description' => 'UPT Perpustakaan ITERA.',
         ],
+        'user_keuangan' => [
+            'title'       => 'User Keuangan',
+            'description' => 'Keuangan ITERA.',
+        ],
+        // 'developer' => [
+        //     'title'       => 'Developer',
+        //     'description' => 'Site programmers.',
+        // ],
+        // 'user' => [
+        //     'title'       => 'User',
+        //     'description' => 'General users of the site. Often customers.',
+        // ],
+        // 'beta' => [
+        //     'title'       => 'Beta User',
+        //     'description' => 'Has access to beta-level features.',
+        // ],
     ];
 
     /**
@@ -79,6 +95,18 @@ class AuthGroups extends ShieldAuthGroups
         'users.edit'          => 'Can edit existing non-admin users',
         'users.delete'        => 'Can delete existing non-admin users',
         'beta.access'         => 'Can access beta-level features',
+
+        // Yudisium
+        'mahasiswa.daftar_yudisium' => 'Can daftar yudisium',
+        'fakultas.validasi_yudisium' => 'Can validasi yudisium',
+        
+        // SK Bebas Perpustakaan
+        'mahasiswa.mengajukan_sk_bebas_perpustakaan' => 'Can mengajukan SK Bebas Perpustakaan',
+        'upt_perpustakaan.validasi_sk_bebas_perpustakaan' => 'Can validasi SK Bebas Perpustakaan',
+
+        // SK Bebas UKT
+        'mahasiswa.mengajukan_sk_bebas_ukt' => 'Can mengajukan SK Bebas UKT',
+        'keuangan.validasi_sk_bebas_ukt' => 'Can validasi SK Bebas UKT',
     ];
 
     /**
@@ -93,25 +121,38 @@ class AuthGroups extends ShieldAuthGroups
         'superadmin' => [
             'admin.*',
             'users.*',
-            'beta.*',
+            // 'beta.*',
         ],
         'admin' => [
             'admin.access',
             'users.create',
             'users.edit',
             'users.delete',
-            'beta.access',
+            // 'beta.access',
         ],
-        'developer' => [
-            'admin.access',
-            'admin.settings',
-            'users.create',
-            'users.edit',
-            'beta.access',
+        // 'user' => [],
+        'user_mahasiswa' => [
+            'mahasiswa.*',
+            'mahasiswa.daftar_yudisium',
         ],
-        'user' => [],
-        'beta' => [
-            'beta.access',
+        'user_fakultas' => [
+            'fakultas.*'
         ],
+        'user_upt_perpustakaan' => [
+            'upt_perpustakaan.*'
+        ],
+        'user_keuangan' => [
+            'keuangan.*'
+        ],
+        // 'developer' => [
+        //     'admin.access',
+        //     'admin.settings',
+        //     'users.create',
+        //     'users.edit',
+        //     'beta.access',
+        // ],
+        // 'beta' => [
+        //     'beta.access',
+        // ],
     ];
 }
