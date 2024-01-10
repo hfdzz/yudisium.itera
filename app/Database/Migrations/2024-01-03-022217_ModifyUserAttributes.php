@@ -8,6 +8,15 @@ class ModifyUserAttributes extends Migration
 {
     public function up()
     {
+        // Change column 'username' to not unique
+        $this->forge->modifyColumn('users', [
+            'username' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'unique' => false,
+            ],
+        ]);
+        
         // Add column 'nim'
         $this->forge->addColumn('users', [
             'nim' => [
