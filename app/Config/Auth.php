@@ -459,6 +459,9 @@ class Auth extends ShieldAuth
     {
         $url = setting('Auth.redirects')['logout'];
 
+        $session = session();
+        $session->removeTempdata('beforeLoginUrl');
+
         return $this->getUrl($url);
     }
 
