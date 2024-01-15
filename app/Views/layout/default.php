@@ -17,6 +17,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .errors {
+            color: red;
+            background-color: #fff5f5;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -31,9 +40,23 @@
         </aside>
 
         <!-- Main Content -->
-        <main style="margin-top: 90px; margin-left: 250px;">
-            <?= $this->renderSection('content') ?>
-        </main>
+        <div style="margin-top: 90px; margin-left: 250px;">
+            <!-- Flash Messages -->
+            <?php if(session()->getFlashdata('success') != null) : ?>
+            <div style="">
+                <div class="container-fluid px-4 py-2">
+                    <div class="bg-success text-white p-3 rounded">
+                        <span><?= session()->getFlashdata('success') ?></span>
+                    </div>
+                </div>
+            </div>
+            <?php endif ?>
+
+            <!-- Content -->
+            <main>
+                <?= $this->renderSection('content') ?>
+            </main>
+        </div>
     </div>
 </body>
 </html>
