@@ -43,7 +43,7 @@
         <div style="margin-top: 90px; margin-left: 250px;">
             <!-- Flash Messages -->
             <?php if(session()->getFlashdata('success') != null) : ?>
-            <div style="">
+            <div>
                 <div class="container-fluid px-4 py-2">
                     <div class="bg-success text-white p-3 rounded">
                         <span><?= session()->getFlashdata('success') ?></span>
