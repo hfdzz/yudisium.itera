@@ -27,6 +27,11 @@ class CreateYudisiumPendaftaranTable extends Migration
                 'type'              => 'TEXT',
                 'null'              => true,
             ],
+            'file_tanda_terima' => [
+                'type'              => 'VARCHAR',
+                'constraint'        => 255,
+                'null'              => true,
+            ],
 
             // Berkas yang diupload
             'berkas_transkrip' => [

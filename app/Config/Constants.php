@@ -92,3 +92,52 @@ define('EVENT_PRIORITY_NORMAL', 100);
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
  */
 define('EVENT_PRIORITY_HIGH', 10);
+
+/*
+ | --------------------------------------------------------------------------
+ | Status Codes
+ | --------------------------------------------------------------------------
+ |
+ | Status for Pendaftaran Yudisium and Surat Keterangan
+ */
+define('STATUS_BELUM_DIAJUKAN', 0);
+define('STATUS_MENUNGGU_VALIDASI', 1);
+define('STATUS_DITERIMA', 2);
+define('STATUS_DITOLAK', 3);
+define('STATUS_MAHASISWA_BEASISWA', 4);
+
+/*
+ | --------------------------------------------------------------------------
+ | Upload Path
+ | --------------------------------------------------------------------------
+ |
+ | Path for upload files
+ */
+// define('PATH_PENDAFTARAN_YUDISIUM', 'pendaftaran_yudisium/files');
+// define('UPLOAD_PATH_PENDAFTARAN_YUDISIUM', 'pendaftaran_yudisium/uploaded_berkas');
+// define('PATH_SURAT_KETERANGAN', 'surat_keterangan/files');
+// define('UPLOAD_PATH_SURAT_KETERANGAN', 'surat_keterangan/uploaded_berkas');
+
+define('PATH_TANDA_TERIMA_YUDISIUM', 'tanda_terima_yudisium');
+define('PATH_UPLOAD_PENDAFTARAN_YUDISIUM', 'berkas_pendaftaran_yudisium');
+
+define('PATH_SK_BEBAS_PERPUSTAKAAN', 'sk_bebas_perpustakaan');
+define('PATH_UPLOAD_SK_BEBAS_PERPUSTAKAAN', 'berkas_sk_bebas_perpustakaan');
+
+define('PATH_SK_BEBAS_UKT', 'sk_bebas_ukt');
+define('PATH_UPLOAD_SK_BEBAS_UKT', 'berkas_sk_bebas_ukt');
+
+define('PATH_SK_BEBAS_LABORATORIUM', 'sk_bebas_laboratorium');
+define('PATH_UPLOAD_SK_BEBAS_LABORATORIUM', 'berkas_sk_bebas_laboratorium');
+
+
+/*
+ | --------------------------------------------------------------------------
+ | Jenis Surat Keterangan
+ | --------------------------------------------------------------------------
+ |
+ | Jenis surat keterangan yang tersedia
+ */
+define('JENIS_SK_BEBAS_PERPUSTAKAAN', 'sk_bebas_perpustakaan');
+define('JENIS_SK_BEBAS_UKT', 'sk_bebas_ukt');
+define('JENIS_SK_BEBAS_LABORATORIUM', 'sk_bebas_laboratorium');

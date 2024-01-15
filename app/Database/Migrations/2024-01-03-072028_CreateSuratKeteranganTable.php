@@ -38,6 +38,11 @@ class CreateSuratKeteranganTable extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'file_surat_keterangan' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
 
             // Berkas yang diupload
             // SK Bebas UKT
