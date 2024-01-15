@@ -18,6 +18,7 @@ class SuratKeteranganModel extends Model
         'nomor_surat',
         'tanggal_terbit',
         'keterangan',
+        'file_surat',
         'berkas_ba_sidang',
         'berkas_khs',
         'berkas_bukti_bayar_ukt',
@@ -59,4 +60,55 @@ class SuratKeteranganModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // query scope
+    public function getSkBebasPerpustakaan()
+    {
+        return $this->where('jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN);
+    }
+
+    public function getSkBebasUkt()
+    {
+        return $this->where('jenis_surat', JENIS_SK_BEBAS_UKT);
+    }
+
+    public function getSkBebasLaboratorium()
+    {
+        return $this->where('jenis_surat', JENIS_SK_BEBAS_LABORATORIUM);
+    }
+
+    public function getCurrentUploadFilePath($jenis_surat)
+    {
+        $path = '';
+        switch ($jenis_surat) {
+            case JENIS_SK_BEBAS_PERPUSTAKAAN:
+                $path = PATH_UPLOAD_SK_BEBAS_PERPUSTAKAAN;
+                break;
+            case JENIS_SK_BEBAS_UKT:
+                $path = PATH_UPLOAD_SK_BEBAS_UKT;
+                break;
+            case JENIS_SK_BEBAS_LABORATORIUM:
+                $path = PATH_UPLOAD_SK_BEBAS_LABORATORIUM;
+                break;
+            default:
+                throw new \Exception('Jenis surat tidak ditemukan');
+        }
+        return $path . '/' . date('Y-m');
+    }
+
+    public function requestSkBebasLaboratorium(/** TODO: PARAMS */)
+    {
+        // NOT YET IMPLEMENTED
+        // TODO:
+        // 1. CURL to SILABOR.ITERA API
+        // 2. Save to database
+        // 3. Return the data
+    }
+
+    public function requestRepo(/** TODO: PARAMS */)
+    {
+        // NOT YET IMPLEMENTED
+        // TODO:
+        // 1. CURL to REPO.ITERA API
+    }
 }

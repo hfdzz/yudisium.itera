@@ -12,7 +12,11 @@ class YudisiumPeriodeInformasiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'link_grup_whatsapp',
+        'keterangan',
+        'yudisium_periode_id',
+    ];
 
     // Dates
     protected $useTimestamps = true;
@@ -22,7 +26,11 @@ class YudisiumPeriodeInformasiModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'link_grup_whatsapp' => 'required',
+        'keterangan' => 'permit_empty',
+        'yudisium_periode_id' => 'required',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
@@ -37,4 +45,6 @@ class YudisiumPeriodeInformasiModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    
 }
