@@ -96,6 +96,46 @@ class SuratKeteranganModel extends Model
         return $path . '/' . date('Y-m');
     }
 
+    public function ajukanSuratKeterangan($data)
+    {
+        $this->insert([
+            ...$data,
+            'status' => STATUS_MENUNGGU_VALIDASI,
+        ]);
+
+        return $this->getInsertID();
+    }
+
+    public function validasiSuratKeterangan($id, $data)
+    {
+        $this->update($id, [
+            ...$data,
+            'status' => STATUS_DITERIMA,
+        ]);
+
+        return $this->getInsertID();
+    }
+
+    public function tolakSuratKeterangan($id, $data)
+    {
+        $this->update($id, [
+            ...$data,
+            'status' => STATUS_DITOLAK,
+        ]);
+
+        return $this->getInsertID();
+    }
+
+    public function validasiMahasiswaBeasiswa($id, $data)
+    {
+        $this->update($id, [
+            ...$data,
+            'status' => STATUS_MAHASISWA_BEASISWA,
+        ]);
+
+        return $this->getInsertID();
+    }
+
     public function requestSkBebasLaboratorium(/** TODO: PARAMS */)
     {
         // NOT YET IMPLEMENTED
