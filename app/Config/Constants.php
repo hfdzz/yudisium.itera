@@ -100,11 +100,10 @@ define('EVENT_PRIORITY_HIGH', 10);
  |
  | Status for Pendaftaran Yudisium and Surat Keterangan
  */
-define('STATUS_BELUM_DIAJUKAN', 0);
-define('STATUS_MENUNGGU_VALIDASI', 1);
-define('STATUS_DITERIMA', 2);
-define('STATUS_DITOLAK', 3);
-define('STATUS_MAHASISWA_BEASISWA', 4);
+define('STATUS_MENUNGGU_VALIDASI', 'menunggu_validasi');
+define('STATUS_SELESAI', 'selesai');
+define('STATUS_DITOLAK', 'ditolak');
+define('STATUS_SELESAI_BEASISWA', 'selesai_mahasiswa_beasiswa');
 
 /*
  | --------------------------------------------------------------------------

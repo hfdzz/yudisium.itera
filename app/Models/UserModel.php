@@ -20,5 +20,9 @@ class UserModel extends ShieldUserModel
             'nip',
             
         ];
+
+        // $this->returnType = 'App\Entities\UserEntity';
     }
+
+    protected $returnType = 'App\Entities\UserEntity';
 }

@@ -35,16 +35,16 @@ class SuratKeteranganModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'jenis_surat' => 'required',
-        'status' => 'required',
-        // 'nomor_surat' => 'required',
-        // 'tanggal_terbit' => 'required',
-        // 'keterangan' => 'required',
-        // 'berkas_ba_sidang' => 'required',
-        // 'berkas_khs' => 'required',
-        // 'berkas_bukti_bayar_ukt' => 'required',
+        'jenis_surat' => 'required|string',
+        'status' => 'required|string',
+        'nomor_surat' => 'string|permit_empty',
+        'tanggal_terbit' => 'date|permit_empty',
+        'keterangan' => 'string|permit_empty',
+        'berkas_ba_sidang' => 'string|permit_empty',
+        'berkas_khs' => 'string|permit_empty',
+        'berkas_bukti_bayar_ukt' => 'string|permit_empty',
         'mahasiswa_id' => 'required',
-        // 'peninjau_id' => 'required',
+        'peninjau_id' => 'permit_empty'
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
@@ -98,7 +98,8 @@ class SuratKeteranganModel extends Model
 
     public function ajukanSuratKeterangan($data)
     {
-        $this->insert([
+        // check if user already have active sk bebas perpustakaan (active -> status = menunggu_validasi | selesai | selesai_mahasiswa_beasiswa)
+        $this->save([
             ...$data,
             'status' => STATUS_MENUNGGU_VALIDASI,
         ]);
@@ -110,7 +111,7 @@ class SuratKeteranganModel extends Model
     {
         $this->update($id, [
             ...$data,
-            'status' => STATUS_DITERIMA,
+            'status' => STATUS_SELESAI,
         ]);
 
         return $this->getInsertID();
@@ -130,7 +131,7 @@ class SuratKeteranganModel extends Model
     {
         $this->update($id, [
             ...$data,
-            'status' => STATUS_MAHASISWA_BEASISWA,
+            'status' => STATUS_SELESAI_BEASISWA,
         ]);
 
         return $this->getInsertID();

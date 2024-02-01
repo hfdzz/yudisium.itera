@@ -10,9 +10,13 @@ class UserEntity extends User
     // protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
     // protected $casts   = [];
 
-    public function getSuratKeterangan($jenis_surat)
+    public function getSuratKeterangan($jenis_surat) : ?\App\Entities\SuratKeterangan
     {
-        $surat_keterangan = $this->surat_keterangan->where('jenis_surat', $jenis_surat)->first();
+        $sk_model = model('SuratKeteranganModel');
+
+        $surat_keterangan = $sk_model->where('jenis_surat', $jenis_surat)
+            ->where('mahasiswa_id', $this->attributes['id'])
+            ->first();
 
         if (! $surat_keterangan) {
             return null;
@@ -23,7 +27,10 @@ class UserEntity extends User
 
     public function getPendaftaranYudisium()
     {
-        $yudisium_pendaftaran = $this->yudisium_pendaftaran->first();
+        $yudisium_pendaftaran_model = model('YudisiumPendaftaranModel');
+
+        $yudisium_pendaftaran = $yudisium_pendaftaran_model->where('mahasiswa_id', $this->attributes['id'])
+            ->first();
 
         if (! $yudisium_pendaftaran) {
             return null;
