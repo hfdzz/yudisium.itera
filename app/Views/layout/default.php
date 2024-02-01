@@ -25,6 +25,13 @@
             padding: 10px;
             border-radius: 5px;
         }
+        .kint-rich {
+            z-index: 999999 !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
     </style>
 </head>
 <body>
@@ -42,15 +49,7 @@
         <!-- Main Content -->
         <div style="margin-top: 90px; margin-left: 250px;">
             <!-- Flash Messages -->
-            <?php if(session()->getFlashdata('success') != null) : ?>
-            <div>
-                <div class="container-fluid px-4 py-2">
-                    <div class="bg-success text-white p-3 rounded">
-                        <span><?= session()->getFlashdata('success') ?></span>
-                    </div>
-                </div>
-            </div>
-            <?php endif ?>
+            <?= $this->include('Layout/flash_message') ?>
 
             <!-- Content -->
             <main>

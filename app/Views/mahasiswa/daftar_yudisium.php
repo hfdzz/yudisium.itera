@@ -78,7 +78,7 @@
                                 </div>
                                 <a href="<?= route_to('mahasiswa.sk_bebas_perpustakaan') ?>" class="mx-1">Ajukan</a>
                             </div>
-                            <!-- SK Bebas Perpustakaan -->
+                            <!-- SK Bebas UKT -->
                             <div class="mb-3">
                                 <div>Surat Keterangan Bebas UKT</div>
                                 <div class="d-flex align-items-center">
