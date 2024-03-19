@@ -105,6 +105,11 @@ define('STATUS_SELESAI', 'selesai');
 define('STATUS_DITOLAK', 'ditolak');
 define('STATUS_SELESAI_BEASISWA', 'selesai_mahasiswa_beasiswa');
 
+// Status for Surat Keterangan Bebas Lab (SILABOR)
+// define('STATUS_BEBAS_LAB_SELESAI', 'Selesai');
+// define('STATUS_BEBAS_LAB_DITOLAK', 'Ditolak');
+// define('STATUS_BEBAS_LAB_MENUNGGU', 'Menunggu Validasi');
+
 /*
  | --------------------------------------------------------------------------
  | Upload Path

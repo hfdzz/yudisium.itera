@@ -17,4 +17,15 @@ class CURLRequest extends BaseConfig
      * It may cause an error request with unnecessary headers.
      */
     public bool $shareOptions = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * SILABOR API URL
+     * --------------------------------------------------------------------------
+     *
+     * The URL of the Silabor API. 
+     */
+    public array $silaborAPIURL = [
+        'getAllBebasLabURL' => 'https://silabor.stiki-indonesia.ac.id/api/bebaslab',
+    ];
 }

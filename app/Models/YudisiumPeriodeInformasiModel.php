@@ -9,7 +9,7 @@ class YudisiumPeriodeInformasiModel extends Model
     protected $table            = 'yudisium_periode_informasi';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'App\Entities\YudisiumPeriodeInformasi';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [

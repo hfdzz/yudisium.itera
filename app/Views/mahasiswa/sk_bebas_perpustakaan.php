@@ -27,32 +27,37 @@
                         </ol>
                     </div>
                 </div>
-                <?php if ($sk_bebas_perpustakaan) : ?>
+
+                <?php if ($sk_bebas_perpustakaan && !$sk_bebas_perpustakaan->canAjukan()) : ?>
+
                     <div class="d-flex">
                         <div>Status SK Bebas Perpustakaan</div>
                         <div class="d-flex align-items-center mx-2">
-                            <?php if ($sk_bebas_perpustakaan->status == STATUS_DITOLAK) : ?>
-                                <span class="badge badge-pill px-2 badge-danger">Ditolak</span>
-                            <?php elseif ($sk_bebas_perpustakaan->status == STATUS_SELESAI) : ?>
-                                <span class="badge badge-pill px-2 badge-success">Diterima</span>
-                            <?php else : ?>
-                                <span class="badge badge-pill px-2 badge-warning">Menunggu Persetujuan</span>
-                            <?php endif ?>
+
+                            <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_perpustakaan->status]) ?>
+
                         </div>
                     </div>
                     <span><?= $sk_bebas_perpustakaan->keterangan ?></span>
+
                 <?php else : ?>
+
                     <div>
-                        <div class="d-flex">
-                            <div>Syarat Bebas Repositori ITERA</div>
-                            <div class="d-flex align-items-center mx-2">
-                                <?php if ($status_repo) : ?>
-                                    <span class="badge badge-pill px-2 badge-success">Selesai</span>
-                                <?php else : ?>
-                                    <span class="badge badge-pill px-2 badge-danger">Belum Selesai</span>
-                                <?php endif ?>
+                        <div class="mb-1">
+                            <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => isset($sk_bebas_perpustakaan) ? $sk_bebas_perpustakaan->status : '']) ?>
+                        </div>
+
+                        <?php if($sk_bebas_perpustakaan) : ?>
+                        <div class="mb-1">
+                            <div>
+                                Keterangan:
+                            </div>
+                            <div class="mb-2 border border-info p-2 bg-light rounded">
+                                <?= $sk_bebas_perpustakaan ? $sk_bebas_perpustakaan->keterangan : '' ?>
                             </div>
                         </div>
+                        <?php endif ?>
+
                         <div>
                             <?= validation_list_errors() ?>
             
@@ -65,7 +70,9 @@
                             <?= form_close() ?>
                         </div>
                     </div>
+
                 <?php endif ?>
+
             </div>
         </div>
     </div>

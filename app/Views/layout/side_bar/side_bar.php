@@ -28,7 +28,25 @@
             href="<?= route_to('mahasiswa.dashboard')
             ?>">Dashboard</a>
 
-        <?= $this->include('layout/side_bar/nav_mahasiswa') ?>
+        <?php if (auth()->user()->inGroup('user_mahasiswa')) : ?>
+            <?= $this->include('layout/side_bar/nav_mahasiswa') ?>
+        <?php endif ?>
+
+        <?php if (auth()->user()->inGroup('user_fakultas')) : ?>
+            <?= $this->include('layout/side_bar/nav_fakultas') ?>
+        <?php endif ?>
+            
+        <?php if (auth()->user()->inGroup('user_upt_perpustakaan')) : ?>
+            <?= $this->include('layout/side_bar/nav_upt_perpustakaan') ?>
+        <?php endif ?>
+
+        <?php if (auth()->user()->inGroup('user_keuangan')) : ?>
+            <?= $this->include('layout/side_bar/nav_keuangan') ?>
+        <?php endif ?>
+
+        <?php if (auth()->user()->inGroup('admin')) : ?>
+            <?= $this->include('layout/side_bar/nav_admin') ?>
+        <?php endif ?>
         
     </div>
 </div>

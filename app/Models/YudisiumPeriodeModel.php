@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Entities\YudisiumPeriode;
 use CodeIgniter\Model;
+use Config\App;
 
 class YudisiumPeriodeModel extends Model
 {
     protected $table            = 'yudisium_periode';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'App\Entities\YudisiumPeriode';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
@@ -46,49 +48,24 @@ class YudisiumPeriodeModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function isPeriodeEmpty($periode_id)
+    public function getLatestPeriode() : YudisiumPeriode | null
     {
-        /**
-         * @var YudisiumPendaftaranModel $pendaftaran
-         */
-        $pendaftaran = model('YudisiumPendaftaranModel')->where('yudisium_periode_id', $periode_id);
-
-        if ($pendaftaran->countAllResults() > 0) {
-            return false;
-        }
-
-        return true;
+        return $this->orderBy('created_at', 'DESC')->first();
     }
 
-    public function isPeriodeOpen($periode_id)
+    public function getCurrentPeriode() : YudisiumPeriode | null
     {
-        $periode = $this->find($periode_id);
-
-        if ($periode['tanggal_awal'] <= date('Y-m-d') && $periode['tanggal_akhir'] >= date('Y-m-d')) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function getCurrentOpenPeriode()
-    {
-        $periode = $this->where('tanggal_awal <=', date('Y-m-d'))
+        return $this->where('tanggal_awal <=', date('Y-m-d'))
             ->where('tanggal_akhir >=', date('Y-m-d'))
+            ->orderBy('created_at', 'DESC')
             ->first();
-
-        return $periode;
     }
 
     public function openNewPeriode($data)
     {
-        // Check if there is an open periode
-        $periode = $this->getCurrentOpenPeriode();
-
-        if ($periode) {
-            throw new \Exception('Tidak dapat membuka periode baru, karena masih ada periode yang terbuka.');
+        if (! $this->getCurrentPeriode()) {
+            $this->insert($data);
         }
-
-        $this->insert($data);
+        throw new \Exception('Tidak dapat membuat periode baru, masih ada periode yang terbuka.');
     }
 }

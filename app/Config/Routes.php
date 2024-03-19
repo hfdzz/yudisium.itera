@@ -1,5 +1,6 @@
 <?php
 
+use CodeIgniter\Files\File;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -16,14 +17,32 @@ $routes->group('admin', ['filter' => 'group:admin'], function ($routes) {
 
 $routes->group('upt_perpustakaan', ['filter' => 'group:user_upt_perpustakaan'], function ($routes) {
     $routes->get('/', [App\Controllers\UptPerpustakaanController::class, 'dashboard'], ['as' => 'upt_perpustakaan.dashboard']);
+
+    $routes->get('validasi-surat-keterangan', [App\Controllers\UptPerpustakaanController::class, 'validasiSuratKeterangan'], ['as' => 'upt_perpustakaan.validasi_surat_keterangan']);
+    $routes->post('validasi-surat-keterangan', [App\Controllers\UptPerpustakaanController::class, 'validasiSuratKeterangan']);
+
+    $routes->presenter('bebas-perpustakaan', ['controller' => 'SkBebasPerpustakaanController', 'websafe' => 1]);
 });
 
 $routes->group('keuangan', ['filter' => 'group:user_keuangan'], function ($routes) {
     $routes->get('/', [App\Controllers\KeuanganController::class, 'dashboard'], ['as' => 'keuangan.dashboard']);
+
+    $routes->presenter('bebas-ukt', ['controller' => 'SkBebasUktController']);
 });
 
-$routes->group('fakultas', ['filter' => 'group:user_fakultas'], function ($routes) {
+$routes->group('fakultas', ['filter' => 'group:user_fakultas'], function (RouteCollection $routes) {
     $routes->get('/', [App\Controllers\FakultasController::class, 'dashboard'], ['as' => 'fakultas.dashboard']);
+
+    $routes->get('validasi-yudisium', [App\Controllers\FakultasController::class, 'validasiYudisium'], ['as' => 'fakultas.validasi_yudisium']);
+    $routes->post('validasi-yudisium', [App\Controllers\FakultasController::class, 'validasiYudisium']);
+
+    $routes->get('periode-yudisium', [App\Controllers\FakultasController::class, 'periodeYudisium'], ['as' => 'fakultas.periode_yudisium']);
+    $routes->post('periode-yudisium', [App\Controllers\FakultasController::class, 'periodeYudisium']);
+
+    // $routes->get('pendaftaran-yudisium', [App\Controllers\FakultasController::class, 'pendaftaranYudisium'], ['as' => 'fakultas.pendaftaran_yudisium']);
+    // $routes->post('pendaftaran-yudisium', [App\Controllers\FakultasController::class, 'pendaftaranYudisium']);
+
+    $routes->presenter('yudisium-pendaftaran', ['controller' => 'YudisiumPendaftaranController']);
 });
 
 $routes->group('mahasiswa', ['filter' => 'group:user_mahasiswa'], function ($routes) {
@@ -39,4 +58,69 @@ $routes->group('mahasiswa', ['filter' => 'group:user_mahasiswa'], function ($rou
     $routes->post('sk-bebas-ukt', [App\Controllers\MahasiswaController::class, 'skBebasUkt']);
 
     $routes->get('status-yudisium', [App\Controllers\MahasiswaController::class, 'statusYudisium'], ['as' => 'mahasiswa.status_yudisium']);
+});
+
+$routes->get('test', function (){
+    $silabor_service = new \App\Services\SILABORService();
+    $data = $silabor_service->getAllBebasLab();
+    dd($data);
+});
+
+// with parameter
+// $routes->get('test/id/(:num)', function ($id){
+//     $silabor_service = new \App\Services\SILABORService();
+//     $data = $silabor_service->getBebasLabById($id);
+//     dd($data);
+//     return $data ? redirect()->to($data->surat) : 'Surat tidak ditemukan';
+// });
+
+$routes->get('test/nim/(:num)', function ($nim){
+    $silabor_service = new \App\Services\SILABORService();
+    $data = $silabor_service->getBebasLabByNim($nim, null);
+    // sort by 'id_bebas_lab' ASC
+    usort($data, function($a, $b) {
+        return $a->id_bebaslab <=> $b->id_bebaslab;
+    });
+    // return json_encode($data);
+    dd($data);
+    return $data ? redirect()->to($data[0]->surat) : 'Surat tidak ditemukan';
+});
+
+use Dompdf\Dompdf;
+$routes->get('testTemplate/(:any)', function ($template){
+
+    $dompdf = new Dompdf();
+
+    // kop from public folder
+    $kop_surat = 'kop.png';
+
+    $options = new \Dompdf\Options();    
+    $options->set( 'chroot', $kop_surat );
+    $dompdf = new Dompdf( $options );
+
+    $data = [
+        'kop_surat' => 'kop.png',
+        'nama' => 'Kuncup Hapeed',
+        'nim' => '120140234',
+        'program_studi' => 'Teknik Informatika',
+        'tanggal' => '12 Agustus 2021',
+        'nomor_surat' => '1234/UN40.14/SP/2021'
+
+    ];
+
+    $fContent = view('template_surat/bebas_perpustakaan.php', $data);
+
+    // return $fContent;
+
+    $dompdf->loadHtml($fContent);
+    
+    $dompdf->setPaper('A4', 'portrait');
+
+    
+
+    ob_end_clean();
+
+    $dompdf->render();
+
+    $dompdf->stream('test.pdf', ['Attachment' => 0]);   
 });

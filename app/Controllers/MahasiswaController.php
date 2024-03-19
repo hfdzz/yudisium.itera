@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Services\SILABORService;
 
 class MahasiswaController extends BaseController
 {
@@ -16,174 +17,79 @@ class MahasiswaController extends BaseController
 
     public function daftarYudisium()
     {
+        /**
+         * @var \App\Models\YudisiumPeriodeModel $yudisiumPeriodeModel
+         */
+        $yudisiumPeriodeModel = model('YudisiumPeriodeModel');
+        $user = auth()->user();
+        
         if (! $this->request->is('post')) {
-            return view('mahasiswa/daftar_yudisium');
+            $currentPeriode = $yudisiumPeriodeModel->getCurrentPeriode();
+            $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan();
+            $skBebasUkt = $user->suratKeteranganBebasUkt();
+            $skBebasLab = $user->suratKeteranganBebasLaboratorium();
+            
+            $data = [
+                'sk_bebas_perpustakaan' => $skBebasPerpustakaan,
+                'sk_bebas_ukt' => $skBebasUkt,
+                'sk_bebas_lab' => $skBebasLab,
+                'yudisium_pendaftaran' => $currentPeriode->getCurrentYudisiumPendaftaran($user->id),
+                'yudisium_periode' => $currentPeriode,
+            ];
+            // dd($data);
+            return view('mahasiswa/daftar_yudisium', $data);
         }
 
-        // Check if periode pendaftaran yudisium is open
-        // TODO: Implement this
+        // validate input
+        $rules = [];
 
-        // Validate uploaded files
+        $yudisium_service = new \App\Services\YudisiumService();
 
-        $rules = [
-            'berkas_transkrip' => [
-                // required uploaded file (max: 2MB, mime: pdf)
-                'rules' => 'uploaded[berkas_transkrip]|max_size[berkas_transkrip,2048]|ext_in[berkas_transkrip,pdf]',
-                'errors' => [
-                    'uploaded' => 'Transkrip harus diunggah.',
-                    'max_size' => 'Ukuran berkas transkrip maksimal 2MB.',
-                    'ext_in' => 'Transkrip harus berformat PDF.',
-                ],
-            ],
-            // TODO: uncomment this after the form is ready
-            // 'berkas_ijazah' => [
-            //     // required uploaded file (max: 2MB, mime: pdf)
-            //     'rules' => 'uploaded[berkas_ijazah]|max_size[berkas_ijazah,2048]|ext_in[berkas_ijazah,pdf]',
-            //     'errors' => [
-            //         'uploaded' => 'Ijazah harus diunggah.',
-            //         'max_size' => 'Ukuran berkas ijazah maksimal 2MB.',
-            //         'ext_in' => 'Ijazah harus berformat PDF.',
-            //     ],
-            // ],
-            // 'berkas_pas_foto' => [
-            //     // required uploaded file (max: 2MB, mime: jpg, jpeg, png)
-            //     'rules' => 'uploaded[berkas_pas_foto]|max_size[berkas_pas_foto,2048]|ext_in[berkas_pas_foto,jpg,jpeg,png]',
-            //     'errors' => [
-            //         'uploaded' => 'Pas foto harus diunggah.',
-            //         'max_size' => 'Ukuran berkas pas foto maksimal 2MB.',
-            //         'ext_in' => 'Pas foto harus berformat JPG, JPEG, atau PNG.',
-            //     ],
-            // ],
-            // 'berkas_sertifikat_bahasa_inggris' => [
-            //     // required uploaded file (max: 2MB, mime: pdf)
-            //     'rules' => 'uploaded[berkas_sertifikat_bahasa_inggris]|max_size[berkas_sertifikat_bahasa_inggris,2048]|ext_in[berkas_sertifikat_bahasa_inggris,pdf]',
-            //     'errors' => [
-            //         'uploaded' => 'Sertifikat bahasa inggris harus diunggah.',
-            //         'max_size' => 'Ukuran berkas sertifikat bahasa inggris maksimal 2MB.',
-            //         'ext_in' => 'Sertifikat bahasa inggris harus berformat PDF.',
-            //     ],
-            // ],
-            // 'berkas_akta_kelahiran' => [
-            //     // required uploaded file (max: 2MB, mime: pdf)
-            //     'rules' => 'uploaded[berkas_akta_kelahiran]|max_size[berkas_akta_kelahiran,2048]|ext_in[berkas_akta_kelahiran,pdf]',
-            //     'errors' => [
-            //         'uploaded' => 'Akta kelahiran harus diunggah.',
-            //         'max_size' => 'Ukuran berkas akta kelahiran maksimal 2MB.',
-            //         'ext_in' => 'Akta kelahiran harus berformat PDF.',
-            //     ],
-            // ],
-            // 'berkas_surat_keterangan_mahasiswa' => [
-            //     // required uploaded file (max: 2MB, mime: pdf)
-            //     'rules' => 'max_size[berkas_surat_keterangan_mahasiswa,2048]|ext_in[berkas_surat_keterangan_mahasiswa,pdf]',
-            //     'errors' => [
-            //         // 'uploaded' => 'Surat keterangan mahasiswa harus diunggah.',
-            //         'max_size' => 'Ukuran berkas surat keterangan mahasiswa maksimal 2MB.',
-            //         'ext_in' => 'Surat keterangan mahasiswa harus berformat PDF.',
-            //     ],
-            // ],
-        ];
-
-        $data = $this->request->getFiles();
-
-        if (! $this->validateData($data, $rules)) {
-            return redirect()->back()->withInput();
+        try {
+            $yudisium_service->daftarYudisium($user, $this->request->getPost());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('errors', [$e->getMessage()]);
         }
 
-        // Check if sk bebas perpustakaan and sk bebas ukt are available
-        // TODO: Implement this
-
-        // Check if sk bebas lab is available (using silabor.lab api)
-        // TODO: Implement this
-
-        // Create new pendaftaran yudisium
-        // Check existing pendaftaran yudisium
-
-        // If exists, update the existing pendaftaran yudisium only if the status is 'ditolak'
-
-        // Save uploaded files to storage
-
-        // Change status to 'menunggu validasi'
-        // TODO: Implement this
-
-        // Redirect to mahasiswa dashboard
-        return redirect()->route('mahasiswa.dashboard')->with('success', 'Pendaftaran yudisium berhasil diajukan.');
+        return redirect()->route('mahasiswa.daftar_yudisium')->with('success', 'Pendaftaran yudisium berhasil diajukan.');
     }
 
     public function skBebasPerpustakaan()
     {
-        // TODO: Remove this
-        $repo_status = true;
-
-
         if (! $this->request->is('post')) {
-            /**
-             * @var \App\Entities\UserEntity $user
-             */
             $user = auth()->user();
             $data = [
-                'sk_bebas_perpustakaan' => $user->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN),
-                'status_repo' => $repo_status,
+                'sk_bebas_perpustakaan' => $user->suratKeteranganBebasPerpustakaan(),
             ];
             return view('mahasiswa/sk_bebas_perpustakaan', $data);
         }
         
-        // Check if user already has sk bebas perpustakaan
-        /**
-         * @var \App\Entities\UserEntity $user
-         */
-        $user = auth()->user();
-
-        $sk_bebas_perpustakaan = $user->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN);
-
-        // only allow if there is no existing sk bebas perpustakaan or the existing sk bebas perpustakaan is rejected
-        if ($sk_bebas_perpustakaan && $sk_bebas_perpustakaan->status != STATUS_DITOLAK) {
-            $errors = [
-                'sk_already_exists' => 'Anda sudah memiliki surat keterangan bebas perpustakaan.',
-            ];
-            return redirect()->back()->with('error', $errors);
-        }
-
-        // Check if user has completed the requirements
-        // Check repo.itera
-        // TODO: Implement this
-
-        if ( ! $repo_status) {
-            $errors = [
-                'repo_status' => 'Anda belum menyelesaikan syarat bebas repositori',
-            ];
-            return redirect()->back()->with('error', $errors);
-        }
-
-        // Create new sk bebas perpustakaan
         /**
          * @var \App\Models\SuratKeteranganModel $model_sk
          */
         $model_sk = model('SuratKeteranganModel');
 
-        $data = [
-            'jenis_surat' => JENIS_SK_BEBAS_PERPUSTAKAAN,
-            'mahasiswa_id' => $user->id,
-        ];
+        try {
+            $model_sk->ajukanSkBebasPerpustakaan([
+                'mahasiswa_id' => auth()->id(),
+            ]);
 
-        $model_sk->ajukanSuratKeterangan($data);
-
-        if($model_sk->errors()) {
-            return redirect()->back()->with('error', $model_sk->errors());
+            if($model_sk->errors()) {
+                return redirect()->back()->with('errors', $model_sk->errors());
+            }
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
 
-        // Redirect to mahasiswa dashboard
-        return redirect()->route('mahasiswa.dashboard')->with('success', 'Surat keterangan bebas perpustakaan berhasil diajukan.');
+        return redirect()->route('mahasiswa.sk_bebas_perpustakaan')->with('success', 'Surat keterangan bebas perpustakaan berhasil diajukan.');
     }
 
     public function skBebasUkt()
     {
         if (! $this->request->is('post')) {
-            /**
-             * @var \App\Entities\UserEntity $user
-             */
-            $user = auth()->user();
             $data = [
-                'sk_bebas_ukt' => $user->getSuratKeterangan(JENIS_SK_BEBAS_UKT)
+                'sk_bebas_ukt' => auth()->user()->suratKeteranganBebasUkt(),
             ];
             return view('mahasiswa/sk_bebas_ukt', $data);
         }
@@ -233,15 +139,12 @@ class MahasiswaController extends BaseController
 
     public function statusYudisium()
     {
-        /**
-         * @var \App\Entities\UserEntity $user
-         */
         $user = auth()->user();
 
-        $skBebasPerpustakaan = $user->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN);
-        $skBebasUkt = $user->getSuratKeterangan(JENIS_SK_BEBAS_UKT);
-        $skBebasLabotatorium = $user->getSuratKeterangan(JENIS_SK_BEBAS_LABORATORIUM);
-        $pendaftaranYudisium = $user->getPendaftaranYudisium();
+        $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan();
+        $skBebasUkt = $user->suratKeteranganBebasUkt();
+        $skBebasLabotatorium = $user->suratKeteranganBebasLaboratorium();
+        $pendaftaranYudisium = $user->yudisiumPendaftaran();
 
         $data = [
             'sk_bebas_perpustakaan' => $skBebasPerpustakaan,

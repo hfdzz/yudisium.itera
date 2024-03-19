@@ -99,14 +99,17 @@ class AuthGroups extends ShieldAuthGroups
         // Yudisium
         'mahasiswa.daftar_yudisium' => 'Can daftar yudisium',
         'fakultas.validasi_yudisium' => 'Can validasi yudisium',
+        'resource.yudisium_pendaftaran' => 'Can manage yudisium pendaftaran data',
         
         // SK Bebas Perpustakaan
         'mahasiswa.mengajukan_sk_bebas_perpustakaan' => 'Can mengajukan SK Bebas Perpustakaan',
         'upt_perpustakaan.validasi_sk_bebas_perpustakaan' => 'Can validasi SK Bebas Perpustakaan',
+        'resource.sk_bebas_perpustakaan' => 'Can manage SK Bebas Perpustakaaan data',
 
         // SK Bebas UKT
         'mahasiswa.mengajukan_sk_bebas_ukt' => 'Can mengajukan SK Bebas UKT',
         'keuangan.validasi_sk_bebas_ukt' => 'Can validasi SK Bebas UKT',
+        'resource.sk_bebas_ukt' => 'Can manage SK Bebas UKT data',
     ];
 
     /**
@@ -121,6 +124,7 @@ class AuthGroups extends ShieldAuthGroups
         'superadmin' => [
             'admin.*',
             'users.*',
+            'resource.*',
             // 'beta.*',
         ],
         'admin' => [
@@ -128,6 +132,7 @@ class AuthGroups extends ShieldAuthGroups
             'users.create',
             'users.edit',
             'users.delete',
+            'resource.*',
             // 'beta.access',
         ],
         // 'user' => [],
@@ -136,13 +141,16 @@ class AuthGroups extends ShieldAuthGroups
             'mahasiswa.daftar_yudisium',
         ],
         'user_fakultas' => [
-            'fakultas.*'
+            'fakultas.*',
+            'resource.yudisium_pendaftaran.*'
         ],
         'user_upt_perpustakaan' => [
-            'upt_perpustakaan.*'
+            'upt_perpustakaan.*',
+            'resource.sk_bebas_perpustakaan.*'
         ],
         'user_keuangan' => [
-            'keuangan.*'
+            'keuangan.*',
+            'resource.sk_bebas_ukt.*'
         ],
         // 'developer' => [
         //     'admin.access',

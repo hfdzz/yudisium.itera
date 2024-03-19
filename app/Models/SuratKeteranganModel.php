@@ -61,95 +61,63 @@ class SuratKeteranganModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    // query scope
-    public function getSkBebasPerpustakaan()
+    // public function getCurrentUploadFilePath($jenis_surat)
+    // {
+    //     $path = '';
+    //     switch ($jenis_surat) {
+    //         case JENIS_SK_BEBAS_PERPUSTAKAAN:
+    //             $path = PATH_UPLOAD_SK_BEBAS_PERPUSTAKAAN;
+    //             break;
+    //         case JENIS_SK_BEBAS_UKT:
+    //             $path = PATH_UPLOAD_SK_BEBAS_UKT;
+    //             break;
+    //         case JENIS_SK_BEBAS_LABORATORIUM:
+    //             $path = PATH_UPLOAD_SK_BEBAS_LABORATORIUM;
+    //             break;
+    //         default:
+    //             throw new \Exception('Jenis surat tidak ditemukan');
+    //     }
+    //     return $path . '/' . date('Y-m');
+    // }
+    
+    public function getSkBebasPerpustakaan($mahasiswa_id)
     {
-        return $this->where('jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN);
+        return $this->where('jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN)
+            ->where('mahasiswa_id', $mahasiswa_id)
+            ->first();
     }
 
-    public function getSkBebasUkt()
+    public function getSkBebasUkt($mahasiswa_id)
     {
-        return $this->where('jenis_surat', JENIS_SK_BEBAS_UKT);
+        return $this->where('jenis_surat', JENIS_SK_BEBAS_UKT)
+            ->where('mahasiswa_id', $mahasiswa_id)
+            ->first();
     }
 
-    public function getSkBebasLaboratorium()
+    public function ajukanSkBebasPerpustakaan($data, $file_data = null)
     {
-        return $this->where('jenis_surat', JENIS_SK_BEBAS_LABORATORIUM);
-    }
+        /**
+         * @var \App\Entities\UserEntity
+         */
+        $mahasiswa = model('UserModel')->find($data['mahasiswa_id']);
 
-    public function getCurrentUploadFilePath($jenis_surat)
-    {
-        $path = '';
-        switch ($jenis_surat) {
-            case JENIS_SK_BEBAS_PERPUSTAKAAN:
-                $path = PATH_UPLOAD_SK_BEBAS_PERPUSTAKAAN;
-                break;
-            case JENIS_SK_BEBAS_UKT:
-                $path = PATH_UPLOAD_SK_BEBAS_UKT;
-                break;
-            case JENIS_SK_BEBAS_LABORATORIUM:
-                $path = PATH_UPLOAD_SK_BEBAS_LABORATORIUM;
-                break;
-            default:
-                throw new \Exception('Jenis surat tidak ditemukan');
+        if ($mahasiswa->suratKeteranganBebasPerpustakaan() && ! $mahasiswa->suratKeteranganBebasPerpustakaan()->canAjukan()) {
+            throw new \Exception('Anda sudah memiliki surat keterangan bebas perpustakaan atau sedang dalam proses validasi');
         }
-        return $path . '/' . date('Y-m');
-    }
 
-    public function ajukanSuratKeterangan($data)
-    {
-        // check if user already have active sk bebas perpustakaan (active -> status = menunggu_validasi | selesai | selesai_mahasiswa_beasiswa)
-        $this->save([
+        $data = [
             ...$data,
+            'jenis_surat' => JENIS_SK_BEBAS_PERPUSTAKAAN,
             'status' => STATUS_MENUNGGU_VALIDASI,
-        ]);
+            'id' => $mahasiswa->suratKeteranganBebasPerpustakaan()->id ?? null,
+        ];
 
-        return $this->getInsertID();
-    }
+        $sk_bebas_perpustakaan = new \App\Entities\SuratKeterangan($data);
 
-    public function validasiSuratKeterangan($id, $data)
-    {
-        $this->update($id, [
-            ...$data,
-            'status' => STATUS_SELESAI,
-        ]);
+        $this->save($sk_bebas_perpustakaan);
 
-        return $this->getInsertID();
-    }
+        // $sk_bebas_perpustakaan->uploadFile($file_data);
 
-    public function tolakSuratKeterangan($id, $data)
-    {
-        $this->update($id, [
-            ...$data,
-            'status' => STATUS_DITOLAK,
-        ]);
-
-        return $this->getInsertID();
-    }
-
-    public function validasiMahasiswaBeasiswa($id, $data)
-    {
-        $this->update($id, [
-            ...$data,
-            'status' => STATUS_SELESAI_BEASISWA,
-        ]);
-
-        return $this->getInsertID();
-    }
-
-    public function requestSkBebasLaboratorium(/** TODO: PARAMS */)
-    {
-        // NOT YET IMPLEMENTED
-        // TODO:
-        // 1. CURL to SILABOR.ITERA API
-        // 2. Save to database
-        // 3. Return the data
-    }
-
-    public function requestRepo(/** TODO: PARAMS */)
-    {
-        // NOT YET IMPLEMENTED
-        // TODO:
-        // 1. CURL to REPO.ITERA API
+        return $sk_bebas_perpustakaan;
     }
 }

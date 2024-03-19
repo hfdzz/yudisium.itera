@@ -29,4 +29,31 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    public static function silabor($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('silabor');
+        }
+
+        return new \App\Services\SILABORService();
+    }
+
+    public static function yudisium($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('yudisium');
+        }
+
+        return new \App\Services\YudisiumService();
+    }
+
+    public static function suratKeterangan($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('suratKeterangan');
+        }
+
+        return new \App\Services\SuratKeteranganService();
+    }
 }

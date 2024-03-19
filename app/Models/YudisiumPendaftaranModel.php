@@ -79,7 +79,7 @@ class YudisiumPendaftaranModel extends Model
     {
         $this->update($id, [
             ...$data,
-            'status' => STATUS_DITERIMA,
+            'status' => STATUS_SELESAI,
         ]);
 
         return $this->getInsertID();

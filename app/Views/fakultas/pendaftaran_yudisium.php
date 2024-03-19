@@ -8,24 +8,11 @@
 
 <?= $this->section('content') ?>
 <div class="p-4">
-
-    <?php if (!$yudisium_periode->isOpen()): ?>
-
-        <div class="alert alert-info" role="alert">
-            <p>Pendaftaran yudisium belum dibuka.</p>
-        </div>
-
-    <?php else : ?>
-
     <div class="rounded p-3" style="background-color: #f3f3f3;">
         <div>
-            <h1>Daftar Yudisium</h1>
-            <h3>Periode: <?= esc($yudisium_periode->getHumanizedPeriodeName()) ?></h3>
+            <h1>Data Pendaftaran Yudisium</h1>
         </div>
         <div class="">
-
-            <?php if ($yudisium_periode->canDaftarYudisium(auth()->user()->id)): ?>
-
             <div>
                 <?= validation_list_errors() ?>
 
@@ -75,41 +62,32 @@
                             <!-- SK Bebas Laboratorium -->
                             <div class="mb-3">
                                 <div>Surat Keterangan Bebas Laboratorium</div>
-
-                                <!-- <?// view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_lab->status ?? '']) ?> -->
-                                
-                                <!-- <?// view_cell('StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_lab->status ?? '', 'url' => 'https://silabor.itera.ac.id']) ?> -->
-
-                                <?= view_cell('StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_lab->status ?? '', 'url' => 'https://silabor.itera.ac.id']) ?>
-                                <?php if ($sk_bebas_lab && $sk_bebas_lab->status == STATUS_SELESAI): ?>
-                                    <a href="<?= esc($sk_bebas_lab->surat) ?>" target="_blank" class="link">Lihat Surat</a>
-                                <?php endif ?>
+                                <div class="d-flex align-items-center">
+                                    <div style="width: 20px; height: 20px; border: 1px solid #aaa; border-radius: 3px; line-height:1px" class="mr-1 bg-light">
+                                    </div>
+                                    <div>Belum Mengajukan</div>
+                                </div>
+                                <a href="https://silabor.itera.ac.id" class="mx-1" target="_blank">Ajukan</a>
                             </div>
-
                             <!-- SK Bebas Perpustakaan -->
                             <div class="mb-3">
                                 <div>Surat Keterangan Bebas Perpustakaan</div>
-                                
-                                <?= view_cell('StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan->status ?? '', 'url' => route_to('mahasiswa.sk_bebas_perpustakaan'), 'target' => '_self']) ?>
+                                <div class="d-flex align-items-center">
+                                    <div style="width: 20px; height: 20px; border: 1px solid #aaa; border-radius: 3px;" class="mr-1 bg-light"></div>
+                                    <div>Belum Mengajukan</div>
+                                </div>
+                                <a href="<?= route_to('mahasiswa.sk_bebas_perpustakaan') ?>" class="mx-1">Ajukan</a>
                             </div>
-
                             <!-- SK Bebas UKT -->
                             <div class="mb-3">
                                 <div>Surat Keterangan Bebas UKT</div>
-                                
-                                <?= view_cell('StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_ukt->status ?? '', 'url' => route_to('mahasiswa.sk_bebas_ukt'), 'target' => '_self']) ?>
+                                <div class="d-flex align-items-center">
+                                    <div style="width: 20px; height: 20px; border: 1px solid #aaa; border-radius: 3px;" class="mr-1 bg-light"></div>
+                                    <div>Belum Mengajukan</div> 
+                                </div>
+                                <a href="<?= route_to('mahasiswa.sk_bebas_ukt') ?>" class="mx-1">Ajukan</a>
                             </div>
                         </div>
-                        <?php if (isset($yudisium_pendaftaran->keterangan)) : ?>
-                            <div class="alert alert-danger" role="alert">
-                                <div>
-                                    <span><?= $yudisium_pendaftaran->status == 'ditolak' ? 'Pendaftaran Yudisium ditolak.' : '' ?></span>
-                                    <br>
-                                    <span>Keterangan:</span>
-                                </div>
-                                <p><?= esc($yudisium_pendaftaran->keterangan) ?></p>
-                            </div>
-                        <?php endif ?>
                         <div>
                             <button type="submit" class="btn btn-primary">Daftar Yudisium</button>
                             <button type="button" class="btn btn-secondary" onclick="confirm('Clear form?') && this.form.reset()">Clear</button> 
@@ -118,17 +96,7 @@
                 </div>
                 <?= form_close() ?>
             </div>
-
-            <?php else: ?>
-                <div class="alert alert-info" role="alert">
-                    <p>Anda sudah mendaftar yudisium.</p>
-                </div>
-            <?php endif ?>
-
         </div>
     </div>
-
-    <?php endif ?>
-
 </div>
 <?= $this->endSection() ?>
