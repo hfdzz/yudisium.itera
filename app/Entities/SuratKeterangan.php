@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
+use CodeIgniter\HTTP\Files\UploadedFile;
 
 class SuratKeterangan extends Entity
 {
@@ -94,24 +95,66 @@ class SuratKeterangan extends Entity
         return model('SuratKeteranganModel')->save($this);
     }
 
-    public function saveFiles(array $files)
+    public function generatePdf()
     {
-        foreach ($files as $file) {
-            $this->uploadFile($file);
+        $dompdf = new \Dompdf\Dompdf();
+
+        $data = [
+            'surat_keterangan' => $this,
+            'mahasiswa' => $this->getMahasiswa(),
+            'peninjau' => $this->getPeninjau()
+        ];
+
+        $html = view('surat_keterangan/pdf', $data);
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        $output = $dompdf->output();
+
+        $path = WRITEPATH . 'uploads/' . PATH_SK_BEBAS_UKT . '/' . date('Y-m') . '/' . $this->attributes['id'] . '.pdf';
+
+        if (file_put_contents($path, $output)) {
+            $this->attributes['file_surat_keterangan'] = $path;
+            model('SuratKeteranganModel')->save($this);
         }
+
+        return $path;
     }
 
-    public function deleteFile()
+    public function getSuratKeteranganPdf()
     {
-        // $path = $this->getCurrentUploadFilePath($this->attributes['jenis_surat']);
-        // $file = $path . '/' . $this->attributes['file'];
-        // if (file_exists($file)) {
-        //     unlink($file);
-        // }
+        $path = WRITEPATH . 'uploads/' . $this->attributes['berkas_ba_sidang'];
+
+        if (!file_exists($path)) {
+            $path = $this->generatePdf();
+        }
+
+        return $path;
     }
 
-    public function getFilePath()
+    public function saveUploadedFile(UploadedFile $file, $jenis_berkas, $saveModel = false)
     {
-        // return $this->getCurrentUploadFilePath($this->attributes['jenis_surat']) . '/' . $this->attributes['file'];
+        if (! $file->isValid()){
+            return false;
+        }
+        
+        $path = $file->store(PATH_UPLOAD_SK_BEBAS_UKT . '/' . date('Y-m'));
+
+        $this->attributes[$jenis_berkas] = $path;
+
+        return $saveModel ? model('SuratKeteranganModel')->save($this) : true;
+    }
+
+    public function saveUploadedFiles(array $files, $saveModel = false)
+    {
+        foreach ($files as $jenis_berkas => $file) {
+            $this->saveUploadedFile($file, $jenis_berkas, $saveModel);
+        }
+
+        return true;
     }
 }

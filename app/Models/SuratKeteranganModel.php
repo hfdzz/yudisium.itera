@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\Model;
 
 class SuratKeteranganModel extends Model
@@ -61,24 +62,21 @@ class SuratKeteranganModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    // public function getCurrentUploadFilePath($jenis_surat)
-    // {
-    //     $path = '';
-    //     switch ($jenis_surat) {
-    //         case JENIS_SK_BEBAS_PERPUSTAKAAN:
-    //             $path = PATH_UPLOAD_SK_BEBAS_PERPUSTAKAAN;
-    //             break;
-    //         case JENIS_SK_BEBAS_UKT:
-    //             $path = PATH_UPLOAD_SK_BEBAS_UKT;
-    //             break;
-    //         case JENIS_SK_BEBAS_LABORATORIUM:
-    //             $path = PATH_UPLOAD_SK_BEBAS_LABORATORIUM;
-    //             break;
-    //         default:
-    //             throw new \Exception('Jenis surat tidak ditemukan');
-    //     }
-    //     return $path . '/' . date('Y-m');
-    // }
+    public function getUploadPath($jenis_surat)
+    {
+        $path = '';
+        switch ($jenis_surat) {
+            case JENIS_SK_BEBAS_PERPUSTAKAAN:
+                $path = PATH_UPLOAD_SK_BEBAS_PERPUSTAKAAN;
+                break;
+            case JENIS_SK_BEBAS_UKT:
+                $path = PATH_UPLOAD_SK_BEBAS_UKT;
+                break;
+            default:
+                throw new \Exception('Jenis surat tidak ditemukan');
+        }
+        return $path . '/' . date('Y-m');
+    }
     
     public function getSkBebasPerpustakaan($mahasiswa_id)
     {
@@ -96,28 +94,51 @@ class SuratKeteranganModel extends Model
 
     public function ajukanSkBebasPerpustakaan($data, $file_data = null)
     {
-        /**
-         * @var \App\Entities\UserEntity
-         */
+        /** @var \App\Entities\UserEntity */
         $mahasiswa = model('UserModel')->find($data['mahasiswa_id']);
 
-        if ($mahasiswa->suratKeteranganBebasPerpustakaan() && ! $mahasiswa->suratKeteranganBebasPerpustakaan()->canAjukan()) {
+        if (! $mahasiswa->suratKeteranganBebasPerpustakaan()?->canAjukan()) {
             throw new \Exception('Anda sudah memiliki surat keterangan bebas perpustakaan atau sedang dalam proses validasi');
         }
 
         $data = [
             ...$data,
+            'id' => $mahasiswa->suratKeteranganBebasPerpustakaan()->id ?? null,
             'jenis_surat' => JENIS_SK_BEBAS_PERPUSTAKAAN,
             'status' => STATUS_MENUNGGU_VALIDASI,
-            'id' => $mahasiswa->suratKeteranganBebasPerpustakaan()->id ?? null,
         ];
 
         $sk_bebas_perpustakaan = new \App\Entities\SuratKeterangan($data);
 
         $this->save($sk_bebas_perpustakaan);
 
-        // $sk_bebas_perpustakaan->uploadFile($file_data);
-
         return $sk_bebas_perpustakaan;
+    }
+
+    public function ajukanSkBebasUkt($data, $file_data = null)
+    {
+        /** @var \App\Entities\UserEntity */
+        $mahasiswa = model('UserModel')->find($data['mahasiswa_id']);
+
+        if ($mahasiswa->suratKeteranganBebasUkt() && ! $mahasiswa->suratKeteranganBebasUkt()->canAjukan()) {
+            throw new \Exception('Anda sudah memiliki surat keterangan bebas UKT atau sedang dalam proses validasi');
+        }
+
+        $data = [
+            ...$data,
+            'id' => $mahasiswa->suratKeteranganBebasUkt()->id ?? null,
+            'jenis_surat' => JENIS_SK_BEBAS_UKT,
+            'status' => STATUS_MENUNGGU_VALIDASI,
+        ];
+
+        $sk_bebas_ukt = new \App\Entities\SuratKeterangan($data);
+
+        if ($file_data) {
+            $sk_bebas_ukt->saveUploadedFiles($file_data);
+        }
+
+        $this->save($sk_bebas_ukt);
+
+        return $sk_bebas_ukt;
     }
 }
