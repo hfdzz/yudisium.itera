@@ -27,7 +27,10 @@ $routes->group('upt_perpustakaan', ['filter' => 'group:user_upt_perpustakaan'], 
 $routes->group('keuangan', ['filter' => 'group:user_keuangan'], function ($routes) {
     $routes->get('/', [App\Controllers\KeuanganController::class, 'dashboard'], ['as' => 'keuangan.dashboard']);
 
-    $routes->presenter('bebas-ukt', ['controller' => 'SkBebasUktController']);
+    $routes->get('validasi-surat-keterangan', [App\Controllers\KeuanganController::class, 'validasiSuratKeterangan'], ['as' => 'keuangan.validasi_surat_keterangan']);
+    $routes->post('validasi-surat-keterangan', [App\Controllers\KeuanganController::class, 'validasiSuratKeterangan']);
+
+    $routes->presenter('bebas-ukt', ['controller' => 'SkBebasUktController', 'websafe' => 1]);
 });
 
 $routes->group('fakultas', ['filter' => 'group:user_fakultas'], function (RouteCollection $routes) {

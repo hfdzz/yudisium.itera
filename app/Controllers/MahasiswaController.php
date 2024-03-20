@@ -57,9 +57,8 @@ class MahasiswaController extends BaseController
     public function skBebasPerpustakaan()
     {
         if (! $this->request->is('post')) {
-            $user = auth()->user();
             $data = [
-                'sk_bebas_perpustakaan' => $user->suratKeteranganBebasPerpustakaan(),
+                'sk_bebas_perpustakaan' => auth()->user()->suratKeteranganBebasPerpustakaan(),
             ];
             return view('mahasiswa/sk_bebas_perpustakaan', $data);
         }
@@ -88,10 +87,10 @@ class MahasiswaController extends BaseController
     public function skBebasUkt()
     {
         if (! $this->request->is('post')) {
-            $data = [
+            $file_data = [
                 'sk_bebas_ukt' => auth()->user()->suratKeteranganBebasUkt(),
             ];
-            return view('mahasiswa/sk_bebas_ukt', $data);
+            return view('mahasiswa/sk_bebas_ukt', $file_data);
         }
 
         $rules = [
@@ -124,17 +123,30 @@ class MahasiswaController extends BaseController
             // ],
         ];
 
-        $data = $this->request->getFiles();
+        $file_data = $this->request->getFiles();
 
-        if (! $this->validateData($data, $rules)) {
+        if (! $this->validateData($file_data, $rules)) {
             return redirect()->back()->withInput();
+        }   
+
+        /** @var \App\Models\SuratKeteranganModel $model_sk */
+
+        $model_sk = model('SuratKeteranganModel');
+
+        try {
+            $model_sk->ajukanSkBebasUkt([
+                'mahasiswa_id' => auth()->id(),
+            ], $file_data);
+
+            if($model_sk->errors()) {
+                return redirect()->back()->with('errors', $model_sk->errors());
+            }
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
 
-        // TODO: IMPLEMENT PENGAJUAN SK BEBAS UKT
-        // $sk->ajukanSuratKeterangan(JENIS_SK_BEBAS_UKT);
-
-        // Redirect to mahasiswa dashboard
-        return redirect()->route('mahasiswa.dashboard')->with('success', 'Surat keterangan bebas UKT berhasil diajukan.');
+        return redirect()->route('mahasiswa.sk_bebas_ukt')->with('success', 'Surat keterangan bebas UKT berhasil diajukan.');
     }   
 
     public function statusYudisium()
