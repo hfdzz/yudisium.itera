@@ -28,57 +28,56 @@
                         </ol>
                     </div>
                 </div>
-
                 
-                <?php if ($sk_bebas_ukt) : ?>
+                <?php if ($sk_bebas_ukt?->canAjukan() || is_null($sk_bebas_ukt)) : ?>
+                    
+                    <div>
+                        <div>
+                            <?= validation_list_errors() ?>
+            
+                            <?= form_open_multipart('/mahasiswa/sk-bebas-ukt') ?>
+                            
+                            <div class="d-flex flex-row mb-3">
 
-                <div class="d-flex">
-                    <div>Status SK Bebas UKT</div>
-                    <div class="d-flex align-items-center mx-2">
-                        <?php if ($sk_bebas_ukt->status == STATUS_DITOLAK) : ?>
-                            <span class="badge badge-pill px-2 badge-danger">Ditolak</span>
-                        <?php elseif ($sk_bebas_ukt->status == STATUS_SELESAI) : ?>
-                            <span class="badge badge-pill px-2 badge-success">Diterima</span>
-                        <?php else : ?>
-                            <span class="badge badge-pill px-2 badge-warning">Menunggu Persetujuan</span>
-                        <?php endif ?>
+                                <!-- berkas BA Sidang -->
+                                <div class="d-flex flex-column">
+                                    <label for="berkas_ba_sidang" class="form-label">Upload BA Sidang</label>
+                                    <input type="file" class="form-control-file" id="berkas_ba_sidang" name="berkas_ba_sidang">
+                                </div>
+        
+                                <!-- berkas KHS -->
+                                <div class="d-flex flex-column">
+                                    <label for="berkas_khs" class="form-label">Upload KHS</label>
+                                    <input type="file" class="form-control-file" id="berkas_khs" name="berkas_khs">
+                                </div>
+                                
+                                <!-- berkas bukti bayar AVITA -->
+                                <div class="d-flex flex-column">
+                                    <label for="berkas_bukti_bayar_ukt" class="form-label">Upload Bukti Bayar UKT (AVITA)</label>
+                                    <input type="file" class="form-control-file" id="berkas_bukti_bayar_ukt" name="berkas_bukti_bayar_ukt">
+                                </div>
+        
+                            </div>
+
+                            <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadge', ['status' => ($sk_bebas_ukt && $sk_bebas_ukt->status)]) ?>
+                            <br>
+                            <button type="submit" class="btn btn-primary mt-3">
+                                Ajukan SK Bebas Perpustakaan
+                            </button>
+
+                            <?= form_close() ?>
+                        </div>
                     </div>
-                </div>
-                <span><?= $sk_bebas_ukt->keterangan ?></span>
-
+                    
                 <?php else : ?>
 
-                <div>
-                    <div>
-                        <?= validation_list_errors() ?>
-        
-                        <?= form_open_multipart('/mahasiswa/sk-bebas-ukt') ?>
-                        
-                        <!-- berkas BA Sidang -->
-                        <div class="form-group d-inline-block">
-                            <label for="berkas_ba_sidang" class="form-label">Upload BA Sidang</label>
-                            <input type="file" class="form-control-file" id="berkas_ba_sidang" name="berkas_ba_sidang">
+                    <div class="d-flex">
+                        <div>Status SK Bebas UKT</div>
+                        <div class="d-flex align-items-center mx-2">
+                            <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadge', ['status' =>$sk_bebas_ukt?->status]) ?>
                         </div>
-
-                        <!-- berkas KHS -->
-                        <div class="form-group d-inline-block">
-                            <label for="berkas_khs" class="form-label">Upload KHS</label>
-                            <input type="file" class="form-control-file" id="berkas_khs" name="berkas_khs">
-                        </div>
-                        
-                        <!-- berkas bukti bayar AVITA -->
-                        <div class="form-group d-inline-block">
-                            <label for="berkas_bukti_bayar_avita" class="form-label">Upload Bukti Bayar AVITA</label>
-                            <input type="file" class="form-control-file" id="berkas_bukti_bayar_avita" name="berkas_bukti_bayar_avita">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">
-                            Ajukan SK Bebas Perpustakaan
-                        </button>
-        
-                        <?= form_close() ?>
                     </div>
-                </div>
+                    <span><?= $sk_bebas_ukt?->keterangan ?></span>
 
                 <?php endif ?>
 
