@@ -454,7 +454,9 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 3,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'selesai',
-            
+            'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
         //  auth-able selesai beasiswa
@@ -462,7 +464,10 @@ class TestSeeder extends Seeder
             'id' => 49,
             'mahasiswa_id' => 4,
             'jenis_surat' => 'sk_bebas_ukt',
-            'status' => 'selesai_mahasiswa_beasiswa'
+            'status' => 'selesai_mahasiswa_beasiswa',
+            'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
         //  auth-able ditolak
@@ -471,6 +476,9 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 5,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'ditolak',
+            'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
         //  14 Menunggu validasi
@@ -480,6 +488,9 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1 - 45,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'menunggu_validasi',
+                'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
 
@@ -490,6 +501,9 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1 - 45,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'selesai',
+                'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
 
@@ -500,6 +514,9 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1 - 45,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'selesai_mahasiswa_beasiswa',
+                'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
 
@@ -510,6 +527,9 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1 - 45,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'ditolak',
+                'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
 
