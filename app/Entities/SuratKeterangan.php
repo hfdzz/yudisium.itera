@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use Dompdf\Dompdf;
 
 class SuratKeterangan extends Entity
 {
@@ -60,9 +61,14 @@ class SuratKeterangan extends Entity
         return $this->isSelesai() || $this->isBeasiswa();
     }
 
+    public function isWaitingValidation() : bool
+    {
+        return $this->attributes['status'] == STATUS_MENUNGGU_VALIDASI;
+    }
+
     public function canAjukan() : bool
     {
-        return !$this->isSelesaiOrBeasiswa();
+        return !$this->isSelesaiOrBeasiswa() && !$this->isWaitingValidation();
     }
 
     public function validasi($peninjau_id, $nomor_surat, $keterangan = null)
@@ -72,6 +78,10 @@ class SuratKeterangan extends Entity
         $this->attributes['status'] = STATUS_SELESAI;
         $this->attributes['keterangan'] = $keterangan;
         $this->attributes['tanggal_terbit'] = date('Y-m-d');
+
+        $sk_file_path = $this->generateSuratPdf();
+
+        $this->attributes['file_surat_keterangan'] = $sk_file_path ?? null;
 
         return model('SuratKeteranganModel')->save($this);
     }
@@ -92,48 +102,11 @@ class SuratKeterangan extends Entity
         $this->attributes['status'] = STATUS_SELESAI_BEASISWA;
         $this->attributes['keterangan'] = $keterangan;
 
+        $sk_file_path = $this->generateSuratPdf();
+
+        $this->attributes['file_surat_keterangan'] = $sk_file_path ?? null;
+
         return model('SuratKeteranganModel')->save($this);
-    }
-
-    public function generatePdf()
-    {
-        $dompdf = new \Dompdf\Dompdf();
-
-        $data = [
-            'surat_keterangan' => $this,
-            'mahasiswa' => $this->getMahasiswa(),
-            'peninjau' => $this->getPeninjau()
-        ];
-
-        $html = view('surat_keterangan/pdf', $data);
-
-        $dompdf->loadHtml($html);
-
-        $dompdf->setPaper('A4', 'portrait');
-
-        $dompdf->render();
-
-        $output = $dompdf->output();
-
-        $path = WRITEPATH . 'uploads/' . PATH_SK_BEBAS_UKT . '/' . date('Y-m') . '/' . $this->attributes['id'] . '.pdf';
-
-        if (file_put_contents($path, $output)) {
-            $this->attributes['file_surat_keterangan'] = $path;
-            model('SuratKeteranganModel')->save($this);
-        }
-
-        return $path;
-    }
-
-    public function getSuratKeteranganPdf()
-    {
-        $path = WRITEPATH . 'uploads/' . $this->attributes['berkas_ba_sidang'];
-
-        if (!file_exists($path)) {
-            $path = $this->generatePdf();
-        }
-
-        return $path;
     }
 
     public function saveUploadedFile(UploadedFile $file, $jenis_berkas, $saveModel = false)
@@ -142,7 +115,7 @@ class SuratKeterangan extends Entity
             return false;
         }
         
-        $path = $file->store(PATH_UPLOAD_SK_BEBAS_UKT . '/' . date('Y-m'));
+        $path = $file->store(PATH_UPLOAD_SK_BEBAS_UKT . '/' . date('Y-m'), $this->attributes['id'] . '_' . $jenis_berkas . '.pdf');
 
         $this->attributes[$jenis_berkas] = $path;
 
@@ -156,5 +129,78 @@ class SuratKeterangan extends Entity
         }
 
         return true;
+    }
+
+    public function getBerkasPath($jenis_berkas)
+    {
+        return $this->attributes[$jenis_berkas];
+    }
+
+    public function generateSuratPdf()
+    {
+        $options = new \Dompdf\Options();    
+        $options->set( 'chroot', 'kop.png' );
+        $dompdf = new Dompdf( $options );
+
+        $data = [
+            'nama' => $this->getMahasiswa()->username,
+            'nim' => $this->getMahasiswa()->nim,
+            'program_studi' => $this->getMahasiswa()->program_studi,
+            'mahasiswa' => $this->getMahasiswa(),
+            'peninjau' => $this->getPeninjau(),
+            'nomor_surat' => $this->attributes['nomor_surat'],
+            'tanggal' => $this->attributes['tanggal_terbit']
+        ];
+
+        switch($this->attributes['jenis_surat']) {
+            case JENIS_SK_BEBAS_PERPUSTAKAAN:
+                $html = view('template_surat/bebas_perpustakaan', $data);
+                break;
+            case JENIS_SK_BEBAS_UKT:
+                $html = view('template_surat/bebas_ukt', $data);
+                break;
+            default:
+                throw new \Exception('Jenis surat tidak valid.');
+        }
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        $output = $dompdf->output();
+
+        $path = PATH_SK_BEBAS_UKT . '/' . date('Y-m') . '/' . $this->attributes['id'] . '.pdf';
+
+        if(!is_dir(dirname(WRITEPATH . 'generated_files/' . $path))) {
+            mkdir(dirname(WRITEPATH . 'generated_files/' . $path), 0777, true);
+        }
+
+        if (file_put_contents(WRITEPATH . 'generated_files/' . $path, $output)) {
+            return $path;
+        }
+
+        return false;
+    }
+
+    public function hasGeneratedPdf()
+    {
+        return !empty($this->attributes['file_surat_keterangan']) && file_exists(WRITEPATH . 'generated_files/' . $this->attributes['file_surat_keterangan']);
+    }
+
+    public function getSuratKeteranganPdf()
+    {
+        if (!$this->hasGeneratedPdf()) {
+            $path = $this->generateSuratPdf();
+
+            // update the file path if it's different
+            if ($path !== $this->attributes['file_surat_keterangan']) {
+                $this->attributes['file_surat_keterangan'] = $path;
+                model('SuratKeteranganModel')->save($this);
+            }
+        }
+
+        return WRITEPATH . 'generated_files/' . $this->attributes['file_surat_keterangan'];
     }
 }

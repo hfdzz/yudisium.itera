@@ -75,6 +75,7 @@
                         <div>Status SK Bebas UKT</div>
                         <div class="d-flex align-items-center mx-2">
                             <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadge', ['status' =>$sk_bebas_ukt?->status]) ?>
+                            <?=view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_ukt?->status, 'url' => route_to('file_surat_keterangan', $sk_bebas_ukt->id)] )?>
                         </div>
                     </div>
                     <span><?= $sk_bebas_ukt?->keterangan ?></span>

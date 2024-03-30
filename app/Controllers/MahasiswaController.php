@@ -33,7 +33,7 @@ class MahasiswaController extends BaseController
                 'sk_bebas_perpustakaan' => $skBebasPerpustakaan,
                 'sk_bebas_ukt' => $skBebasUkt,
                 'sk_bebas_lab' => $skBebasLab,
-                'yudisium_pendaftaran' => $currentPeriode->getCurrentYudisiumPendaftaran($user->id),
+                'yudisium_pendaftaran' => $currentPeriode?->getCurrentYudisiumPendaftaran($user->id),
                 'yudisium_periode' => $currentPeriode,
             ];
             // dd($data);

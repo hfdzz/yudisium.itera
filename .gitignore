@@ -1,4 +1,9 @@
 #-------------------------
+# App Generated Files
+#-------------------------
+writable/generated_files/*
+
+#-------------------------
 # Operating Specific Junk Files
 #-------------------------
 

@@ -443,6 +443,9 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 2,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'menunggu_validasi',
+            'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
         //  auth-able selesai

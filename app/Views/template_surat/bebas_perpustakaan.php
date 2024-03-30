@@ -38,7 +38,7 @@
 <body>
     <!-- kop -->
     <div class="header">
-        <img src="<?=$kop_surat?>" alt="kop" style="width: 100%;">
+        <img src="kop.png" alt="kop" style="width: 100%;">
         <p style="text-align: center;text-decoration:underline;font-weight:bold;">SURAT KETERANGAN BEBAS PERPUSTAKAAN</p>
         <p style="text-align: center;">Nomor: <?= $nomor_surat?></p>
     </div>
@@ -74,7 +74,7 @@
         <br>
         <br>
         <br>
-        <p style="text-align: right;">Mr. Libhead, S.T., M.T</p>
+        <p style="text-align: right;">John Does Perpustakaan, S.T., M.T</p>
         <p style="text-align: right;">NIP. 123456789012</p>
     </main>
 </body>

@@ -1,6 +1,5 @@
 <?php
 
-use CodeIgniter\Files\File;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -30,6 +29,8 @@ $routes->group('keuangan', ['filter' => 'group:user_keuangan'], function ($route
     $routes->get('validasi-surat-keterangan', [App\Controllers\KeuanganController::class, 'validasiSuratKeterangan'], ['as' => 'keuangan.validasi_surat_keterangan']);
     $routes->post('validasi-surat-keterangan', [App\Controllers\KeuanganController::class, 'validasiSuratKeterangan']);
 
+    // $routes->get('berkas-bebas-ukt/(:num)/(:segment)', [App\Controllers\KeuanganController::class, 'berkasBebasUkt']);
+
     $routes->presenter('bebas-ukt', ['controller' => 'SkBebasUktController', 'websafe' => 1]);
 });
 
@@ -41,9 +42,6 @@ $routes->group('fakultas', ['filter' => 'group:user_fakultas'], function (RouteC
 
     $routes->get('periode-yudisium', [App\Controllers\FakultasController::class, 'periodeYudisium'], ['as' => 'fakultas.periode_yudisium']);
     $routes->post('periode-yudisium', [App\Controllers\FakultasController::class, 'periodeYudisium']);
-
-    // $routes->get('pendaftaran-yudisium', [App\Controllers\FakultasController::class, 'pendaftaranYudisium'], ['as' => 'fakultas.pendaftaran_yudisium']);
-    // $routes->post('pendaftaran-yudisium', [App\Controllers\FakultasController::class, 'pendaftaranYudisium']);
 
     $routes->presenter('yudisium-pendaftaran', ['controller' => 'YudisiumPendaftaranController']);
 });
@@ -62,6 +60,16 @@ $routes->group('mahasiswa', ['filter' => 'group:user_mahasiswa'], function ($rou
 
     $routes->get('status-yudisium', [App\Controllers\MahasiswaController::class, 'statusYudisium'], ['as' => 'mahasiswa.status_yudisium']);
 });
+
+$routes->get('berkas-bebas-ukt/(:num)/(:segment)', [App\Controllers\FileResourceController::class, 'berkasBebasUkt'], ['filter' => 'group:user_keuangan,user_mahasiswa', 'as' => 'berkas_bebas_ukt']);
+
+$routes->get('file-surat-keterangan/(:num)', [App\Controllers\FileResourceController::class, 'fileSuratKeterangan'], ['as' => 'file_surat_keterangan']);
+
+/** 
+ * Test route
+ * 
+ * TODO: Remove this route
+ */
 
 $routes->get('test', function (){
     $silabor_service = new \App\Services\SILABORService();

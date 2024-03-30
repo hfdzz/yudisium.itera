@@ -19,8 +19,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">NIM</th>
-                            <th scope="col">Nama</th>
+                            <th scope="col">Mahasiswa</th>
                             <th scope="col">Program Studi</th>
                             <th scope="col">Tanggal Diajukan</th>
                             <th scope="col">Aksi</th>
@@ -30,19 +29,44 @@
                         <?php $i = 1; foreach ($surat_keterangan as $sk): ?>
                             <tr>
                                 <th scope="row"><?= $i++ ?></th>
-                                <td><?= $sk->mahasiswa->nim ?></td>
-                                <td><?= $sk->mahasiswa->username ?></td>
-                                <td><?= $sk->mahasiswa->program_studi ?></td>
+                                <td>
+                                    <?= $sk->mahasiswa_nim ?>
+                                    <br>
+                                    <?= $sk->mahasiswa_username ?>
+                                </td>
+                                <td><?= $sk->mahasiswa_program_studi ?></td>
                                 <td><?= $sk->created_at->toLocalizedString('d MMM yyyy') ?></td>
                                 <!-- make the action column shrink to fit the content -->
                                 <td>
                                     <form action="<?= route_to('upt-perpustakaan.validasi-surat-keterangan', $sk->id)?>" method="post">
                                         <input type="hidden" name="id" value="<?= $sk->id ?>">
                                         <div class="d-flex justify-content-center">
+                                            <!-- button for detail modal -->
+                                            <button type="button" class="btn btn-info mx-1" data-bs-toggle="modal" data-bs-target="#berkasModal<?= $sk->id ?>">Berkas</button>
                                             <button type="submit" name="action" value="<?= 'validasi' ?>" class="btn btn-primary mx-1">Terima</button>
                                             <button type="submit" name="action" value="<?= 'tolak' ?>" class="btn btn-danger mx-1">Tolak</button>
-                                            <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" style="width: 200px;">
-                                            <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat" style="width: 200px;">
+                                            <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" style="width: 200px;" autocomplete="off">
+                                            <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat" style="width: 200px;" autocomplete="off">
+                                        </div>
+                                        <div class="modal fade text-start" id="berkasModal<?= $sk->id ?>" tabindex="-1" aria-labelledby="berkasModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="berkasModalLabel">Berkas Surat Keterangan</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="d-flex flex-column">
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_ba_sidang') ?>" target="_blank">BA Sidang</a>
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_khs') ?>" target="_blank">KHS</a>
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_bukti_bayar_ukt') ?>" target="_blank">Bukti Bayar UKT</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </td>
@@ -50,6 +74,9 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+            <div class="d-flex justify-content-center">
+                <?= $pager?->links() ?>
             </div>
         </div>
     </div>

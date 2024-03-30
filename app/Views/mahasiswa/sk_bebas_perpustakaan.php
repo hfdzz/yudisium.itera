@@ -36,6 +36,7 @@
 
                             <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_perpustakaan->status]) ?>
 
+                            <?=view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan->id)] )?>
                         </div>
                     </div>
                     <span><?= $sk_bebas_perpustakaan->keterangan ?></span>
@@ -44,7 +45,7 @@
 
                     <div>
                         <div class="mb-1">
-                            <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => isset($sk_bebas_perpustakaan) ? $sk_bebas_perpustakaan->status : '']) ?>
+                            <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_perpustakaan?->status]) ?>
                         </div>
 
                         <?php if($sk_bebas_perpustakaan) : ?>
@@ -53,7 +54,7 @@
                                 Keterangan:
                             </div>
                             <div class="mb-2 border border-info p-2 bg-light rounded">
-                                <?= $sk_bebas_perpustakaan ? $sk_bebas_perpustakaan->keterangan : '' ?>
+                                <?= $sk_bebas_perpustakaan?->keterangan?>
                             </div>
                         </div>
                         <?php endif ?>

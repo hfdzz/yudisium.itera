@@ -22,7 +22,8 @@ class UptPerpustakaanController extends BaseController
             $suratKeteranganModel = model('SuratKeteranganModel');
 
             $data = [
-                'surat_keterangan' => $suratKeteranganModel->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
+                'surat_keterangan' => $suratKeteranganModel->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN)
+                    ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
                     ->orderBy('created_at', 'desc')
                     ->join('users', 'users.id = surat_keterangan.mahasiswa_id')
                     ->select('surat_keterangan.*, users.username as mahasiswa_username, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_program_studi')
