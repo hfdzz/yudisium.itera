@@ -10,12 +10,12 @@
 <div class="p-4">
     <div class="rounded p-3" style="background-color: #f3f3f3;">
         <div>
-            <h1>Tambah Data Surat Keterangan Bebas Perpustakaan</h1>
+            <h1>Tambah Data Surat Keterangan Bebas UKT</h1>
         </div>
         <div class="">
             <?= validation_list_errors() ?>
 
-            <?= form_open_multipart('upt_perpustakaan/bebas-perpustakaan/create') ?>
+            <?= form_open_multipart('keuangan/bebas-ukt/create') ?>
 
             <div class="mb-3">
                 <div class="form-group mb-3">
@@ -71,7 +71,7 @@
 
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan') ?>" class="btn btn-secondary">Kembali</a>
+                <a href="<?= site_url('keuangan/bebas-ukt') ?>" class="btn btn-secondary">Kembali</a>
             </div>
             
             <?= form_close() ?>

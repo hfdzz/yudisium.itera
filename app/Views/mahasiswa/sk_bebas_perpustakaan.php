@@ -36,7 +36,7 @@
 
                             <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_perpustakaan->status]) ?>
 
-                            <?=view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan->id)] )?>
+                            <?= $sk_bebas_perpustakaan ? view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_perpustakaan->status, 'url' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan->id)] ) : ''?>
                         </div>
                     </div>
                     <span><?= $sk_bebas_perpustakaan->keterangan ?></span>

@@ -10,7 +10,7 @@
 <div class="p-4">
     <div class="rounded p-3" style="background-color: #f3f3f3;">
         <div>
-            <h1>Kelola Surat Keterangan Bebas Perpustakaan</h1>
+            <h1>Kelola Surat Keterangan Bebas UKT</h1>
         </div>
         <div class="">
             <table class="table">
@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($sk_bebas_perpustakaan as $index => $sk) : ?>
+                    <?php foreach ($sk_bebas_ukt as $index => $sk) : ?>
                         <tr>
                             <td><?= $index + 1 ?></td>
                             <td>
@@ -45,9 +45,9 @@
                             </td>
                             <td><?= $sk->keterangan ?></td>
                             <td>
-                                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/show/' . $sk->id) ?>" class="btn btn-primary">Detail</a>
-                                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $sk->id) ?>" class="btn btn-warning">Edit</a>
-                                <?= form_open('upt_perpustakaan/bebas-perpustakaan/delete/' . $sk->id, ['onsubmit' => 'return confirm("Apakah Anda yakin ingin menghapus data ini?")', 'class' => 'd-inline']) ?>
+                                <a href="<?= site_url('keuangan/bebas-ukt/show/' . $sk->id) ?>" class="btn btn-primary">Detail</a>
+                                <a href="<?= site_url('keuangan/bebas-ukt/edit/' . $sk->id) ?>" class="btn btn-warning">Edit</a>
+                                <?= form_open('keuangan/bebas-ukt/delete/' . $sk->id, ['onsubmit' => 'return confirm("Apakah Anda yakin ingin menghapus data ini?")', 'class' => 'd-inline']) ?>
                                 <button type="submit" class="btn btn-danger">Hapus</button>
                                 <?= form_close() ?>
                             </td>
@@ -55,7 +55,7 @@
                     <?php endforeach ?>
                 </tbody>
             </table>
-            <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/new') ?>" class="btn btn-primary">Tambah</a>
+            <a href="<?= site_url('keuangan/bebas-ukt/new') ?>" class="btn btn-primary">Tambah</a>
             
             <?= $pager->links() ?>
         </div>

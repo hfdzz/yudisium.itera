@@ -36,7 +36,7 @@ class KeuanganController extends BaseController
         $rules = [
             'id' => 'required|numeric',
             'action' => [
-                'rules' => 'required|in_list[validasi,tolak]',
+                'rules' => 'required|in_list[validasi,tolak,validasi_beasiswa]',
                 'errors' => [
                     'in_list' => 'Invalid action.'
                 ]
@@ -62,12 +62,17 @@ class KeuanganController extends BaseController
 
         $action = $data['action'];
 
+        // dd($action);
+
         switch ($action) {
             case 'validasi':
                 $skEntity->validasi(auth()->user()->id, $data['nomor_surat'], $data['keterangan']);
                 break;
             case 'tolak':
                 $skEntity->tolak(auth()->user()->id, $data['keterangan']);
+                break;
+            case 'validasi_beasiswa':
+                $skEntity->validasiBeasiswa(auth()->user()->id, $data['keterangan']);
                 break;
         }
 

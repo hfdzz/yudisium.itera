@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 
-                <?php if ($sk_bebas_ukt?->canAjukan() || is_null($sk_bebas_ukt)) : ?>
+                <?php if ($sk_bebas_ukt && $sk_bebas_ukt->canAjukan()) : ?>
                     
                     <div>
                         <div>
@@ -59,7 +59,7 @@
         
                             </div>
 
-                            <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadge', ['status' => ($sk_bebas_ukt && $sk_bebas_ukt->status)]) ?>
+                            <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadge', ['status' => ($sk_bebas_ukt?->status)]) ?>
                             <br>
                             <button type="submit" class="btn btn-primary mt-3">
                                 Ajukan SK Bebas Perpustakaan
@@ -75,7 +75,7 @@
                         <div>Status SK Bebas UKT</div>
                         <div class="d-flex align-items-center mx-2">
                             <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadge', ['status' =>$sk_bebas_ukt?->status]) ?>
-                            <?=view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_ukt?->status, 'url' => route_to('file_surat_keterangan', $sk_bebas_ukt->id)] )?>
+                            <?= $sk_bebas_ukt ? view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_ukt->status, 'url' => route_to('file_surat_keterangan', $sk_bebas_ukt->id)] ) : '' ?>
                         </div>
                     </div>
                     <span><?= $sk_bebas_ukt?->keterangan ?></span>

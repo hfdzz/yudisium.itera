@@ -38,12 +38,13 @@
                                 <td><?= $sk->created_at->toLocalizedString('d MMM yyyy') ?></td>
                                 <!-- make the action column shrink to fit the content -->
                                 <td>
-                                    <form action="<?= route_to('upt-perpustakaan.validasi-surat-keterangan', $sk->id)?>" method="post">
+                                    <form action="<?= route_to('keuangan.validasi-surat-keterangan', $sk->id)?>" method="post">
                                         <input type="hidden" name="id" value="<?= $sk->id ?>">
                                         <div class="d-flex justify-content-center">
                                             <!-- button for detail modal -->
                                             <button type="button" class="btn btn-info mx-1" data-bs-toggle="modal" data-bs-target="#berkasModal<?= $sk->id ?>">Berkas</button>
                                             <button type="submit" name="action" value="<?= 'validasi' ?>" class="btn btn-primary mx-1">Terima</button>
+                                            <button type="submit" name="action" value="<?= 'validasi_beasiswa' ?>" class="btn btn-warning mx-1">Beasiswa</button>
                                             <button type="submit" name="action" value="<?= 'tolak' ?>" class="btn btn-danger mx-1">Tolak</button>
                                             <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" style="width: 200px;" autocomplete="off">
                                             <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat" style="width: 200px;" autocomplete="off">

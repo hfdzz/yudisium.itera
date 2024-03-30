@@ -35,12 +35,12 @@ class StatusSuratKeterangan
     public function renderLink($status, $url, $target = '_blank')
     {
         // only if status is not 'Selesai' or 'Menunggu Validasi'
-        if ($status == STATUS_SELESAI || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
+        if ($status == STATUS_SELESAI) {
             return sprintf('<a href="%s" class="mx-1" target="%s">Lihat Surat Keterangan</a>', 
                 $url,
                 $target
             );
-        } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI) {
+        } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
             return null;
         }
         

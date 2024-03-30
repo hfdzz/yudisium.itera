@@ -44,9 +44,12 @@ class FileResourceController extends BaseController
 
         $suratKeteranganModel = model('SuratKeteranganModel');
         
+        /** @var \App\Entities\SuratKeterangan $suratKeterangan */
         $suratKeterangan = $suratKeteranganModel->find($sk_id);
         
-        if (! $suratKeterangan) {
+        if (! $suratKeterangan ||
+            ! $suratKeterangan->isSelesai()
+            ) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 

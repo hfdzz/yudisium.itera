@@ -8,6 +8,6 @@
     href="<?= route_to('keuangan.validasi_surat_keterangan')
     ?>">Validasi Surat Keterangan</a>
 
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'bebas-perpustakaan' ? ' active' : '' ?>"
+<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'bebas-ukt' ? ' active' : '' ?>"
     href="<?= site_url('keuangan/bebas-ukt')
     ?>">Kelola Surat Keterangan Bebas UKT</a>
