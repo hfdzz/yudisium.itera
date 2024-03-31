@@ -14,163 +14,124 @@
         </div>
         <div class="">
 
-            <?php if ($current_periode): ?>
-
-            <div class="mb-3">
-                <?= form_open('fakultas/periode-yudisium') ?>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="periode" class="form-label">Periode sedang aktif</label>
-                            <input type="text" class="form-control" id="periode" name="periode" value="<?= $current_periode->periode ?>" readonly>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
-                            <input type="date" class="form-control" id="tanggal_awal"
-                            name="tanggal_awal"
-                            value="<?= $current_periode->tanggal_awal ?>"
-                            >
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggal_akhir" class="form-label">Tanggal Akhir</label>
-                            <input type="date" class="form-control" id="tanggal_akhir"
-                            name="tanggal_akhir"
-                            value="<?= $current_periode->tanggal_akhir ?>"
-                            >
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div id="link-container">
-                            <?php if (isset($informasi)): ?>
-                                <?php foreach ($informasi as $index => $info): ?>
-                                    <div class="border-bottom pb-2">
-                                        <div class="form-group">
-                                            <label for="link_<?= $index ?>" class="form-label">Link Grup WhatsApp</label>
-                                            <input type="text" class="form-control" id="link_<?= $index ?>" name="link[]" value="<?= $info->link ?>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="keterangan_<?= $index ?>" class="form-label">Keterangan</label>
-                                            <input type="text" class="form-control" id="keterangan_<?= $index ?>" name="keterangan[]" value="<?= $info->keterangan ?>">
-                                        </div>
-                                        <button type="button" class="btn btn-danger" target-index="<?= $index ?>">
-                                            X
-                                        </button>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
-                        <button type="button-addLink" class="btn btn-primary">
-                            Tambah Link
-                        </button>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" disabled>
-                    Simpan
-                </button>
-
-                <button type="reset" class="btn btn-secondary">
-                    Reset
-                </button>
-                <?= form_close() ?>
-            </div>
-
-            <?php else: ?>
+        <?php if ($latest_periode): ?>
 
             <div>
-                <?= validation_list_errors() ?>
-
-                <?= form_open('fakultas/periode-yudisium') ?>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="periode" class="form-label">Buka Periode Baru</label>
-                            <input type="text" class="form-control" id="periode" name="periode" value="<?= date('m') . '/' . (date('Y')) ?>" readonly>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
-                            <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal" value="<?= old('tanggal_awal') ?>">
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="tanggal_akhir" class="form-label">Tanggal Akhir</label>
-                            <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir" value="<?= old('tanggal_akhir') ?>">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                    <div class="col-4">
-                        <!-- Informasi Periode -->
-                        <div id="link-container">
-                        </div>
-                        <div id="add-link" class="mt-3">
-                            <button type="button-addLink" class="btn btn-primary">
-                                Tambah Link
-                            </button>
-                        </div>
-                    </div>
+                <div>
+                    <span>Periode: </span>
+                    <span><?= $latest_periode->periode ?></span>
                 </div>
-                <?= form_close() ?>
+                <?php if ($latest_periode->isOpen()): ?>
+                    <span class="badge bg-success">Periode sedang berlangsung</span>
+                <?php else: ?>
+                    <span class="badge bg-danger">Periode sudah berakhir atau belum dimulai</span>
+                <?php endif; ?>
             </div>
 
-            <?php endif; ?>
+            <?= form_open(route_to('fakultas.periode_yudisium'), ['class' => 'form']) ?>
+                <?= form_hidden('id', $latest_periode->id) ?>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
+                            <?= form_input('tanggal_awal', $latest_periode->tanggal_awal, ['class' => 'form-control', 'id' => 'tanggal_awal'], 'date') ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tanggal_akhir" class="form-label">Tanggal Akhir</label>
+                            <?= form_input('tanggal_akhir', $latest_periode->tanggal_akhir, ['class' => 'form-control', 'id' => 'tanggal_akhir'], 'date') ?>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="field-container">
+                            <?php foreach ($informasi as $info): ?>
+                                <div class="link-field mb-3" field-index="<?= $info->id ?>">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <label for="link" class="form-label col">Link</label>
+                                            <?= form_input('link_grup_whatsapp[]', $info->link_grup_whatsapp, ['class' => 'form-control col']) ?>
+                                        </div>
+                                        <div class="col">
+                                            <label for="keterangan" class="form-label col">Keterangan</label>
+                                            <?= form_input('keterangan[]', $info->keterangan, ['class' => 'form-control col']) ?>
+                                        </div>
+                                    </div>
+                                    <!-- index from current loop index -->
+                                    <button type="button" class="btn btn-danger delete-field" target-index="<?= $info->id ?>">Hapus</button>
+                                    <hr>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="add-field">Tambah Link</button>
+                    </div>
+
+                </div>
+            <?= form_close() ?>
+
+        <?php else: ?>
+
+
+
+        <?php endif; ?>
 
         </div>
     </div>
 </div>
 
 <script>
-    const form = document.querySelector('form');
-    const inputs = form.querySelectorAll('input');
 
-    inputs.forEach(input => {
-        input.addEventListener('change', () => {
-            form.querySelector('button').disabled = false;
+    const deleteFunction = function(e) {
+        var index = e.target.getAttribute('target-index');
+        var field = document.querySelector('.link-field[field-index="' + index + '"]');
+
+        if (field.querySelector('input[name="link_grup_whatsapp[]"]').value.trim() !== '' || field.querySelector('input[name="keterangan[]"]').value.trim() !== '') {
+            if (!confirm('Apakah anda yakin ingin menghapus link ini?')) {
+                return;
+            }
+        }
+
+        field.remove();
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteFieldButtons = document.querySelectorAll('.delete-field');
+
+        deleteFieldButtons.forEach(function(button) {
+            button.addEventListener('click', deleteFunction);
         });
-    });
 
-    form.querySelector('button[type="reset"]').addEventListener('click', () => {
-        form.querySelector('#tanggal_awal').value = '';
-        form.querySelector('#tanggal_akhir').value = '';
-        form.querySelector('button').disabled = true;
-    });
+        var addFieldButton = document.getElementById('add-field');
 
-</script>
-<script>
-    const addLink = document.querySelectorAll('button[type="button-addLink"]');
-    const linkContainer = document.querySelector('#link-container');
-    const deleteButtons = linkContainer.querySelectorAll('button[target-index]');
-    let index = linkContainer.children.length;
-    
-    addLink.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const link = document.createElement('div');
-            link.classList.add('border-bottom', 'pb-2');
-            link.innerHTML = `
-                <div class="form-group">
-                    <label for="link_${index}" class="form-label">Link Grup WhatsApp</label>
-                    <input type="text" class="form-control" id="link_${index}" name="link[]" value="<?= old('link_[${index}]') ?>">
+        addFieldButton.addEventListener('click', function() {
+            var fieldIndex = Date.now(); // Unique index
+            var field = document.createElement('div');
+            field.classList.add('link-field');
+            field.setAttribute('field-index', fieldIndex);
+            field.innerHTML = `
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="link" class="form-label col">Link</label>
+                        <input type="text" name="link_grup_whatsapp[]" class="form-control col">
+                    </div>
+                    <div class="col">
+                        <label for="keterangan" class="form-label col">Keterangan</label>
+                        <input type="text" name="keterangan[]" class="form-control col">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="keterangan_${index}" class="form-label">Keterangan</label>
-                    <input type="text" class="form-control" id="keterangan_${index}" name="keterangan[]" value="<?= old('keterangan_[${index}]') ?>">
-                </div>
-                <button type="button" class="btn btn-danger" target-index="${index}">
-                    X
-                </button>
+                <button type="button" class="btn btn-danger delete-field" target-index="${fieldIndex}">Hapus</button>
+                <hr>
             `;
-            link.setAttribute('field-index', index);
-            link.querySelector('button').addEventListener('click', () => {
-                link.remove();
-            });
-            linkContainer.appendChild(link);
-            index++;
+
+            field.querySelector('.delete-field').addEventListener('click', deleteFunction);
+
+            document.querySelector('.field-container').appendChild(field);
         });
     });
 
-    addLink.addEventListener('click', () => {
-    });
 </script>
 <?= $this->endSection() ?>

@@ -17,7 +17,7 @@ class YudisiumPeriode extends Entity
 
     public function clearInformasi()
     {
-        model('YudisiumPeriodeInformasiModel')->where('yudisium_periode_id', $this->attributes['id'])->delete();
+        model('YudisiumPeriodeInformasiModel')->where('yudisium_periode_id', $this->attributes['id'])->delete(null, true);
     }
 
     public function yudisiumPendaftaran()

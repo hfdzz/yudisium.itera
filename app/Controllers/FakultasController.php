@@ -83,12 +83,6 @@ class FakultasController extends BaseController
         }
     }
 
-    public function detailValidasiYudisium($id)
-    {
-        // Detail Validasi Yudisium for fakultas
-        return view('fakultas/detail_validasi_yudisium');
-    }
-
     public function periodeYudisium()
     {
         $periodeModel = model('YudisiumPeriodeModel');
@@ -96,15 +90,18 @@ class FakultasController extends BaseController
         if (! $this->request->is('post')) {
             // Periode Yudisium for fakultas
 
-            $currentPeriode = $periodeModel->getCurrentOpenPeriode();
-    
+            $latestPeriode = $periodeModel->getLatestPeriode();
+
             $data = [
-                'current_periode' => $currentPeriode,
-                'informasi' => $currentPeriode ? $currentPeriode->periodeInformasi() : [],
+                'latest_periode' => $latestPeriode,
+                'informasi' => $latestPeriode?->yudisiumPeriodeInformasi() ?? [],
             ];
+
+            // dd($data);
     
             return view('fakultas/periode_yudisium', $data);
         }
+
         // dd($this->request->getPost());
         // Save periode yudisium
 
@@ -113,48 +110,36 @@ class FakultasController extends BaseController
         $db = \Config\Database::connect();
 
         $informasiModel = model('YudisiumPeriodeInformasiModel');
-
+        
+        if (!$data['id']) {
+            $periodeModel->openNewPeriode($data);
+        }
+        
+        $periodeId = $data['id'] ?? $periodeModel->getInsertID();
+        
+        $yudisiumPeriode = $periodeModel->find($periodeId);
+        
         $db->transStart();
 
-        $currentPeriode = $periodeModel->getCurrentOpenPeriode();
+        $yudisiumPeriode->clearInformasi();
 
-        if ($currentPeriode) {
-            $periodeModel->update($data['id'], [
-                'tanggal_awal' => $data['tanggal_awal'],
-                'tanggal_akhir' => $data['tanggal_akhir'],
+        $periodeModel->update($periodeId, [
+            'periode' => $data['periode'] ?? $yudisiumPeriode->periode,
+            'tanggal_awal' => $data['tanggal_awal'],
+            'tanggal_akhir' => $data['tanggal_akhir'],
+        ]);
+
+        foreach ($data['link_grup_whatsapp'] as $index => $link) {
+            $informasiModel->insert([
+                'link_grup_whatsapp' => $link,
+                'keterangan' => $data['keterangan'][$index],
+                'yudisium_periode_id' => $periodeId,
             ]);
-
-            $currentPeriode->clearInformasi();
-
-            foreach ($data['link'] as $index => $link) {
-                $informasiModel->update($data['informasi_id'][$index], [
-                    'link' => $link,
-                    'keterangan' => $data['keterangan'][$index],
-                ]);
-            }
-
-        } else {
-            $periodeModel->openNewPeriode($data);
-            
-            foreach ($data['link'] as $index => $link) {
-                $informasiModel->insert([
-                    'yudisium_periode_id' => $periodeModel->getInsertID(),
-                    'link' => $link,
-                    'keterangan' => $data['keterangan'][$index],
-                ]);
-            }
-
         }
 
         $db->transComplete();
 
         return redirect()->to('/fakultas/periode-yudisium')->with('success', 'Periode berhasil disimpan');
 
-    }
-
-    public function pendaftaranYudisium()
-    {
-        // Pendaftaran Yudisium for fakultas
-        return view('fakultas/pendaftaran_yudisium');
     }
 }

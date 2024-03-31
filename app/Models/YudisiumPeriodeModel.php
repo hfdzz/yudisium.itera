@@ -50,7 +50,9 @@ class YudisiumPeriodeModel extends Model
 
     public function getLatestPeriode() : YudisiumPeriode | null
     {
-        return $this->orderBy('created_at', 'DESC')->first();
+        return $this->orderBy('created_at', 'DESC')
+            ->orderBy('tanggal_akhir', 'DESC')
+            ->first();
     }
 
     public function getCurrentPeriode() : YudisiumPeriode | null
