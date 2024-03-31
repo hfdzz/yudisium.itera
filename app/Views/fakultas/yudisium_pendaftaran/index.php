@@ -29,9 +29,9 @@
                     <?php foreach ($yudisium_pendaftaran as $pendaftaran): ?>
                         <tr>
                             <td><?= $pendaftaran->id ?></td>
-                            <td><?= $pendaftaran->mahasiswa()->nim ?></td>
-                            <td><?= $pendaftaran->mahasiswa()->username ?></td>
-                            <td><?= $pendaftaran->mahasiswa()->program_studi ?></td>
+                            <td><?= $pendaftaran->mahasiswa->nim ?></td>
+                            <td><?= $pendaftaran->mahasiswa->username ?></td>
+                            <td><?= $pendaftaran->mahasiswa->program_studi ?></td>
                             <td><?= $pendaftaran->created_at?></td>
                             <td>
                                 <a href="<?= site_url('fakultas/yudisium-pendaftaran/edit/' . $pendaftaran->id) ?>" class="btn btn-primary">Edit</a>
