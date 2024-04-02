@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 
-                <?php if ($sk_bebas_ukt && $sk_bebas_ukt->canAjukan()) : ?>
+                <?php if (!$sk_bebas_ukt || $sk_bebas_ukt->canAjukan()) : ?>
                     
                     <div>
                         <div>

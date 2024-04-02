@@ -41,7 +41,7 @@ class StatusSuratKeterangan
                 $target
             );
         } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
-            return null;
+            return '';
         }
         
         return sprintf($this->linkTemplate, $url, $target);
