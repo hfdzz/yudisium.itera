@@ -72,6 +72,11 @@ class SILABORService
     {
         try {
             $response = $this->client->request('GET', $this->silaborConfig->silaborAPIURL['getAllBebasLabURL']);
+            
+            if ($response->getStatusCode() != 200 || $response->getBody() == null) {
+                return [];
+            }
+
             $result = json_decode($response->getBody())->data;
 
             // Normalize status
@@ -103,8 +108,7 @@ class SILABORService
         if ($this->refreshCache) {
             $this->cache->delete($this->cacheKey);
         }
-        
-        if ($this->cache->get($this->cacheKey)) {
+        elseif ($this->cache->get($this->cacheKey)) {
             return $this->cache->get($this->cacheKey);
         }
 
