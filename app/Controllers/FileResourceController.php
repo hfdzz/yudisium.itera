@@ -19,12 +19,12 @@ class FileResourceController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        if (! $user->can('keuangan.validasi_sk_bebas_ukt'))
-        {
-            if ($suratKeterangan->mahasiswa_id != $user->id) {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-            }
-        }
+        // if (! $user->can('keuangan.validasi_sk_bebas_ukt'))
+        // {
+        //     if ($suratKeterangan->mahasiswa_id != $user->id) {
+        //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        //     }
+        // }
 
         $file_path = WRITEPATH . 'uploads/' . $suratKeterangan->getBerkasPath($jenis_berkas);
 
@@ -53,7 +53,7 @@ class FileResourceController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        // if (! $user->can('keuangan.validasi_sk_bebas_ukt'))
+        // if ($user->inGroup('user_mahasiswa'))
         // {
         //     if ($suratKeterangan->mahasiswa_id != $user->id) {
         //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

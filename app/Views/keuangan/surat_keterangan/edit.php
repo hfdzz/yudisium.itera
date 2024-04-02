@@ -25,6 +25,7 @@
                         <option value="<?= STATUS_SELESAI ?>" <?= $sk_bebas_ukt?->status == STATUS_SELESAI ? 'selected' : '' ?>>Selesai</option>
                         <option value="<?= STATUS_MENUNGGU_VALIDASI ?>" <?= $sk_bebas_ukt?->status == STATUS_MENUNGGU_VALIDASI ? 'selected' : '' ?>>Menunggu Validasi</option>
                         <option value="<?= STATUS_DITOLAK ?>" <?= $sk_bebas_ukt?->status == STATUS_DITOLAK ? 'selected' : '' ?>>Ditolak</option>
+                        <option value="<?= STATUS_SELESAI_BEASISWA ?>" <?= $sk_bebas_ukt?->status == STATUS_SELESAI_BEASISWA ? 'selected' : '' ?>>Selesai Beasiswa</option>
                     </select>
                 </div>
 
