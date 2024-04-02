@@ -380,7 +380,7 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 3,
             'jenis_surat' => 'sk_bebas_perpustakaan',
             'status' => 'selesai',
-            'nomor_surat' => '123/UN7.1/20240001',
+            'nomor_surat' => '100/UN7.1/20240001',
             'peninjau_id' => 71,
         ]);
         $this->db->table('surat_keterangan')->insert([
@@ -388,7 +388,7 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 4,
             'jenis_surat' => 'sk_bebas_perpustakaan',
             'status' => 'selesai',
-            'nomor_surat' => '123/UN7.1/20240002',
+            'nomor_surat' => '100/UN7.1/20240002',
             'tanggal_terbit' => date('Y-m-d', strtotime('-1 day')),
             'peninjau_id' => 72,
         ]);
@@ -419,7 +419,7 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1,
                 'jenis_surat' => 'sk_bebas_perpustakaan',
                 'status' => 'selesai',
-                'nomor_surat' => '123/UN7.1/2024000' . ($i - 18),
+                'nomor_surat' => '100/UN7.1/2024000' . ($i - 18),
                 'tanggal_terbit' => date('Y-m-d', strtotime('2024-01-01 +' . rand(0, 78) . ' days')),
                 'peninjau_id' => $faker->randomElement([71, 75]),
             ]);
@@ -443,6 +443,7 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 2,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'menunggu_validasi',
+            'nomor_surat' => '110/UN7.1/20240001',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
             'berkas_khs' => 'faker/berkas_khs.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
@@ -454,6 +455,7 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 3,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'selesai',
+            'nomor_surat' => '110/UN7.1/20240002',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
             'berkas_khs' => 'faker/berkas_khs.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
@@ -501,6 +503,7 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1 - 45,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'selesai',
+                'nomor_surat' => '110/UN7.1/2024000' . ($i - 63),
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
                 'berkas_khs' => 'faker/berkas_khs.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
