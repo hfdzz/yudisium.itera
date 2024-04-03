@@ -171,7 +171,7 @@ class SuratKeterangan extends Entity
 
         $output = $dompdf->output();
 
-        $path = PATH_SK_BEBAS_UKT . '/' . date('Y-m') . '/' . $this->attributes['id'] . '.pdf';
+        $path = $this->attributes['jenis_surat'] . '/' . date('Y-m') . '/' . $this->attributes['id'] . '.pdf';
 
         if(!is_dir(dirname(WRITEPATH . 'generated_files/' . $path))) {
             mkdir(dirname(WRITEPATH . 'generated_files/' . $path), 0777, true);

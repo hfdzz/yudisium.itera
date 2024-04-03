@@ -39,6 +39,11 @@ class YudisiumPendaftaran extends Entity
         }
     }
 
+    public function isSelesai()
+    {
+        return $this->attributes['status'] == STATUS_SELESAI;
+    }
+
     public function updateStatus($status, $peninjau_id, $keterangan = null)
     {
         $model = model('YudisiumPendaftaranModel');

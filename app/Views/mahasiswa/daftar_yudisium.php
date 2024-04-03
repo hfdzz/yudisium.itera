@@ -9,7 +9,13 @@
 <?= $this->section('content') ?>
 <div class="p-4">
 
-    <?php if ($yudisium_periode?->isOpen()): ?>
+    <?php if (isset($yudisium_pendaftaran) && $yudisium_pendaftaran->isSelesai()): ?>
+        <div class="alert alert-success" role="alert">
+            <p>Yudisium anda telah selesai.</p>
+            <a href="<?= route_to('mahasiswa.dashboard') ?>" class="btn btn-primary">Lihat Tanda Terima Yudisium</a>
+        </div>
+
+    <?php elseif ($yudisium_periode?->isOpen()): ?>
 
         <div class="rounded p-3" style="background-color: #f3f3f3;">
             <div>
@@ -116,6 +122,10 @@
                 <?php else: ?>
                     <div class="alert alert-info" role="alert">
                         <p>Anda sudah mendaftar yudisium.</p>
+                    </div>
+                    <div>
+                        <p>Status Pendaftaran:</p>
+                        <?= view_cell('StatusSuratKeterangan::renderBadgeAndLink', ['status' => $yudisium_pendaftaran->status ?? '', 'url' => ''] ) ?>
                     </div>
                 <?php endif ?>
     
