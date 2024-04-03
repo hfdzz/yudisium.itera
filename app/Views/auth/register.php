@@ -22,11 +22,11 @@
             <?= csrf_field() ?>
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" id="email" required value="<?= old('email') ?>">
             </div>
             <div>
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="username" id="username" required value="<?= old('username') ?>">
             </div>
             <div>
                 <label for="password">Password</label>
@@ -38,11 +38,11 @@
             </div>
             <div>
                 <label for="nim">NIM</label>
-                <input type="text" name="nim" id="nim" required>
+                <input type="text" name="nim" id="nim" required value="<?= old('nim') ?>">
             </div>
             <div>
                 <label for="proram_studi">Program Studi</label>
-                <input type="text" name="program_studi" id="program_studi" required>
+                <input type="text" name="program_studi" id="program_studi" required value="<?= old('program_studi') ?>">
             </div>
             <div>
                 <button type="submit">Register</button>
