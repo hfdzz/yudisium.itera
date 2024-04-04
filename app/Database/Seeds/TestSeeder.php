@@ -15,7 +15,7 @@ class TestSeeder extends Seeder
          * This is a test seeder file. You can use this file to seed your database with test data.
          * 
          * UserSeeder:
-         * 1. 60 mahaasiswa user (5 auth-able)
+         * 1. 120 mahaasiswa user (5 auth-able)
          * 2. 5 admin user (3 auth-able)
          * 3. 5 fakultas user (3 auth-able)
          * 4. 5 upt perpustakaan user (3 auth-able)
@@ -27,23 +27,23 @@ class TestSeeder extends Seeder
          * 
          * ==============================
          * YudisiumPendaftaranSeeder:
-         * 1. Total: 45 (out of 60 mahasiswa) yudisium pendaftaran (no yudisium pendafataran for 2 auth-able mahasiswa users)
-         * 2. 15 menunggu validasi (1 for auth-able mahasiswa users on latest periode) (5 each yudisium periode)
-         * 3. 15 selesai (1 for auth-able mahasiswa users on latest periode) (5 each yudisium periode)
-         * 4. 15 ditolak (1 for auth-able mahasiswa users on latest periode) (5 each yudisium periode)
+         * 1. Total: 55 (out of 120 mahasiswa out of 60 eligible mahasiswa) yudisium pendaftaran (no yudisium pendafataran for 2 auth-able mahasiswa users)
+         * 2. 30 menunggu validasi (1 for auth-able mahasiswa users on latest periode) (8/9 each yudisium periode)
+         * 3. 20 selesai (1 for auth-able mahasiswa users on latest periode) (5 each yudisium periode)
+         * 4. 5 ditolak (1 for auth-able mahasiswa users on latest periode) (5 each yudisium periode)
          * 
          * ==============================
          * SuratKeteranganSeeder:
          * a. Surat Keterangan Bebas Perpustakaan:
-         * 1. Total: 45 (out of 60 mahasiswa) surat keterangan (no surat keterangan for 1 auth-able mahasiswa users)
-         * 2. 15 menunggu validasi (1 for auth-able mahasiswa users on latest periode)
-         * 3. 15 selesai (2 for auth-able mahasiswa users)
+         * 1. Total: 100 (out of 120 mahasiswa) surat keterangan (no surat keterangan for 1 auth-able mahasiswa users)
+         * 2. 25 menunggu validasi (1 for auth-able mahasiswa users on latest periode)
+         * 3. 60 selesai (2 for auth-able mahasiswa users)
          * 4. 15 ditolak (1 for auth-able mahasiswa users)
          * 
          * b. Surat Keterangan Bebas UKT:
-         * 1. Total: 45 (out of 60 mahasiswa) surat keterangan (no surat keterangan for 1 auth-able mahasiswa users
-         * 2. 15 menunggu validasi (1 for auth-able mahasiswa users)
-         * 3. 15 selesai (5 selesai beasiswa) (2 for auth-able mahasiswa users, 1 is beasiswa)
+         * 1. Total: 100 (out of 120 mahasiswa) surat keterangan (no surat keterangan for 1 auth-able mahasiswa users
+         * 2. 25 menunggu validasi (1 for auth-able mahasiswa users)
+         * 3. 60 selesai (20 selesai beasiswa) (2 for auth-able mahasiswa users, 1 is beasiswa)
          * 4. 15 ditolak (1 for auth-able mahasiswa users)
          * 
          * ==============================
@@ -84,7 +84,7 @@ class TestSeeder extends Seeder
          */
 
         //  user_mahasiswa
-        for ($i = 0; $i < 60; $i++) {
+        for ($i = 0; $i < 120; $i++) {
             $data = [
                 'id' => $i + 1,
                 'username' => $faker->name,
@@ -124,7 +124,7 @@ class TestSeeder extends Seeder
         // admin
         for ($i = 0; $i < 5; $i++) {
             $data = [
-                'id' => $i + 61,
+                'id' => $i + 121,
                 'username' => $faker->name,
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email' => $faker->email,
@@ -137,20 +137,20 @@ class TestSeeder extends Seeder
             }
 
             $this->db->table('users')->insert([
-                'id' => $i + 61,
+                'id' => $data['id'],
                 'username' => $data['username'],
             ]);
 
             $this->db->table('auth_groups_users')->insert([
-                'id' => $i + 61,
-                'user_id' => $i + 61,
+                'id' => $data['id'],
+                'user_id' => $data['id'],
                 'group' => 'admin'
             ]);
 
             if ($i < 3) {
                 $this->db->table('auth_identities')->insert([
-                    'id' => $i + 61,
-                    'user_id' => $i + 61,
+                    'id' => $data['id'],
+                    'user_id' => $data['id'],
                     'type' => 'email_password',
                     'secret' => $data['email'],
                     'secret2' => $data['password'],
@@ -161,7 +161,7 @@ class TestSeeder extends Seeder
         // user_fakultas
         for ($i = 0; $i < 5; $i++) {
             $data = [
-                'id' => $i + 66,
+                'id' => $i + 126,
                 'username' => $faker->name,
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email' => $faker->email,
@@ -174,21 +174,21 @@ class TestSeeder extends Seeder
             }
 
             $this->db->table('users')->insert([
-                'id' => $i + 66,
+                'id' => $data['id'],
                 'username' => $data['username'],
                 'nip' => $data['nip'],
             ]);
 
             $this->db->table('auth_groups_users')->insert([
-                'id' => $i + 66,
-                'user_id' => $i + 66,
+                'id' => $data['id'],
+                'user_id' => $data['id'],
                 'group' => 'user_fakultas'
             ]);
 
             if ($i < 3) {
                 $this->db->table('auth_identities')->insert([
-                    'id' => $i + 66,
-                    'user_id' => $i + 66,
+                    'id' => $data['id'],
+                    'user_id' => $data['id'],
                     'type' => 'email_password',
                     'secret' => $data['email'],
                     'secret2' => $data['password'],
@@ -199,7 +199,7 @@ class TestSeeder extends Seeder
         // user_upt_perpustakaan
         for ($i = 0; $i < 5; $i++) {
             $data = [
-                'id' => $i + 71,
+                'id' => $i + 131,
                 'username' => $faker->name,
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email' => $faker->email,
@@ -212,21 +212,21 @@ class TestSeeder extends Seeder
             }
 
             $this->db->table('users')->insert([
-                'id' => $i + 71,
+                'id' => $data['id'],
                 'username' => $data['username'],
                 'nip' => $data['nip'],
             ]);
 
             $this->db->table('auth_groups_users')->insert([
-                'id' => $i + 71,
-                'user_id' => $i + 71,
+                'id' => $data['id'],
+                'user_id' => $data['id'],
                 'group' => 'user_upt_perpustakaan'
             ]);
 
             if ($i < 3) {
                 $this->db->table('auth_identities')->insert([
-                    'id' => $i + 71,
-                    'user_id' => $i + 71,
+                    'id' => $data['id'],
+                    'user_id' => $data['id'],
                     'type' => 'email_password',
                     'secret' => $data['email'],
                     'secret2' => $data['password'],
@@ -237,7 +237,7 @@ class TestSeeder extends Seeder
         // user_keuangan
         for ($i = 0; $i < 5; $i++) {
             $data = [
-                'id' => $i + 76,
+                'id' => $i + 136,
                 'username' => $faker->name,
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email' => $faker->email,
@@ -250,21 +250,21 @@ class TestSeeder extends Seeder
             }
 
             $this->db->table('users')->insert([
-                'id' => $i + 76,
+                'id' => $data['id'],
                 'username' => $data['username'],
                 'nip' => $data['nip'],
             ]);
 
             $this->db->table('auth_groups_users')->insert([
-                'id' => $i + 76,
-                'user_id' => $i + 76,
+                'id' => $data['id'],
+                'user_id' => $data['id'],
                 'group' => 'user_keuangan'
             ]);
 
             if ($i < 3) {
                 $this->db->table('auth_identities')->insert([
-                    'id' => $i + 76,
-                    'user_id' => $i + 76,
+                    'id' => $data['id'],
+                    'user_id' => $data['id'],
                     'type' => 'email_password',
                     'secret' => $data['email'],
                     'secret2' => $data['password'],
@@ -311,14 +311,26 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 3,
             'yudisium_periode_id' => 3,
             'status' => 'menunggu_validasi',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+            'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+            'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+            'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+            'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
         ]);
 
-        //  auth-able selesai
+        //  auth-able selesai (beasiswa)
         $this->db->table('yudisium_pendaftaran')->insert([
             'id' => 4,
             'mahasiswa_id' => 4,
             'yudisium_periode_id' => 3,
             'status' => 'selesai',
+            'tanggal_penerimaan' => '2024-03-01',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+            'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+            'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+            'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+            'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
+            'berkas_surat_keterangan_mahasiswa' => 'faker/berkas_surat_keterangan_mahasiswa.pdf',
         ]);
 
         //  auth-able ditolak
@@ -327,37 +339,108 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 5,
             'yudisium_periode_id' => 3,
             'status' => 'ditolak',
+            'keterangan' => 'Hanya mahasiswa beasiswa yang mengirim surat keterangan mahasiswa',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+            'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+            'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+            'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+            'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
+            'berkas_surat_keterangan_mahasiswa' => 'faker/berkas_surat_keterangan_mahasiswa.pdf',
         ]);
 
-        //  14 Menunggu validasi
-        for ($i = 5; $i < 19; $i++) {
+        //  24 Menunggu validasi
+        for ($i = 0; $i < 24; $i++) {
             $this->db->table('yudisium_pendaftaran')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1,
+                'id' => $i + 6,
+                'mahasiswa_id' => $i + 30,
                 'yudisium_periode_id' => $i % 3 + 1,
                 'status' => 'menunggu_validasi',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+                'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+                'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+                'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+                'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
             ]);
         }
 
         // 14 Selesai
-        for ($i = 19; $i < 33; $i++) {
+        for ($i = 0; $i < 14; $i++) {
             $this->db->table('yudisium_pendaftaran')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1,
+                'id' => $i + 30,
+                'mahasiswa_id' => $i + 44,
                 'yudisium_periode_id' => $i % 3 + 1,
                 'status' => 'selesai',
+                'tanggal_penerimaan' => '2024-03-01',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+                'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+                'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+                'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+                'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
             ]);
         }
 
-        // 14 Ditolak
-        for ($i = 33; $i < 47; $i++) {
+        // 5 Menunggu Validasi (Bewasiswa)
+        for ($i = 0; $i < 5; $i++) {
             $this->db->table('yudisium_pendaftaran')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1,
+                'id' => $i + 44,
+                'mahasiswa_id' => $i + 114,
                 'yudisium_periode_id' => $i % 3 + 1,
-                'status' => 'ditolak',
+                'status' => 'menunggu_validasi',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+                'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+                'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+                'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+                'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
+                'berkas_surat_keterangan_mahasiswa' => 'faker/berkas_surat_keterangan_mahasiswa.pdf',
             ]);
         }
+
+        // 5 Selesai (Beasiswa)
+        for ($i = 0; $i < 5; $i++) {
+            $this->db->table('yudisium_pendaftaran')->insert([
+                'id' => $i + 49,
+                'mahasiswa_id' => $i + 119,
+                'yudisium_periode_id' => $i % 3 + 1,
+                'status' => 'selesai',
+                'tanggal_penerimaan' => '2024-03-01',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+                'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+                'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+                'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+                'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
+                'berkas_surat_keterangan_mahasiswa' => 'faker/berkas_surat_keterangan_mahasiswa.pdf',
+            ]);
+        }
+
+        // 3 Ditolak
+        for ($i = 0; $i < 3; $i++) {
+            $this->db->table('yudisium_pendaftaran')->insert([
+                'id' => $i + 54,
+                'mahasiswa_id' => $i + 54,
+                'yudisium_periode_id' => $i % 3 + 1,
+                'status' => 'ditolak',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+                'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+                'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+                'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+                'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
+                'berkas_surat_keterangan_mahasiswa' => 'faker/berkas_surat_keterangan_mahasiswa.pdf',
+            ]);
+        }
+
+        // 1 Ditolak (Beasiswa)
+        $this->db->table('yudisium_pendaftaran')->insert([
+            'id' => 57,
+            'mahasiswa_id' => $i + 124,
+            'yudisium_periode_id' => 3,
+            'status' => 'ditolak',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
+            'berkas_ijazah' => 'faker/berkas_ijazah.pdf',
+            'berkas_pas_foto' => 'faker/berkas_pas_foto.pdf',
+            'berkas_sertifikat_bahasa_inggris' => 'faker/berkas_sertifikat_bahasa_inggris.pdf',
+            'berkas_akta_kelahiran' => 'faker/berkas_akta_kelahiran.pdf',
+            'berkas_surat_keterangan_mahasiswa' => 'faker/berkas_surat_keterangan_mahasiswa.pdf',
+        ]);
 
         /**
          * ==============================
@@ -381,7 +464,8 @@ class TestSeeder extends Seeder
             'jenis_surat' => 'sk_bebas_perpustakaan',
             'status' => 'selesai',
             'nomor_surat' => '100/UN7.1/20240001',
-            'peninjau_id' => 71,
+            'peninjau_id' => 131,
+            'tanggal_terbit' => date('Y-m-d', strtotime('-1 day')),
         ]);
         $this->db->table('surat_keterangan')->insert([
             'id' => 4,
@@ -389,8 +473,8 @@ class TestSeeder extends Seeder
             'jenis_surat' => 'sk_bebas_perpustakaan',
             'status' => 'selesai',
             'nomor_surat' => '100/UN7.1/20240002',
+            'peninjau_id' => 132,
             'tanggal_terbit' => date('Y-m-d', strtotime('-1 day')),
-            'peninjau_id' => 72,
         ]);
 
         //  auth-able ditolak
@@ -399,47 +483,47 @@ class TestSeeder extends Seeder
             'mahasiswa_id' => 5,
             'jenis_surat' => 'sk_bebas_perpustakaan',
             'status' => 'ditolak',
-            'peninjau_id' => 71,
+            'peninjau_id' => 131,
         ]);
 
-        //  14 Menunggu validasi
-        for ($i = 5; $i < 19; $i++) {
+        //  24 Menunggu validasi
+        for ($i = 0; $i < 24; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1,
+                'id' => $i + 6,
+                'mahasiswa_id' => $i + 6,
                 'jenis_surat' => 'sk_bebas_perpustakaan',
                 'status' => 'menunggu_validasi',
             ]);
         }
 
-        // 13 Selesai
-        for ($i = 19; $i < 32; $i++) {
+        // 58 Selesai
+        for ($i = 0; $i < 58; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1,
+                'id' => $i + 30,
+                'mahasiswa_id' => $i + 30,
                 'jenis_surat' => 'sk_bebas_perpustakaan',
                 'status' => 'selesai',
-                'nomor_surat' => '100/UN7.1/2024000' . ($i - 18),
+                'nomor_surat' => '100/UN7.1/2024000' . ($i + 1),
                 'tanggal_terbit' => date('Y-m-d', strtotime('2024-01-01 +' . rand(0, 78) . ' days')),
-                'peninjau_id' => $faker->randomElement([71, 75]),
+                'peninjau_id' => $faker->randomElement([131, 135]),
             ]);
         }
 
         // 14 Ditolak
-        for ($i = 32; $i < 46; $i++) {
+        for ($i = 0; $i < 14; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1,
+                'id' => $i + 88,
+                'mahasiswa_id' => $i + 88,
                 'jenis_surat' => 'sk_bebas_perpustakaan',
                 'status' => 'ditolak',
-                'peninjau_id' => $faker->randomElement([71, 75]),
+                'peninjau_id' => $faker->randomElement([131, 135]),
             ]);
         }
 
         //  Surat Keterangan Bebas UKT
         //  auth-able menunggu validasi
         $this->db->table('surat_keterangan')->insert([
-            'id' => 47,
+            'id' => 102,
             'mahasiswa_id' => 2,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'menunggu_validasi',
@@ -451,11 +535,13 @@ class TestSeeder extends Seeder
 
         //  auth-able selesai
         $this->db->table('surat_keterangan')->insert([
-            'id' => 48,
+            'id' => 103,
             'mahasiswa_id' => 3,
+            'peninjau_id' => 136, // user_keuangan
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'selesai',
             'nomor_surat' => '110/UN7.1/20240002',
+            'tanggal_terbit' => date('Y-m-d', strtotime('-1 day')), // '2024-03-01
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
             'berkas_khs' => 'faker/berkas_khs.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
@@ -463,8 +549,9 @@ class TestSeeder extends Seeder
 
         //  auth-able selesai beasiswa
         $this->db->table('surat_keterangan')->insert([
-            'id' => 49,
+            'id' => 104,
             'mahasiswa_id' => 4,
+            'peninjau_id' => 137,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'selesai_mahasiswa_beasiswa',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
@@ -474,8 +561,9 @@ class TestSeeder extends Seeder
 
         //  auth-able ditolak
         $this->db->table('surat_keterangan')->insert([
-            'id' => 50,
+            'id' => 105,
             'mahasiswa_id' => 5,
+            'peninjau_id' => 136,
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'ditolak',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
@@ -483,11 +571,11 @@ class TestSeeder extends Seeder
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
-        //  14 Menunggu validasi
-        for ($i = 50; $i < 64; $i++) {
+        //  24 Menunggu validasi
+        for ($i = 0; $i < 24; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1 - 45,
+                'id' => $i + 106,
+                'mahasiswa_id' => $i + 6,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'menunggu_validasi',
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
@@ -496,25 +584,28 @@ class TestSeeder extends Seeder
             ]);
         }
 
-        // 9 Selesai
-        for ($i = 64; $i < 73; $i++) {
+        // 39 Selesai
+        for ($i = 0; $i < 39; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1 - 45,
+                'id' => $i + 130,
+                'mahasiswa_id' => $i + 30,
+                'peninjau_id' => $faker->randomElement([136, 140]),
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'selesai',
-                'nomor_surat' => '110/UN7.1/2024000' . ($i - 63),
+                'tanggal_terbit' => date('Y-m-d', strtotime('2024-01-01 +' . rand(0, 78) . ' days')), // '2024-01-01
+                'nomor_surat' => '110/UN7.1/2024000' . ($i + 1),
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
                 'berkas_khs' => 'faker/berkas_khs.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
 
-        // 4 Selesai Beasiswa
-        for ($i = 73; $i < 77; $i++) {
+        // 19 Selesai beasiswa
+        for ($i = 0; $i < 19; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1 - 45,
+                'id' => $i + 169,
+                'mahasiswa_id' => $i + 60,
+                'peninjau_id' => $faker->randomElement([136, 140]),
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'selesai_mahasiswa_beasiswa',
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
@@ -524,10 +615,11 @@ class TestSeeder extends Seeder
         }
 
         // 14 Ditolak
-        for ($i = 77; $i < 91; $i++) {
+        for ($i = 0; $i < 14; $i++) {
             $this->db->table('surat_keterangan')->insert([
-                'id' => $i + 1,
-                'mahasiswa_id' => $i + 1 - 45,
+                'id' => $i + 188,
+                'mahasiswa_id' => $i + 88,
+                'peninjau_id' => $faker->randomElement([136, 140]),
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'ditolak',
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',

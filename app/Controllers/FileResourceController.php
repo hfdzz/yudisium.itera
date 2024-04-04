@@ -65,6 +65,68 @@ class FileResourceController extends BaseController
         // dd($file_path);
 
         if (! file_exists($file_path) || ! is_file($file_path)) {
+            $file_path = $suratKeterangan->getSuratKeteranganPdf();
+        }
+
+        return $this->response
+        ->setHeader('Content-Type', 'application/pdf')
+        ->download($file_path, null, true)
+        ->inline();
+    }
+
+    public function berkasPendaftaranYudisium($yudisium_pendaftaran_id, $jenis_berkas)
+    {
+        $user = auth()->user();
+
+        $yudisiumPendaftaranModel = model('YudisiumPendaftaranModel');
+        
+        $yudisiumPendaftaran = $yudisiumPendaftaranModel->find($yudisium_pendaftaran_id);
+        
+        if (! $yudisiumPendaftaran) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // if (! $user->can('fakultas.validasi_yudisium'))
+        // {
+        //     if ($yudisiumPendaftaran->mahasiswa_id != $user->id) {
+        //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        //     }
+        // }
+
+        $file_path = WRITEPATH . 'uploads/' . $yudisiumPendaftaran->getBerkasPath($jenis_berkas);
+
+        if (! file_exists($file_path) || ! is_file($file_path)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return $this->response
+        ->setHeader('Content-Type', 'application/pdf')
+        ->download($file_path, null, true)
+        ->inline();
+    }
+
+    public function fileTandaTerimaYudisium($yudisium_pendaftaran_id)
+    {
+        $user = auth()->user();
+
+        $yudisiumPendaftaranModel = model('YudisiumPendaftaranModel');
+        
+        $yudisiumPendaftaran = $yudisiumPendaftaranModel->find($yudisium_pendaftaran_id);
+        
+        if (! $yudisiumPendaftaran) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // if (! $user->can('fakultas.validasi_yudisium'))
+        // {
+        //     if ($yudisiumPendaftaran->mahasiswa_id != $user->id) {
+        //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        //     }
+        // }
+
+        $file_path = WRITEPATH . 'generated_files/' . $yudisiumPendaftaran->file_tanda_terima_yudisium;
+
+        if (! file_exists($file_path) || ! is_file($file_path)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 

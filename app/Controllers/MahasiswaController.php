@@ -25,6 +25,13 @@ class MahasiswaController extends BaseController
         
         if (! $this->request->is('post')) {
             $currentPeriode = $yudisiumPeriodeModel->getCurrentPeriode();
+
+            if (! $currentPeriode || ! $currentPeriode->isOpen()) {
+                return view('mahasiswa/daftar_yudisium', [
+                    'yudisium_periode' => null,
+                ]);
+            }
+
             $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan();
             $skBebasUkt = $user->suratKeteranganBebasUkt();
             $skBebasLab = $user->suratKeteranganBebasLaboratorium();

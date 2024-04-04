@@ -33,23 +33,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; foreach ($pendaftaran as $p): ?>
+                        <?php $i=1; foreach ($pendaftaran as $p): ?>
                             <tr>
-                                <th scope="row"><?= $i++ ?></th>
+                                <th scope="row">
+                                    <?= $i++ + ($pager->getPerPage() * ($pager->getCurrentPage() - 1)) ?>
+                                </th>
                                 <td>
-                                    <span><?= $p->username ?></span>
-                                    <span><?= $p->nim ?></span>
+                                    <span><?= $p->mahasiswa->username ?></span>
+                                    <span><?= $p->mahasiswa->nim ?></span>
                                 </td>
                                 <td><?= $p->created_at?->toLocalizedString('d MMM yyyy') ?></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_transkrip) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_ijazah) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_pas_foto) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_sertifikat_bahasa_inggris) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_akta_kelahiran) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_surat_keterangan_mahasiswa) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_surat_keterangan_bebas_perpustakaan) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_surat_keterangan_bebas_ukt) ?>" target="_blank">Lihat</a></td>
-                                <td><a href="<?= base_url('uploads/' . $p->berkas_surat_keterangan_bebas_laboratorium) ?>" target="_blank">Lihat</a></td>
+                                <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_transkrip') ?>" target="_blank">Lihat</a></td>
+                                <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_ijazah') ?>" target="_blank">Lihat</a></td>
+                                <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_pas_foto') ?>" target="_blank">Lihat</a></td>
+                                <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_sertifikat_bahasa_inggris') ?>" target="_blank">Lihat</a></td>
+                                <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_akta_kelahiran') ?>" target="_blank">Lihat</a></td>
+                                <td>
+                                    <?php if (isset($p->berkas_surat_keterangan_mahasiswa)): ?>
+                                        <a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_surat_keterangan_mahasiswa') ?>" target="_blank">Lihat</a>
+                                    <?php else: ?>
+                                        <span class="text-danger">Tidak diunggah</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN)?->id]) ?></td>
+                                <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->id]) ?></td>
+                                <td><?= view_cell('LinkTextCell::bebasLabLink', ['sk_bebaslab' => $p->getSuratKeterangan(JENIS_SK_BEBAS_LABORATORIUM)]) ?></td>
                                 <td>
                                     <form action="<?= route_to('fakultas.validasi_yudisium') ?>" method="post">
                                         <input type="hidden" name="id" value="<?= $p->id ?>">

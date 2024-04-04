@@ -136,7 +136,7 @@ class SuratKeterangan extends Entity
         return $this->attributes[$jenis_berkas];
     }
 
-    public function generateSuratPdf()
+    public function generateSuratPdf() : ?string
     {
         $options = new \Dompdf\Options();    
         $options->set( 'chroot', 'kop.png' );

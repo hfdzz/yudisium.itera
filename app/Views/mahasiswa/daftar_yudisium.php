@@ -76,13 +76,16 @@
                                 <div class="mb-3">
                                     <div>Surat Keterangan Bebas Laboratorium</div>
     
-                                    <!-- <?// view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_lab->status ?? '']) ?> -->
-                                    
-                                    <!-- <?// view_cell('StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_lab->status ?? '', 'url' => 'https://silabor.itera.ac.id']) ?> -->
+                                    <?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk_bebas_lab->status ?? '']) ?>
     
-                                    <?= view_cell('StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_lab->status ?? '', 'url' => 'https://silabor.itera.ac.id']) ?>
-                                    <?php if ($sk_bebas_lab && $sk_bebas_lab->status == STATUS_SELESAI): ?>
+                                    <?php if ($sk_bebas_lab?->status == STATUS_SELESAI): ?>
+
                                         <a href="<?= esc($sk_bebas_lab->surat) ?>" target="_blank" class="link">Lihat Surat</a>
+
+                                    <?php else: ?>
+
+                                        <a href="http://silabor.itera.ac.id" target="_blank" class="link">Ajukan Surat</a>
+                                        
                                     <?php endif ?>
                                 </div>
     
