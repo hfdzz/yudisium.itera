@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
+use Dompdf\Dompdf;
 
 class YudisiumPendaftaran extends Entity
 {
@@ -126,5 +127,87 @@ class YudisiumPendaftaran extends Entity
             default:
                 return null;
         }
+    }
+
+    public function saveUploadedFile($file, $jenis_berkas, $saveModel = false)
+    {
+        if (! $file->isValid()) {
+            return false;
+        }
+
+        $path = $file->store(PATH_UPLOAD_PENDAFTARAN_YUDISIUM . '/' . date('Y-m') . '/' . $this->attributes['id'], $this->attributes['id'] . '_' . $jenis_berkas . '.pdf');
+
+        $this->attributes[$jenis_berkas] = $path;
+
+        return $saveModel ? model('YudisiumPendaftaranModel')->save($this) : true;
+    }
+
+    public function saveUploadedFiles($files, $saveModel = false)
+    {
+        foreach ($files as $jenis_berkas => $file) {
+            $this->saveUploadedFile($file, $jenis_berkas, $saveModel);
+        }
+
+        return true;
+    }
+
+    public function generateSuratPdf() : ?string
+    {
+        $options = new \Dompdf\Options();    
+        $options->set( 'chroot', 'kop.png' );
+        $dompdf = new Dompdf( $options );
+
+        $fmt = new \IntlDateFormatter('id_ID');
+        $fmt->setPattern('d MMMM yyyy');
+
+        $data = [
+            'nama' => $this->getMahasiswa()->username,
+            'nim' => $this->getMahasiswa()->nim,
+            'program_studi' => $this->getMahasiswa()->program_studi,
+            'tanggal' => $fmt->format(new \DateTime($this->attributes['tanggal_penerimaan'])),
+            'kop_surat' => 'kop.png',
+        ];
+
+        $html = view('template_surat/tanda_terima_yudisium', $data);
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        $output = $dompdf->output();
+
+        $path = PATH_TANDA_TERIMA_YUDISIUM . '/' . date('Y-m') . '/' . $this->attributes['id'] . '.pdf';
+
+        if(!is_dir(dirname(WRITEPATH . 'generated_files/' . $path))) {
+            mkdir(dirname(WRITEPATH . 'generated_files/' . $path), 0777, true);
+        }
+
+        if (file_put_contents(WRITEPATH . 'generated_files/' . $path, $output)) {
+            return $path;
+        }
+
+        return false;
+    }
+
+    public function hasGeneratedPdf()
+    {
+        return !empty($this->attributes['file_tanda_terima']) && file_exists(WRITEPATH . 'generated_files/' . $this->attributes['file_tanda_terima']);
+    }
+
+    public function getTandaTerimaPdf()
+    {
+        if (!$this->hasGeneratedPdf()) {
+            $path = $this->generateSuratPdf();
+
+            // update the file path if it's different
+            if ($path !== $this->attributes['file_tanda_terima']) {
+                $this->attributes['file_tanda_terima'] = $path;
+                model('YudisiumPendaftaranModel')->save($this);
+            }
+        }
+
+        return WRITEPATH . 'generated_files/' . $this->attributes['file_tanda_terima'];
     }
 }

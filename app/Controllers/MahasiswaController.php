@@ -52,8 +52,10 @@ class MahasiswaController extends BaseController
 
         $yudisium_service = new \App\Services\YudisiumService();
 
+        $upload_data = $this->request->getFiles();
+
         try {
-            $yudisium_service->daftarYudisium($user, $this->request->getPost());
+            $yudisium_service->daftarYudisium($user, $upload_data);
         } catch (\Exception $e) {
             return redirect()->back()->with('errors', [$e->getMessage()]);
         }

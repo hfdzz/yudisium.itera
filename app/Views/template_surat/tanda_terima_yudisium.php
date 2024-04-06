@@ -40,7 +40,6 @@
     <div class="header">
         <img src="<?=$kop_surat?>" alt="kop" style="width: 100%;">
         <p style="text-align: center;text-decoration:underline;font-weight:bold;">Tanda Terima Yudisium</p>
-        <!-- <p style="text-align: center;">Nomor: <?= $nomor_surat?></p> -->
     </div>
     <main>
         <p style="text-align: justify;">Dengan ini kami menyatakan bahwa :</p>
@@ -63,10 +62,10 @@
             <tr>
                 <td>Fakultas</td>
                 <td>:</td>
-                <td>Fakultas Industry</td>
+                <td>Fakultas Industry Technology Faculty</td>
             </tr>
         </table>
-        <p style="text-align: justify;">Mahasiswa ini telah diterima dalam Yudisium Fakultas Industry pada tanggal <?= $tanggal ?>.</p>
+        <p style="text-align: justify;">Mahasiswa ini telah diterima dalam Yudisium Fakultas Industry pada tanggal: <?= $tanggal ?>.</p>
         <p style="text-align: right;">Dekan Fakultas Industry</p>
         <br>
         <br>

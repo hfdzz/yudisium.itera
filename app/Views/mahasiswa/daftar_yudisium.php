@@ -12,7 +12,7 @@
     <?php if (isset($yudisium_pendaftaran) && $yudisium_pendaftaran->isSelesai()): ?>
         <div class="alert alert-success" role="alert">
             <p>Yudisium anda telah selesai.</p>
-            <a href="<?= route_to('mahasiswa.dashboard') ?>" class="btn btn-primary">Lihat Tanda Terima Yudisium</a>
+            <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran->id) ?>" class="btn btn-primary" target="_blank">Lihat Tanda Terima Yudisium</a>
         </div>
 
     <?php elseif ($yudisium_periode?->isOpen()): ?>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <?php if (isset($yudisium_pendaftaran->keterangan)) : ?>
-                                <div class="alert alert-danger" role="alert">
+                                <div class="alert alert-warning" role="alert">
                                     <div>
                                         <span><?= $yudisium_pendaftaran->status == 'ditolak' ? 'Pendaftaran Yudisium ditolak.' : '' ?></span>
                                         <br>

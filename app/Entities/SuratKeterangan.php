@@ -141,6 +141,9 @@ class SuratKeterangan extends Entity
         $options = new \Dompdf\Options();    
         $options->set( 'chroot', 'kop.png' );
         $dompdf = new Dompdf( $options );
+        
+        $fmt = new \IntlDateFormatter('id_ID');
+        $fmt->setPattern('  d MMMM yyyy');
 
         $data = [
             'nama' => $this->getMahasiswa()->username,
@@ -149,7 +152,7 @@ class SuratKeterangan extends Entity
             'mahasiswa' => $this->getMahasiswa(),
             'peninjau' => $this->getPeninjau(),
             'nomor_surat' => $this->attributes['nomor_surat'],
-            'tanggal' => $this->attributes['tanggal_terbit']
+            'tanggal' => $fmt->format(new \DateTime($this->attributes['tanggal_terbit'])),
         ];
 
         switch($this->attributes['jenis_surat']) {

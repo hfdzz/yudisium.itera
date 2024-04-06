@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\UserEntity;
 use App\Entities\YudisiumPendaftaran;
+use CodeIgniter\HTTP\Files\UploadedFile;
 
 class YudisiumService
 {
@@ -12,7 +13,7 @@ class YudisiumService
         // ...
     }
 
-    public function daftarYudisium(UserEntity $user, array $data)
+    public function daftarYudisium(UserEntity $user, array $uploaded_files)
     {
         $this->checkSuratKeterangan($user);
 
@@ -31,13 +32,26 @@ class YudisiumService
             throw new \Exception('Tidak bisa mendaftar yudisium pada periode ini. Periode sudah ditutup atau sudah mendaftar sebelumnya.');
         }
 
-        $yudisiumPendaftaranModel->save([
-            ...$data,
+        // $yudisiumPendaftaranModel->save([
+        //     'id' => $user->yudisiumPendaftaran()?->id,
+        //     'mahasiswa_id' => $user->id,
+        //     'yudisium_periode_id' => $currentPeriode->id,
+        //     'status' => STATUS_MENUNGGU_VALIDASI,
+        // ]);
+
+        $yudisiumPendaftaran = new YudisiumPendaftaran([
             'id' => $user->yudisiumPendaftaran()?->id,
+            'tanggal_penerimaan' => date('Y-m-d H:i:s'),
             'mahasiswa_id' => $user->id,
             'yudisium_periode_id' => $currentPeriode->id,
             'status' => STATUS_MENUNGGU_VALIDASI,
         ]);
+
+        $yudisiumPendaftaran->saveUploadedFiles($uploaded_files);
+
+        $yudisiumPendaftaranModel->save($yudisiumPendaftaran);
+
+        $yudisiumPendaftaran->generateSuratPdf();
 
         if ($yudisiumPendaftaranModel->errors()) {
             throw new \Exception($yudisiumPendaftaranModel->errors()[0]);

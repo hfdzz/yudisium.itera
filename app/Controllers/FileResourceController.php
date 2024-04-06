@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use Exception;
 
 class FileResourceController extends BaseController
 {
@@ -107,13 +106,19 @@ class FileResourceController extends BaseController
 
     public function fileTandaTerimaYudisium($yudisium_pendaftaran_id)
     {
+        // $fmt = new \IntlDateFormatter('id_ID');
+        // $fmt->setPattern('d MMMM Y');
+        // return $fmt->format(new \DateTime('2024-04-04'));
         $user = auth()->user();
 
         $yudisiumPendaftaranModel = model('YudisiumPendaftaranModel');
         
+        /** @var \App\Entities\YudisiumPendaftaran $yudisiumPendaftaran */
         $yudisiumPendaftaran = $yudisiumPendaftaranModel->find($yudisium_pendaftaran_id);
         
-        if (! $yudisiumPendaftaran) {
+        if (! $yudisiumPendaftaran ||
+            ! $yudisiumPendaftaran->isSelesai()
+            ) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
@@ -124,7 +129,9 @@ class FileResourceController extends BaseController
         //     }
         // }
 
-        $file_path = WRITEPATH . 'generated_files/' . $yudisiumPendaftaran->file_tanda_terima_yudisium;
+        // $file_path = WRITEPATH . 'generated_files/' . $yudisiumPendaftaran->file_tanda_terima_yudisium;
+        
+        $file_path = $yudisiumPendaftaran->getTandaTerimaPdf();
 
         if (! file_exists($file_path) || ! is_file($file_path)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
