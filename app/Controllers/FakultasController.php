@@ -84,6 +84,7 @@ class FakultasController extends BaseController
 
     public function periodeYudisium()
     {
+        /** @var \App\Models\YudisiumPeriodeModel $periodeModel */
         $periodeModel = model('YudisiumPeriodeModel');
 
         if (! $this->request->is('post')) {
@@ -101,32 +102,44 @@ class FakultasController extends BaseController
             return view('fakultas/periode_yudisium', $data);
         }
 
-        // dd($this->request->getPost());
-        // Save periode yudisium
-
         $data = $this->request->getPost();
-
-        $db = \Config\Database::connect();
+    
+        if (isset($data['close_periode']) && $data['close_periode'] == 1) {
+            // Close periode
+            $periodeModel->where('id', $data['id'])->first()->closePeriode();
+            return redirect()->to('/fakultas/periode-yudisium')->with('success', 'Periode berhasil ditutup');
+        }
 
         $informasiModel = model('YudisiumPeriodeInformasiModel');
-        
-        if (!$data['id']) {
-            $periodeModel->openNewPeriode($data);
-        }
-        
-        $periodeId = $data['id'] ?? $periodeModel->getInsertID();
-        
-        $yudisiumPeriode = $periodeModel->find($periodeId);
+        $db = \Config\Database::connect();
+
+        // dd($data);
         
         $db->transStart();
 
-        $yudisiumPeriode->clearInformasi();
+        // Create new periode or update existing periode
+        if ( !isset($data['id']) ) {
+            try {
+                $periodeModel->openNewPeriode($data);
+                $data['id'] = $periodeModel->getInsertID();
+            } catch (\Exception $e) {
+                return redirect()->to('/fakultas/periode-yudisium')->with('error', $e->getMessage());
+            }
+        } else {
+            $periodeModel->update($data['id'], [
+                'periode' => isset($data['periode']),
+                'tanggal_awal' => $data['tanggal_awal'],
+                'tanggal_akhir' => $data['tanggal_akhir'],
+            ]);
+        }
+        
+        // Clear existing informasi and insert new informasi
+        $periodeId = $data['id'];
+        
+        /** @var \App\Entities\YudisiumPeriode $yudisiumPeriode */
+        $yudisiumPeriode = $periodeModel->find($periodeId);
 
-        $periodeModel->update($periodeId, [
-            'periode' => $data['periode'] ?? $yudisiumPeriode->periode,
-            'tanggal_awal' => $data['tanggal_awal'],
-            'tanggal_akhir' => $data['tanggal_akhir'],
-        ]);
+        $yudisiumPeriode->clearInformasi();
 
         foreach ($data['link_grup_whatsapp'] as $index => $link) {
             $informasiModel->insert([

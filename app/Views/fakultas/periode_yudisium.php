@@ -13,26 +13,35 @@
             <h1>Periode Yudisium</h1>
         </div>
         <div class="">
+            
+            <div class="mb-2">
+                <a href="<?= route_to('fakultas.new_periode_yudisium') ?>" class="btn btn-primary">
+                    Buat Periode Baru
+                </a>
+            </div>
 
         <?php if ($latest_periode): ?>
-
-            <div>
-                <div>
-                    <span>Periode: </span>
-                    <span><?= $latest_periode->periode ?></span>
-                </div>
-                <?php if ($latest_periode->isOpen()): ?>
-                    <span class="badge bg-success">Periode sedang berlangsung</span>
-                <?php else: ?>
-                    <span class="badge bg-danger">Periode sudah berakhir atau belum dimulai</span>
-                <?php endif; ?>
-            </div>
 
             <?= form_open(route_to('fakultas.periode_yudisium'), ['class' => 'form']) ?>
                 <?= form_hidden('id', $latest_periode->id) ?>
                 <div class="row">
 
                     <div class="col-md-6">
+                        <div class="mb-3">
+                            <div class="mb-1">
+                                <span>Periode Terakhir: </span>
+                                <br>
+                                <span><?= $latest_periode->periode ?></span>
+                            </div>
+                            <div class="mb-1">
+                                <?php if ($latest_periode->isOpen()): ?>
+                                    <span class="badge bg-success">Periode sedang berlangsung</span>
+                                <?php else: ?>
+                                    <span class="badge bg-danger">Periode sudah berakhir atau belum dimulai</span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
                             <?= form_input('tanggal_awal', $latest_periode->tanggal_awal, ['class' => 'form-control', 'id' => 'tanggal_awal'], 'date') ?>
@@ -43,6 +52,7 @@
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menutup periode ini?')) { closePeriode(); }">Tutup Periode</button>
                         </div>
                     </div>
 
@@ -74,8 +84,10 @@
             <?= form_close() ?>
 
         <?php else: ?>
-
-
+                
+                <div class="alert alert-warning" role="alert">
+                    Belum ada periode yudisium yang dibuat
+                </div>
 
         <?php endif; ?>
 
@@ -84,6 +96,16 @@
 </div>
 
 <script>
+
+    function closePeriode() {
+        var form = document.querySelector('.form');
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'close_periode';
+        input.value = '1';
+        form.appendChild(input);
+        form.submit();
+    }
 
     const deleteFunction = function(e) {
         var index = e.target.getAttribute('target-index');

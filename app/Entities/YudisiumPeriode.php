@@ -72,4 +72,11 @@ class YudisiumPeriode extends Entity
         // return the humanized periode name
         return $month . ' ' . $periode[1];
     }
+
+    public function closePeriode()
+    {
+        // set the end date of the periode to the current date - 1 day
+        $this->attributes['tanggal_akhir'] = date('Y-m-d', strtotime('-1 day'));
+        model('YudisiumPeriodeModel')->save($this);
+    }
 }
