@@ -27,27 +27,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($sk_bebas_perpustakaan as $index => $sk) : ?>
+                    <?php foreach ($sk_bebas_perpustakaan as $index => $p) : ?>
                         <tr>
                             <td><?= $index + 1 ?></td>
                             <td>
-                                <?= $sk->mahasiswa_name ?>
+                                <?= $p->mahasiswa_name ?>
                                 <br>
-                                <?= $sk->mahasiswa_nim ?>
+                                <?= $p->mahasiswa_nim ?>
                             </td>
-                            <td><?= $sk->nomor_surat ?></td>
-                            <td><?= $sk->tanggal_terbit ?></td>
-                            <td><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk->status]) ?></td>
+                            <td><?= $p->nomor_surat ?></td>
+                            <td><?= $p->tanggal_terbit ?></td>
+                            <td><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $p->status]) ?></td>
                             <td>
-                                <?= $sk->peninjau_name ?>
+                                <?= $p->peninjau_name ?>
                                 <br>
-                                <?= $sk->peninjau_nip ?>
+                                <?= $p->peninjau_nip ?>
                             </td>
-                            <td><?= $sk->keterangan ?></td>
+                            <td><?= $p->keterangan ?></td>
                             <td>
-                                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/show/' . $sk->id) ?>" class="btn btn-primary">Detail</a>
-                                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $sk->id) ?>" class="btn btn-warning">Edit</a>
-                                <?= form_open('upt_perpustakaan/bebas-perpustakaan/delete/' . $sk->id, ['onsubmit' => 'return confirm("Apakah Anda yakin ingin menghapus data ini?")', 'class' => 'd-inline']) ?>
+                                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/show/' . $p->id) ?>" class="btn btn-primary">Detail</a>
+                                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $p->id) ?>" class="btn btn-warning">Edit</a>
+                                <?= form_open('upt_perpustakaan/bebas-perpustakaan/delete/' . $p->id, ['onsubmit' => 'return confirm("Apakah Anda yakin ingin menghapus data ini?")', 'class' => 'd-inline']) ?>
                                 <button type="submit" class="btn btn-danger">Hapus</button>
                                 <?= form_close() ?>
                             </td>

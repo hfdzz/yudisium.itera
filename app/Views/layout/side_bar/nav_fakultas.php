@@ -12,6 +12,6 @@
     href="<?= route_to('fakultas.periode_yudisium')
     ?>">Periode Yudisium</a>
 
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'pendaftaran-yudisium' ? ' active' : '' ?>"
+<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'yudisium-pendaftaran' ? ' active' : '' ?>"
     href="<?= site_url('fakultas/yudisium-pendaftaran')
     ?>">Pendaftaran Yudisium</a>

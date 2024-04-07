@@ -13,7 +13,7 @@ class YudisiumPendaftaran extends Entity
 
     public function getMahasiswa() : ?UserEntity
     {
-        return model('UserModel')->find($this->attributes['mahasiswa_id']);
+        return model('UserModel')->where('id', $this->attributes['mahasiswa_id'])->first();
     }
 
     public function getSuratKeterangan($jenis_sk)
@@ -39,7 +39,7 @@ class YudisiumPendaftaran extends Entity
 
     public function getPeninjau()
     {
-        return model('UserModel')->find($this->attributes['peninjau_id']);
+        return model('UserModel')->where('id', $this->attributes['peninjau_id'])->first();
     }
 
     public function getYudisiumPeriode()
@@ -47,18 +47,22 @@ class YudisiumPendaftaran extends Entity
         return model('YudisiumPeriodeModel')->where('id', $this->attributes['yudisium_periode_id'])->first();
     }
 
-    public function getStatusText()
+    public function getStatus($humanize = false) : string
     {
-        switch ($this->attributes['status']) {
-            case STATUS_MENUNGGU_VALIDASI:
-                return 'Menunggu Validasi';
-            case STATUS_SELESAI:
-                return 'Selesai';
-            case STATUS_DITOLAK:
-                return 'Ditolak';
-            default:
-                return 'STATUS ERROR';
+        if ($humanize) {
+            switch ($this->attributes['status']) {
+                case STATUS_MENUNGGU_VALIDASI:
+                    return 'Menunggu Validasi';
+                case STATUS_SELESAI:
+                    return 'Selesai';
+                case STATUS_DITOLAK:
+                    return 'Ditolak';
+                case STATUS_SELESAI_BEASISWA:
+                    return 'Selesai (Beasiswa)';
+            }
         }
+
+        return $this->attributes['status'];
     }
 
     public function isSelesai()

@@ -27,17 +27,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; foreach ($surat_keterangan as $sk): ?>
+                        <?php $i = 1; foreach ($surat_keterangan as $p): ?>
                             <tr>
                                 <th scope="row"><?= $i++ ?></th>
-                                <td><?= $sk->mahasiswa_nim ?></td>
-                                <td><?= $sk->mahasiswa_username ?></td>
-                                <td><?= $sk->mahasiswa_program_studi ?></td>
-                                <td><?= $sk->created_at->toLocalizedString('d MMM yyyy') ?></td>
+                                <td><?= $p->mahasiswa_nim ?></td>
+                                <td><?= $p->mahasiswa_username ?></td>
+                                <td><?= $p->mahasiswa_program_studi ?></td>
+                                <td><?= $p->created_at->toLocalizedString('d MMM yyyy') ?></td>
                                 <!-- make the action column shrink to fit the content -->
                                 <td>
-                                    <form action="<?= route_to('upt-perpustakaan.validasi-surat-keterangan', $sk->id)?>" method="post">
-                                        <input type="hidden" name="id" value="<?= $sk->id ?>">
+                                    <form action="<?= route_to('upt-perpustakaan.validasi-surat-keterangan', $p->id)?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $p->id ?>">
                                         <div class="d-flex justify-content-center">
                                             <button type="submit" name="action" value="<?= 'validasi' ?>" class="btn btn-primary mx-1">Terima</button>
                                             <button type="submit" name="action" value="<?= 'tolak' ?>" class="btn btn-danger mx-1">Tolak</button>

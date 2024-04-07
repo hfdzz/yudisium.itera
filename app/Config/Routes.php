@@ -43,7 +43,7 @@ $routes->group('fakultas', ['filter' => 'group:user_fakultas'], function (RouteC
     $routes->get('periode-yudisium', [App\Controllers\FakultasController::class, 'periodeYudisium'], ['as' => 'fakultas.periode_yudisium']);
     $routes->post('periode-yudisium', [App\Controllers\FakultasController::class, 'periodeYudisium']);
 
-    $routes->presenter('yudisium-pendaftaran', ['controller' => 'YudisiumPendaftaranController']);
+    $routes->presenter('yudisium-pendaftaran', ['controller' => 'YudisiumPendaftaranController', 'websafe' => 1]);
 });
 
 $routes->group('mahasiswa', ['filter' => 'group:user_mahasiswa'], function ($routes) {

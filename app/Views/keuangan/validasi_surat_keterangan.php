@@ -26,30 +26,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; foreach ($surat_keterangan as $sk): ?>
+                        <?php $i = 1; foreach ($surat_keterangan as $p): ?>
                             <tr>
                                 <th scope="row"><?= $i++ ?></th>
                                 <td>
-                                    <?= $sk->mahasiswa_nim ?>
+                                    <?= $p->mahasiswa_nim ?>
                                     <br>
-                                    <?= $sk->mahasiswa_username ?>
+                                    <?= $p->mahasiswa_username ?>
                                 </td>
-                                <td><?= $sk->mahasiswa_program_studi ?></td>
-                                <td><?= $sk->created_at->toLocalizedString('d MMM yyyy') ?></td>
+                                <td><?= $p->mahasiswa_program_studi ?></td>
+                                <td><?= $p->created_at->toLocalizedString('d MMM yyyy') ?></td>
                                 <!-- make the action column shrink to fit the content -->
                                 <td>
-                                    <form action="<?= route_to('keuangan.validasi-surat-keterangan', $sk->id)?>" method="post">
-                                        <input type="hidden" name="id" value="<?= $sk->id ?>">
+                                    <form action="<?= route_to('keuangan.validasi-surat-keterangan', $p->id)?>" method="post">
+                                        <input type="hidden" name="id" value="<?= $p->id ?>">
                                         <div class="d-flex justify-content-center">
                                             <!-- button for detail modal -->
-                                            <button type="button" class="btn btn-info mx-1" data-bs-toggle="modal" data-bs-target="#berkasModal<?= $sk->id ?>">Berkas</button>
+                                            <button type="button" class="btn btn-info mx-1" data-bs-toggle="modal" data-bs-target="#berkasModal<?= $p->id ?>">Berkas</button>
                                             <button type="submit" name="action" value="<?= 'validasi' ?>" class="btn btn-primary mx-1">Terima</button>
                                             <button type="submit" name="action" value="<?= 'validasi_beasiswa' ?>" class="btn btn-warning mx-1">Beasiswa</button>
                                             <button type="submit" name="action" value="<?= 'tolak' ?>" class="btn btn-danger mx-1">Tolak</button>
                                             <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" style="width: 200px;" autocomplete="off">
                                             <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat" style="width: 200px;" autocomplete="off">
                                         </div>
-                                        <div class="modal fade text-start" id="berkasModal<?= $sk->id ?>" tabindex="-1" aria-labelledby="berkasModalLabel" aria-hidden="true">
+                                        <div class="modal fade text-start" id="berkasModal<?= $p->id ?>" tabindex="-1" aria-labelledby="berkasModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -58,9 +58,9 @@
                                                     </div>
                                                     <div class="modal-body text-start">
                                                         <div class="d-flex flex-column">
-                                                            <a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_ba_sidang') ?>" target="_blank">BA Sidang</a>
-                                                            <a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_khs') ?>" target="_blank">KHS</a>
-                                                            <a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_bukti_bayar_ukt') ?>" target="_blank">Bukti Bayar UKT</a>
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_ba_sidang') ?>" target="_blank">BA Sidang</a>
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_khs') ?>" target="_blank">KHS</a>
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_bukti_bayar_ukt') ?>" target="_blank">Bukti Bayar UKT</a>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

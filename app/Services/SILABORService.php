@@ -54,8 +54,7 @@ class SILABORService
          */
         $this->silaborConfig = config('CURLRequest');
         
-        // TODO: change to false when deploying to production or when testing
-        $this->refreshCache = true;
+        $this->refreshCache = false;
     }
 
     static function withRefreshCache($refresh = true) : self
