@@ -30,14 +30,9 @@ class FakultasController extends BaseController
                 'pendaftaran' => $pendaftaran_model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
                     ->orderBy('yudisium_pendaftaran.created_at', 'desc')
                     ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
-                    ->join('surat_keterangan', 'surat_keterangan.mahasiswa_id = yudisium_pendaftaran.mahasiswa_id', 'left')
-                    ->select('yudisium_pendaftaran.* , users.username, users.nim, GROUP_CONCAT(surat_keterangan.id) as surat_keterangan_id')
-                    ->groupBy('yudisium_pendaftaran.id')
                     ->paginate($perPage),
                 'pager' => $pendaftaran_model->pager,
             ];
-
-            // dd($pendaftaran_model->find(3)->mahasiswa->suratKeteranganBebasLaboratorium());
 
             return view('fakultas/validasi_yudisium', $data);
         }
@@ -144,6 +139,12 @@ class FakultasController extends BaseController
         $db->transComplete();
 
         return redirect()->to('/fakultas/periode-yudisium')->with('success', 'Periode berhasil disimpan');
+    }
 
+    public function newPeriodeYudisium()
+    {
+        if (! $this->request->is('post')) {
+            return view('fakultas/new_periode_yudisium');
+        }
     }
 }

@@ -27,27 +27,20 @@ class YudisiumPendaftaranController extends BaseController
             ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id', 'left')
             ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi');
 
-        // dd($model->findAll());
-
-        foreach ($this->request->getGet() as $key => $value) {
-            if ($key === 'search') {
-                $model->groupStart();
-                $fields = ['nim', 'username', 'program_studi', 'yudisium_pendaftaran.status', 'tanggal_penerimaan', 'keterangan'];
-                foreach ($fields as $field) {
-                    $model->orLike($field, $value);
-                }
-                $model->groupEnd();
-            } 
-            else if ($key === 'per_page') {
-                $perPage = $value;
+        if ($this->request->getGet('search')) {
+            $model->groupStart();
+            $fields = ['nim', 'username', 'program_studi', 'yudisium_pendaftaran.status', 'tanggal_penerimaan', 'keterangan'];
+            foreach ($fields as $field) {
+                $model->orLike($field, $this->request->getGet('search'));
             }
-            else if (str_starts_with($key, 'filter_')) {
-                // doesnt work
-                $model->where($key, $value);
-            }
+            $model->groupEnd();
         }
 
-        // dd($query->findAll());
+        if ($this->request->getGet('status')) {
+            $model->where('yudisium_pendaftaran.status', $this->request->getGet('status'));
+        }
+
+        $perPage = $this->request->getGet('per_page') ?? 10;
 
         return view('fakultas/yudisium_pendaftaran/index', [
             'yudisium_pendaftaran' => $model->paginate($perPage ?? 10),

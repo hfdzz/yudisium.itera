@@ -32,6 +32,10 @@ class SkBebasPerpustakaanController extends BaseController
             $query->groupEnd();
         }
 
+        if ($this->request->getGet('status')) {
+            $model->where('surat_keterangan.status', $this->request->getGet('status'));
+        }
+
         $data = [
             'sk_bebas_perpustakaan' => $query
                 ->orderBy('created_at', 'desc')
