@@ -66,7 +66,21 @@ class YudisiumPeriodeModel extends Model
     public function openNewPeriode($data)
     {
         if (! $this->getCurrentPeriode()) {
+            model('YudisiumPendaftaranModel')->where('status', STATUS_MENUNGGU_VALIDASI)
+                ->set(['status' => STATUS_DITOLAK, 'keterangan' => 'Periode yudisium sebelumnya ditutup.'])
+                ->update();
+
+            if (model('YudisiumPendaftaranModel')->errors()) {
+                return model('YudisiumPendaftaranModel')->errors();
+            }
+
             $this->insert($data);
+
+            if ($this->errors()) {
+                return $this->errors();
+            }
+            
+            return true;
         }
         throw new \Exception('Tidak dapat membuat periode baru, masih ada periode yang terbuka.');
     }

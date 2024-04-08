@@ -9,7 +9,7 @@
 <?= $this->section('content') ?>
 <div class="p-4">
 
-    <?php if (isset($yudisium_pendaftaran) && $yudisium_pendaftaran->isSelesai()): ?>
+    <?php if ($yudisium_pendaftaran?->isSelesai()): ?>
         <div class="alert alert-success" role="alert">
             <p>Yudisium anda telah selesai.</p>
             <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran->id) ?>" class="btn btn-primary" target="_blank">Lihat Tanda Terima Yudisium</a>

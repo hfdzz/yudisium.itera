@@ -26,11 +26,16 @@ class FakultasController extends BaseController
 
             $perPage = $this->request->getGet('per_page') ?? 10;
 
+            $latest_periode = model('YudisiumPeriodeModel')->getLatestPeriode();
+
             $data = [
                 'pendaftaran' => $pendaftaran_model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
+                    ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
                     ->orderBy('yudisium_pendaftaran.created_at', 'desc')
                     ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
+                    ->select('yudisium_pendaftaran.*, users.username, users.nim')
                     ->paginate($perPage),
+                'latest_periode' => $latest_periode,
                 'pager' => $pendaftaran_model->pager,
             ];
 
@@ -44,7 +49,9 @@ class FakultasController extends BaseController
 
         $data = $this->request->getPost();
 
-        $yudisiumPendaftaran = $yudisiumPendaftaranModel->find($data['id']);
+        // dd($data);
+
+        $yudisiumPendaftaran = $yudisiumPendaftaranModel->where('id', $data['id'])->first();
 
         if (! $yudisiumPendaftaran) {
             return redirect()->to('/fakultas/validasi-yudisium')->with('error', 'Pendaftaran yudisium tidak ditemukan');
@@ -112,8 +119,6 @@ class FakultasController extends BaseController
 
         $informasiModel = model('YudisiumPeriodeInformasiModel');
         $db = \Config\Database::connect();
-
-        // dd($data);
         
         $db->transStart();
 
@@ -121,13 +126,18 @@ class FakultasController extends BaseController
         if ( !isset($data['id']) ) {
             try {
                 $periodeModel->openNewPeriode($data);
+
+                if($periodeModel->errors()) {
+                    return redirect()->to('/fakultas/periode-yudisium/new')->with('errors', $periodeModel->errors());
+                }
+
                 $data['id'] = $periodeModel->getInsertID();
             } catch (\Exception $e) {
-                return redirect()->to('/fakultas/periode-yudisium')->with('error', $e->getMessage());
+                return redirect()->to('/fakultas/periode-yudisium/new')->with('error', $e->getMessage());
             }
         } else {
             $periodeModel->update($data['id'], [
-                'periode' => isset($data['periode']),
+                'periode' => $periodeModel->find($data['id'])->periode,
                 'tanggal_awal' => $data['tanggal_awal'],
                 'tanggal_akhir' => $data['tanggal_akhir'],
             ]);
@@ -141,23 +151,30 @@ class FakultasController extends BaseController
 
         $yudisiumPeriode->clearInformasi();
 
-        foreach ($data['link_grup_whatsapp'] as $index => $link) {
-            $informasiModel->insert([
-                'link_grup_whatsapp' => $link,
-                'keterangan' => $data['keterangan'][$index],
-                'yudisium_periode_id' => $periodeId,
-            ]);
+        if(isset($data['link_grup_whatsapp']) && is_array($data['link_grup_whatsapp'])){
+            foreach ($data['link_grup_whatsapp'] as $index => $link) {
+                $informasiModel->insert([
+                    'link_grup_whatsapp' => $link,
+                    'keterangan' => $data['keterangan'][$index],
+                    'yudisium_periode_id' => $periodeId,
+                ]);
+            }
         }
 
+
         $db->transComplete();
+
+        // dd($db->error());
 
         return redirect()->to('/fakultas/periode-yudisium')->with('success', 'Periode berhasil disimpan');
     }
 
     public function newPeriodeYudisium()
     {
-        if (! $this->request->is('post')) {
-            return view('fakultas/new_periode_yudisium');
-        }
+        $latest_periode = model('YudisiumPeriodeModel')->getLatestPeriode();
+        $warning = model('YudisiumPendaftaranModel')->where('yudisium_periode_id', $latest_periode->id)
+            ->where('status', STATUS_MENUNGGU_VALIDASI)
+            ->findAll() ? true : false;
+        return view('fakultas/new_periode_yudisium', ['warning' => $warning]);
     }
 }

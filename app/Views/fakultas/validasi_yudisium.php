@@ -11,6 +11,18 @@
     <div class="rounded p-3" style="background-color: #f3f3f3;">
         <div>
             <h1>Validasi Yudisium</h1>
+            <div class="mb-2">
+                <span>Periode: </span>
+                <span>
+                    <?= $latest_periode->periode ?>
+                </span>
+                <br>
+                <?php if ($latest_periode->isOpen()): ?>
+                    <span class="badge bg-success">Periode sedang berlangsung</span>
+                <?php else: ?>
+                    <span class="badge bg-danger">Periode sudah berakhir atau belum dimulai</span>
+                <?php endif; ?>
+            </div>
         </div>
         <div class="">
             <div>

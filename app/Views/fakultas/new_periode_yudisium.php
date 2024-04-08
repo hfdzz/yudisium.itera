@@ -19,10 +19,20 @@
             <h1>Buat Periode Yudisium Baru</h1>
         </div>
         <div class="">
-
+            <?php if ($warning): ?>
+                <div class=" bg-danger text-white p-2 mb-3 rounded">
+                    <strong>Perhatian!</strong>
+                    <br>
+                    Membuka periode baru akan menutup periode sebelumnya.
+                    <br>
+                    Pendafataran yudisium yang belum divalidasi akan ditolak otomatis.
+                    <br>
+                    
+                </div>
+            <?php endif; ?>
+            
         <?= form_open(route_to('fakultas.periode_yudisium'), ['class' => 'form']) ?>
             <div class="row">
-
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="periode" class="form-label">Periode</label>

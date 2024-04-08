@@ -25,12 +25,19 @@ class MahasiswaController extends BaseController
         
         if (! $this->request->is('post')) {
             $currentPeriode = $yudisiumPeriodeModel->getCurrentPeriode();
+            $yudisiumPendaftaran = auth()->user()->yudisiumPendaftaran();
 
-            if (! $currentPeriode || ! $currentPeriode->isOpen()) {
-                return view('mahasiswa/daftar_yudisium', [
-                    'yudisium_periode' => null,
-                ]);
-            }
+            // if ($yudisiumPendaftaran->isSelesai()) {
+            //     return view('mahasiswa/daftar_yudisium', [
+            //         'yudisium_pendaftaran' => $yudisiumPendaftaran,
+            //     ]);
+            // }
+
+            // if (! $currentPeriode || ! $currentPeriode->isOpen()) {
+            //     return view('mahasiswa/daftar_yudisium', [
+            //         'yudisium_periode' => null,
+            //     ]);
+            // }
 
             $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan();
             $skBebasUkt = $user->suratKeteranganBebasUkt();
@@ -40,7 +47,7 @@ class MahasiswaController extends BaseController
                 'sk_bebas_perpustakaan' => $skBebasPerpustakaan,
                 'sk_bebas_ukt' => $skBebasUkt,
                 'sk_bebas_lab' => $skBebasLab,
-                'yudisium_pendaftaran' => $currentPeriode?->getCurrentYudisiumPendaftaran($user->id),
+                'yudisium_pendaftaran' => $yudisiumPendaftaran,
                 'yudisium_periode' => $currentPeriode,
             ];
             // dd($data);

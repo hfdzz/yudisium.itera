@@ -52,7 +52,9 @@
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <button type="button" class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menutup periode ini?')) { closePeriode(); }">Tutup Periode</button>
+                            <?php if ($latest_periode->isOpen()): ?>
+                                <button type="button" class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menutup periode ini?')) { closePeriode(); }">Tutup Periode</button>
+                            <?php endif; ?>
                         </div>
                     </div>
 
