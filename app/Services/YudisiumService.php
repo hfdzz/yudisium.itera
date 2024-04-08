@@ -92,8 +92,6 @@ class YudisiumService
 
     public function checkSuratKeterangan($user)
     {
-        // TODO: Move this to bottom of the function
-        return true;
         if (!$this->checkSkBebasPerpustakaan($user)) {
             throw new \Exception('Surat Keterangan Bebas Perpustakaan belum SELESAI.');
         }

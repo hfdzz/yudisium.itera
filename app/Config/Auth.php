@@ -46,11 +46,6 @@ class Auth extends ShieldAuth
      * --------------------------------------------------------------------
      */
     public array $views = [
-
-        // TODO: Modify the views.
-
-        // 'login'                       => '\CodeIgniter\Shield\Views\login',
-        // 'register'                    => '\CodeIgniter\Shield\Views\register',
         'login'                       => '\App\Views\Auth\login',
         'register'                    => '\App\Views\Auth\register',
         'layout'                      => '\CodeIgniter\Shield\Views\layout',
@@ -272,9 +267,6 @@ class Auth extends ShieldAuth
      * @var class-string<ValidatorInterface>[]
      */
     public array $passwordValidators = [
-
-        // TODO: Modify the password validators.
-
         CompositionValidator::class,
         // NothingPersonalValidator::class,
         // DictionaryValidator::class,
