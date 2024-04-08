@@ -118,16 +118,6 @@ class SILABORService
         return $data;
     }
 
-    // public function getBebasLabById($id_search, $refresh = false) : object | null
-    // {
-    //     foreach ($this->getAllBebasLab($refresh) as $data) {
-    //         if ($data->id_bebaslab == $id_search) {
-    //             return $data;
-    //         }
-    //     }
-    //     return null;
-    // }
-
     public function getBebasLabByNim($nim_search, $status = null) : array
     {
         $result = array();

@@ -26,6 +26,6 @@ class CURLRequest extends BaseConfig
      * The URL of the Silabor API. 
      */
     public array $silaborAPIURL = [
-        'getAllBebasLabURL' => 'https://silabor.stiki-indonesia.ac.id/api/bebaslab',
+        'getAllBebasLabURL' => 'https://silabor.itera.ac.id/data/bebaslab',
     ];
 }
