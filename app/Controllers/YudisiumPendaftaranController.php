@@ -180,7 +180,7 @@ class YudisiumPendaftaranController extends BaseController
     {
         $model = model('YudisiumPendaftaranModel');
 
-        $model->delete($id);
+        $model->delete($id, true);
 
         return redirect()->with('success', 'Data berhasil dihapus')->to('/fakultas/yudisium-pendaftaran');
     }

@@ -168,7 +168,7 @@ class SkBebasUktController extends BaseController
     {
         $model = model('SuratKeteranganModel');
 
-        $model->delete($id);
+        $model->delete($id, true);
 
         return redirect()->with('success', 'Data berhasil dihapus')->to('/keuangan/bebas-ukt');
     }
