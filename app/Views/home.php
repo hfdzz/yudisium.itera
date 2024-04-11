@@ -5,7 +5,7 @@
      */
 ?>
 
-<?= $this->extend('Layout/guest') ?>
+<?= $this->extend('layout/guest') ?>
 
 <?= $this->section('content') ?>
 <div class="p-4">

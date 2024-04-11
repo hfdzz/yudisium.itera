@@ -22,7 +22,7 @@
 <body>
     <div style="min-height: 100vh;">
         <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; width: 100%; overflow:hidden">
-            <?= $this->include('Layout/top_bar') ?>
+            <?= $this->include('layout/top_bar') ?>
         </nav>
         <main style="margin-top: 90px;">
             <?= $this->renderSection('content') ?>

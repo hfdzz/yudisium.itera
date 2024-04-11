@@ -40,18 +40,18 @@
     <div>
         <!-- Top Bar -->
         <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 2000; width: 100%;">
-            <?= $this->include('Layout/top_bar') ?>
+            <?= $this->include('layout/top_bar') ?>
         </nav>
 
         <!-- Side Bar -->
         <aside style="position: fixed; top: 0; left: 0; bottom: 0; z-index: 1000; width: 250px; overflow-y: auto; background-color: #a5a5c5; margin-top: 90px;">
-            <?= $this->include('Layout/side_bar/side_bar') ?>
+            <?= $this->include('layout/side_bar/side_bar') ?>
         </aside>
 
         <!-- Main Content -->
         <div style="margin-top: 90px; margin-left: 250px;">
             <!-- Flash Messages -->
-            <?= $this->include('Layout/flash_message') ?>
+            <?= $this->include('layout/flash_message') ?>
 
             <!-- Content -->
             <main>
