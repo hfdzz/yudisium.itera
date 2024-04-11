@@ -76,6 +76,12 @@ class SILABORService
                 return [];
             }
 
+            $result = json_decode($response->getBody());
+
+            if (!$result) {
+                return [];
+            }
+
             $result = json_decode($response->getBody())->data;
 
             // Normalize status
