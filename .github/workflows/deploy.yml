@@ -20,11 +20,12 @@ on:
   workflow_dispatch:
   
 jobs:
-  build:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -46,14 +47,6 @@ jobs:
 
     # - name: Run test suite
     #   run: composer run-script test
-    
-  web-deploy:
-    needs: build
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
     
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
