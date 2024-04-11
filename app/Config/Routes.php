@@ -70,3 +70,28 @@ $routes->get('file-surat-keterangan/(:num)', [App\Controllers\FileResourceContro
 $routes->get('berkas-pendaftaran-yudisium/(:num)/(:segment)', [App\Controllers\FileResourceController::class, 'berkasPendaftaranYudisium'], ['filter' => 'group:user_fakultas,user_mahasiswa', 'as' => 'berkas_pendaftaran_yudisium']);
 
 $routes->get('file-tanda-terima-yudisium/(:num)', [App\Controllers\FileResourceController::class, 'fileTandaTerimaYudisium'], ['as' => 'file_tanda_terima_yudisium']);
+
+$routes->get('test/terminal', function () {
+    return view('_test/terminal');
+}, ['as' => 'test.terminal']);
+
+$routes->post('test/terminal', function () {
+    $data = service('request')->getPost();
+
+    if (!isset($data['command'])) {
+        return response()->setJSON([
+            'output' => 'Server: Command not found.'
+        ]);
+    }
+    
+    try {
+        $res = command($data['command']);
+    }
+    catch (\Exception $e) {
+        $res = $e->getMessage();
+    }
+
+    return response()->setJSON([
+        'output' => $res
+    ]);
+});
