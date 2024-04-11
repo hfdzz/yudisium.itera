@@ -1,9 +1,24 @@
+name: Build and 🚀 Deploy website on push
+
 on:
   push:
+    paths-ignore:
+      - 'README.md'
+      - '.editorconfig'
+      - '.env.example'
+      - '**/.git*'
     branches: [ "LIVE" ]
   pull_request:
+    paths-ignore:
+      - 'README.md'
+      - '.editorconfig'
+      - '.env.example'
+      - '**/.git*'
     branches: [ "LIVE" ]
-name: 🚀 Deploy website on push
+    
+  # manual trigger
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -46,3 +61,10 @@ jobs:
         server: files.000webhost.com
         username: yudisiumitera
         password: ${{ secrets.ftp_password }}
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/.editorconfig
+          **/.env.example
+          **/README.md
