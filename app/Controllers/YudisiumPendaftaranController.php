@@ -18,6 +18,13 @@ class YudisiumPendaftaranController extends BaseController
             ->findAll();
     }
 
+    protected function getListPeriode()
+    {
+        return model('YudisiumPeriodeModel')->select('id, periode')
+        ->orderBy('tanggal_akhir', 'ASC')
+        ->findAll();
+    }
+
     public function index()
     {
         /**
@@ -40,11 +47,16 @@ class YudisiumPendaftaranController extends BaseController
             $model->where('yudisium_pendaftaran.status', $this->request->getGet('status'));
         }
 
+        if ($this->request->getGet('periode')) {
+            $model->where('yudisium_pendaftaran.yudisium_periode_id', $this->request->getGet('periode'));
+        }
+
         $perPage = $this->request->getGet('per_page') ?? 10;
 
         return view('fakultas/yudisium_pendaftaran/index', [
             'yudisium_pendaftaran' => $model->paginate($perPage ?? 10),
             'list_peninjau' => $this->getListPeninjau(),
+            'list_periode' => $this->getListPeriode(),
             'pager' => $model->pager,
         ]);
     }

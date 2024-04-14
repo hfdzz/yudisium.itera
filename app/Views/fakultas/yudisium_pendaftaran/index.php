@@ -12,6 +12,45 @@
         <div>
             <h1>Kelola Yudisium Pendaftaran</h1>
         </div>
+        <div class="d-flex justify-content-start align-items-center gap-2">
+            <div class="d-flex gap-2">
+                <form action="<?= site_url('fakultas/yudisium-pendaftaran') ?>" method="get" class="d-flex gap-2">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Search">
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                </form>
+            </div>
+            <div class="d-flex gap-2">
+                <form action="<?= site_url('fakultas/yudisium-pendaftaran') ?>" method="get" class="d-flex gap-2">
+                    <select name="status" id="status" class="form-select" onchange="this.form.submit()">
+                        <option value="">Semua Status</option>
+                        <option value=<?= STATUS_MENUNGGU_VALIDASI ?> <?= isset($_GET['status']) && $_GET['status'] == STATUS_MENUNGGU_VALIDASI ? 'selected' : '' ?>>Menunggu Validasi</option>
+                        <option value=<?= STATUS_SELESAI ?> <?= isset($_GET['status']) && $_GET['status'] == STATUS_SELESAI ? 'selected' : '' ?>>Selesai</option>
+                        <option value=<?= STATUS_DITOLAK ?> <?= isset($_GET['status']) && $_GET['status'] == STATUS_DITOLAK ? 'selected' : '' ?>>Ditolak</option>
+                    </select>
+                </form>
+            </div>
+            <div class="d-flex gap-2">
+                <form action="<?= site_url('fakultas/yudisium-pendaftaran') ?>" method="get" class="d-flex gap-2">
+                    <select name="periode" id="periode" class="form-select" onchange="this.form.submit()">
+                        <option value="">Semua Periode</option>
+                        <?php foreach ($list_periode as $p) : ?>
+                            <option value="<?= $p->id ?>" <?= isset($_GET['periode']) && $_GET['periode'] == $p->id ? 'selected' : '' ?>><?= $p->periode ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div>
+            <?php if (isset($_GET['search']) && $_GET['search'] !== '') : ?>
+                <span>Hasil pencarian untuk: <strong><?= $_GET['search']?></strong></span>
+            <?php endif ?>
+            <?php if (isset($_GET['status']) && $_GET['status'] !== '') : ?>
+                <span>Hasil filter untuk: <strong><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $_GET['status']]) ?></strong></span>
+            <?php endif ?>
+            <?php if (isset($_GET['periode']) && $_GET['periode'] !== '') : ?>
+                <span>Hasil untuk periode: <strong><?= model('YudisiumPeriodeModel')->find($_GET['periode'])->periode ?></strong></span>
+            <?php endif ?>
+        </div>
         <div class="">
             <table class="table">
                 <thead>
