@@ -13,7 +13,7 @@ namespace App\Cells;
 class StatusSuratKeterangan
 {
     protected $badgeTemplate = '<span class="badge p-1 bg-%s text-light">%s</span>';
-    protected $linkTemplate = '<a href="%s" class="mx-1" target="%s">Ajukan</a>';
+    protected $linkTemplate = '<a href="%s" class="mx-1" target="%s">%s</a>';
 
     public function renderBadge($status)
     {
@@ -36,15 +36,12 @@ class StatusSuratKeterangan
     {
         // only if status is not 'Selesai' or 'Menunggu Validasi'
         if ($status == STATUS_SELESAI) {
-            return sprintf('<a href="%s" class="mx-1" target="%s">Lihat Surat Keterangan</a>', 
-                $url,
-                $target
-            );
+            return sprintf($this->linkTemplate, $url, $target, 'Lihat Surat Keterangan');
         } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
             return '';
         }
         
-        return sprintf($this->linkTemplate, $url, $target);
+        return sprintf($this->linkTemplate, $url, $target, 'Ajukan');
     }
 
     public function renderBadgeAndLink($status, $url, $target = '_blank')

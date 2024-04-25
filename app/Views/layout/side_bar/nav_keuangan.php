@@ -2,12 +2,32 @@
     /**
      * @var \CodeIgniter\View\View $this
      */
+
+    $links = [
+        [
+            'route_name' => 'keuangan.validasi_surat_keterangan',
+            'segment_name' => 'validasi-surat-keterangan',
+            'link_name' => 'Validasi Berkas',
+            'icon' => 'fa fa-check'
+        ],
+        [
+            'route_name' => 'keuangan.bebas_ukt',
+            'segment_name' => 'bebas-ukt',
+            'link_name' => 'Kelola Data Bebas UKT',
+            'icon' => 'fa fa-database'
+        ],
+    ];
 ?>
 
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'validasi-surat-keterangan' ? ' active' : '' ?>"
-    href="<?= route_to('keuangan.validasi_surat_keterangan')
-    ?>">Validasi Surat Keterangan</a>
-
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'bebas-ukt' ? ' active' : '' ?>"
-    href="<?= site_url('keuangan/bebas-ukt')
-    ?>">Kelola Surat Keterangan Bebas UKT</a>
+<?php foreach ($links as $link) : ?>
+    <li class="nav-item">
+        <a href="<?= route_to($link['route_name']) ?>"
+        class="nav-link <?= current_url(true)->getSegment(2) === $link['segment_name'] ? ' aktif' : '' ?>"
+        style="color: black;">
+            <i class="nav-icon fas <?= $link['icon'] ?>"></i>
+            <p>
+                <?= $link['link_name'] ?>
+            </p>
+        </a>
+    </li>
+<?php endforeach; ?>

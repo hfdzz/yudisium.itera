@@ -1,0 +1,1 @@
+<span class="badge p-1 bg-<?= $type ?> text-light"><?= $status ?></span>

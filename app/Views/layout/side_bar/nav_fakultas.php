@@ -2,16 +2,39 @@
     /**
      * @var \CodeIgniter\View\View $this
      */
+
+    $links = [
+        [
+            'route_name' => 'fakultas.validasi_yudisium',
+            'segment_name' => 'validasi-yudisium',
+            'link_name' => 'Validasi Yudisium',
+            'icon' => 'fa fa-check'
+        ],
+        [
+            'route_name' => 'fakultas.yudisium_pendaftaran',
+            'segment_name' => 'yudisium-pendaftaran',
+            'link_name' => 'Kelola Data Yudisium',
+            'icon' => 'fa fa-database'
+        ],
+        [
+            'route_name' => 'fakultas.periode_yudisium',
+            'segment_name' => 'periode-yudisium',
+            'link_name' => 'Periode Yudisium',
+            'icon' => 'fa fa-calendar'
+        ],
+    ]
+
 ?>
 
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'validasi-yudisium' ? ' active' : '' ?>"
-    href="<?= route_to('fakultas.validasi_yudisium')
-    ?>">Validasi Yudisium</a>
-    
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'periode-yudisium' ? ' active' : '' ?>"
-    href="<?= route_to('fakultas.periode_yudisium')
-    ?>">Periode Yudisium</a>
-
-<a class="nav-item nav-link border border-primary<?= current_url(true)->getSegment(2) === 'yudisium-pendaftaran' ? ' active' : '' ?>"
-    href="<?= site_url('fakultas/yudisium-pendaftaran')
-    ?>">Pendaftaran Yudisium</a>
+<?php foreach ($links as $link) : ?>
+    <li class="nav-item">
+        <a href="<?= route_to($link['route_name']) ?>"
+        class="nav-link <?= current_url(true)->getSegment(2) === $link['segment_name'] ? ' aktif' : '' ?>"
+        style="color: black;">
+            <i class="nav-icon fas <?= $link['icon'] ?>"></i>
+            <p>
+                <?= $link['link_name'] ?>
+            </p>
+        </a>
+    </li>
+<?php endforeach; ?>

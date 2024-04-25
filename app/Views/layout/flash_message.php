@@ -1,34 +1,38 @@
+<!-- Error Alert -->
+<div class="position-fixed mx-auto my-2" style="bottom: 0; right: 0; left: 0; z-index: 1050; max-width: 90%; max-height: 60%;">
 
-<?php if(session()->getFlashdata() != null) : ?>
-    <?php if(session()->getFlashdata('success') != null) : ?>
-    <div>
-        <div class="container-fluid px-4 py-2">
-            <div class="bg-success text-white p-3 rounded">
-                <span><?= session()->getFlashdata('success') ?></span>
+    <?php if(session()->has('errors')): ?>
+        <div class="alert alert-danger alert-dismissible mt-1 mb-0" role="alert">
+            <div>
+                <strong>Error:</strong>
+                <ul class="my-0">
+                    <?php foreach(session()->get('errors') as $error): ?>
+                        <li><?= $error ?></li>
+                    <?php endforeach ?>
+                </ul>
             </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    </div>
     <?php endif ?>
 
-    <?php if(session()->getFlashdata('errors') != null) : ?>
-    <div>
-        <div class="container-fluid px-4 py-2">
-            <?php foreach(session()->getFlashdata('errors') as $error) : ?>
-            <div class="bg-danger text-white p-3 rounded my-2">
-                <span><?= $error ?></span>
+    <?php if(session()->has('error')): ?>
+        <div class="alert alert-danger alert-dismissible mt-1 mb-0" role="alert">
+            <div>
+                <strong>Error:</strong>
+                <div><?= session()->get('error') ?></div>
             </div>
-            <?php endforeach ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    </div>
     <?php endif ?>
 
-    <?php if(session()->getFlashdata('error') != null) : ?>
-    <div>
-        <div class="container-fluid px-4 py-2">
-            <div class="bg-danger text-white p-3 rounded my-2">
-                <span><?= session()->getFlashdata('error') ?></span>
+    <?php if(session()->has('success')): ?>
+        <div class="alert alert-success alert-dismissible mt-1 mb-0" role="alert">
+            <div>
+                <strong>Success:</strong>
+                <div><?= session()->get('success') ?></div>
             </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    </div>
     <?php endif ?>
-<?php endif ?>
+
+</div>
