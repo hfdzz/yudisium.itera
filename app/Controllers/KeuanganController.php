@@ -9,7 +9,14 @@ class KeuanganController extends BaseController
 {
     public function dashboard()
     {
-        return view('dashboard');
+        // data for dashboard number
+        $data = [
+            'belum_mengajukan' => 0,
+            'menunggu_validasi' => 0,
+            'selesai' => 0,
+        ];
+
+        return view('keuangan/dashboard', $data);
     }
 
     public function validasiSuratKeterangan()

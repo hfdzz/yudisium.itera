@@ -65,9 +65,24 @@ class YudisiumPendaftaran extends Entity
         return $this->attributes['status'];
     }
 
+    public function getJenis($humanize = false) : string
+    {
+        return 'Pendaftaran Yudisium';
+    }
+
     public function isSelesai()
     {
         return $this->attributes['status'] == STATUS_SELESAI;
+    }
+
+    public function isMenungguValidasi()
+    {
+        return $this->attributes['status'] == STATUS_MENUNGGU_VALIDASI;
+    }
+
+    public function isDitolak()
+    {
+        return $this->attributes['status'] == STATUS_DITOLAK;
     }
 
     public function updateStatus($status, $peninjau_id, $keterangan = null)

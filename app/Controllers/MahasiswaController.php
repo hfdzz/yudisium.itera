@@ -12,7 +12,39 @@ class MahasiswaController extends BaseController
     public function dashboard()
     {
         // Dashboard for mahasiswa
-        return view('dashboard');
+
+        $user = auth()->user();
+
+        $userData = [
+            $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan(),
+            $skBebasUkt = $user->suratKeteranganBebasUkt(),
+            $skBebasLabotatorium = $user->suratKeteranganBebasLaboratorium(),
+            $pendaftaranYudisium = $user->yudisiumPendaftaran(),
+        ];
+
+        // data for dashboard number
+
+        $data = [
+            'belum_mengajukan' => 0,
+            'menunggu_validasi' => 0,
+            'selesai' => 0,
+        ];
+
+        foreach ($userData as $ud) {
+            if ($ud) {
+                if ($ud->isMenungguValidasi()) {
+                    $data['menunggu_validasi']++;
+                } elseif ($ud->isSelesai()) {
+                    $data['selesai']++;
+                } elseif ($ud->isDitolak()) {
+                    $data['belum_mengajukan']++;
+                }
+            } else {
+                $data['belum_mengajukan']++;
+            }
+        }
+        
+        return view('mahasiswa/dashboard', $data);
     }
 
     public function daftarYudisium()
@@ -41,12 +73,12 @@ class MahasiswaController extends BaseController
 
             $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan();
             $skBebasUkt = $user->suratKeteranganBebasUkt();
-            $skBebasLab = $user->suratKeteranganBebasLaboratorium();
+            $skBebasLaboratorium = $user->suratKeteranganBebasLaboratorium();
             
             $data = [
                 'sk_bebas_perpustakaan' => $skBebasPerpustakaan,
                 'sk_bebas_ukt' => $skBebasUkt,
-                'sk_bebas_lab' => $skBebasLab,
+                'sk_bebas_laboratorium' => $skBebasLaboratorium,
                 'yudisium_pendaftaran' => $yudisiumPendaftaran,
                 'yudisium_periode' => $currentPeriode,
             ];
@@ -175,11 +207,14 @@ class MahasiswaController extends BaseController
         $pendaftaranYudisium = $user->yudisiumPendaftaran();
 
         $data = [
+            'user' => $user,
             'sk_bebas_perpustakaan' => $skBebasPerpustakaan,
             'sk_bebas_ukt' => $skBebasUkt,
             'sk_bebas_laboratorium' => $skBebasLabotatorium,
-            'pendaftaran_yudisium' => $pendaftaranYudisium,
+            'yudisium_pendaftaran' => $pendaftaranYudisium,
         ];
+
+        // dd($data);
 
         return view('mahasiswa/status_yudisium', $data);
     }

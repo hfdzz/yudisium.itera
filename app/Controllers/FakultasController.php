@@ -12,7 +12,13 @@ class FakultasController extends BaseController
     public function dashboard()
     {
         // Dashboard for fakultas
-        return view('dashboard');
+        $data = [
+            'belum_mengajukan' => 0,
+            'menunggu_validasi' => 0,
+            'selesai' => 0,
+        ];
+
+        return view('fakultas/dashboard', $data);
     }
 
     public function validasiYudisium()

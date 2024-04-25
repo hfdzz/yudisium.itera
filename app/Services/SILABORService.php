@@ -108,7 +108,7 @@ class SILABORService
         }
     }
 
-    public function getAllBebasLab()
+    public function getAllBebasLab() : array
     {
         if ($this->refreshCache) {
             $this->cache->delete($this->cacheKey);
@@ -130,12 +130,11 @@ class SILABORService
         foreach ($this->getAllBebasLab() as $data) {
             if ($data->nim == $nim_search) {
                 if ($status) {
-                    if ($data->status == $status) {
-                        $result[] = $data;
+                    if ($data->status !== $status) {
+                        continue;
                     }
-                } else {
-                    $result[] = $data;
                 }
+                $result[] = new SkBebasLaboratorium($data);
             }
         }
         return $result;
@@ -159,11 +158,54 @@ class SILABORService
         // 2. id_bebaslab: descending
         $bebasLab = $this->getBebasLabByNim($nim_search);
         usort($bebasLab, function ($a, $b) {
+            // sort by id_bebaslab if status is the same
             if ($a->status == $b->status) {
                 return $b->id_bebaslab - $a->id_bebaslab;
             }
+            // sort by status
             return $a->status == STATUS_SELESAI ? -1 : ($a->status == STATUS_DITOLAK ? 1 : 0);
         });
-        return $bebasLab ? $bebasLab[0] : null;
+        return !empty($bebasLab[0]) ? new SkBebasLaboratorium($bebasLab[0]) : null;
+    }
+}
+
+class SkBebasLaboratorium
+{
+    public $id_bebaslab;
+    public $nim;
+    public $nama_mhs;
+    public $nama_prodi;
+    public $nama_jurusan;
+    public $status;
+    public $keperluan;
+    public $keterangan;
+    public $surat;
+
+    public function __construct($data)
+    {
+        $this->id_bebaslab = $data->id_bebaslab;
+        $this->nim = $data->nim;
+        $this->nama_mhs = $data->nama_mhs;
+        $this->nama_prodi = $data->nama_prodi;
+        $this->nama_jurusan = $data->nama_jurusan;
+        $this->status = $data->status;
+        $this->keperluan = $data->keperluan;
+        $this->keterangan = $data->keterangan;
+        $this->surat = $data->surat;
+    }
+
+    public function getJenis($humanize = false)
+    {
+        return $humanize ? 'Surat Keterangan Bebas Laboratorium' : JENIS_SK_BEBAS_LABORATORIUM;
+    }
+
+    public function isSelesai()
+    {
+        return $this->status == STATUS_SELESAI;
+    }
+
+    public function isMenungguValidasi()
+    {
+        return $this->status == STATUS_MENUNGGU_VALIDASI;
     }
 }

@@ -46,6 +46,19 @@ class SuratKeterangan extends Entity
         return $this->attributes['status'];
     }
 
+    public function getJenis($humanize = false) : string
+    {
+        if ($humanize) {
+            switch ($this->attributes['jenis_surat']) {
+                case JENIS_SK_BEBAS_PERPUSTAKAAN:
+                    return 'Surat Keterangan Bebas Perpustakaan';
+                case JENIS_SK_BEBAS_UKT:
+                    return 'Surat Keterangan Bebas UKT';
+            }
+        }
+        return $this->attributes['jenis_surat'];
+    }
+
     public function isSelesai() : bool
     {
         return $this->attributes['status'] == STATUS_SELESAI;
@@ -61,14 +74,19 @@ class SuratKeterangan extends Entity
         return $this->isSelesai() || $this->isBeasiswa();
     }
 
-    public function isWaitingValidation() : bool
+    public function isMenungguValidasi() : bool
     {
         return $this->attributes['status'] == STATUS_MENUNGGU_VALIDASI;
     }
 
+    public function isDitolak() : bool
+    {
+        return $this->attributes['status'] == STATUS_DITOLAK;
+    }
+
     public function canAjukan() : bool
     {
-        return !$this->isSelesaiOrBeasiswa() && !$this->isWaitingValidation();
+        return !$this->isSelesaiOrBeasiswa() && !$this->isMenungguValidasi();
     }
 
     public function validasi($peninjau_id, $nomor_surat, $keterangan = null)

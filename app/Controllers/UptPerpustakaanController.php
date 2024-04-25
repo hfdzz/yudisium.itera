@@ -12,7 +12,12 @@ class UptPerpustakaanController extends BaseController
     public function dashboard()
     {
         // Dashboard for upt_perpustakaan
-        return view('dashboard');
+        $data = [
+            'belum_mengajukan' => 0,
+            'menunggu_validasi' => 0,
+            'selesai' => 0,
+        ];
+        return view('upt_perpustakaan/dashboard', $data);
     }
 
     public function validasiSuratKeterangan()

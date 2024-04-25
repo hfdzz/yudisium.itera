@@ -37,7 +37,7 @@ class UserEntity extends User
         return $model->getSkBebasUkt($this->attributes['id']);
     }
 
-    public function suratKeteranganBebasLaboratorium()
+    public function suratKeteranganBebasLaboratorium() : ?\App\Services\SkBebasLaboratorium
     {
         /** @var \App\Services\SILABORService $service */
         $service = service('silabor');
