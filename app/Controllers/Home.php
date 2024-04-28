@@ -18,7 +18,8 @@ class Home extends BaseController
         $user = auth()->user();
 
         if (! $user) {
-            return view('home');
+            // return view('home');
+            return redirect('login');
         }
 
         // if ($user->inGroup('admin') || $user->inGroup('superadmin')) {

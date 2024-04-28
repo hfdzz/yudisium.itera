@@ -37,9 +37,9 @@ class FakultasController extends BaseController
             $data = [
                 'pendaftaran' => $pendaftaran_model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
                     ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
-                    ->orderBy('yudisium_pendaftaran.created_at', 'desc')
+                    ->orderBy('yudisium_pendaftaran.tanggal_daftar', 'desc')
                     ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
-                    ->select('yudisium_pendaftaran.*, users.username, users.nim')
+                    ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi')
                     ->paginate($perPage),
                 'latest_periode' => $latest_periode,
                 'pager' => $pendaftaran_model->pager,
