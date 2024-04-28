@@ -25,11 +25,6 @@ class CreateYudisiumPeriodeTable extends Migration
             'tanggal_akhir' => [
                 'type'              => 'DATE',
             ],
-            'is_active' => [
-                'type'              => 'TINYINT',
-                'constraint'        => 1,
-                'default'           => 0,
-            ],
             
             'created_at' => [
                 'type'              => 'DATETIME',

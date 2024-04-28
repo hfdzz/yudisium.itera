@@ -15,6 +15,9 @@ class CreateYudisiumPendaftaranTable extends Migration
                 'unsigned'          => true,
                 'auto_increment'    => true
             ],
+            'tanggal_daftar' => [
+                'type'              => 'DATE',
+            ],
             'tanggal_penerimaan' => [
                 'type'              => 'DATE',
                 'null'              => true,
