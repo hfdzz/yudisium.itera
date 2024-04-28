@@ -29,6 +29,9 @@ class CreateSuratKeteranganTable extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'tanggal_pengajuan' => [
+                'type' => 'DATE',
+            ],
             'tanggal_terbit' => [
                 'type' => 'DATE',
                 'null' => true,

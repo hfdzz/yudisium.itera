@@ -14,6 +14,7 @@ class YudisiumPendaftaranModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'tanggal_daftar',
         'tanggal_penerimaan',
         'status',
         'keterangan',

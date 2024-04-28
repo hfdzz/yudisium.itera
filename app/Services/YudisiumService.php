@@ -32,16 +32,9 @@ class YudisiumService
             throw new \Exception('Tidak bisa mendaftar yudisium pada periode ini. Periode sudah ditutup atau sudah mendaftar sebelumnya.');
         }
 
-        // $yudisiumPendaftaranModel->save([
-        //     'id' => $user->yudisiumPendaftaran()?->id,
-        //     'mahasiswa_id' => $user->id,
-        //     'yudisium_periode_id' => $currentPeriode->id,
-        //     'status' => STATUS_MENUNGGU_VALIDASI,
-        // ]);
-
         $yudisiumPendaftaran = new YudisiumPendaftaran([
             'id' => $user->yudisiumPendaftaran()?->id,
-            'tanggal_penerimaan' => date('Y-m-d H:i:s'),
+            'tanggal_daftar' => date('Y-m-d'),
             'mahasiswa_id' => $user->id,
             'yudisium_periode_id' => $currentPeriode->id,
             'status' => STATUS_MENUNGGU_VALIDASI,

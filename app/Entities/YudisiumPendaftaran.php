@@ -98,7 +98,14 @@ class YudisiumPendaftaran extends Entity
 
     public function terima($peninjau_id, $keterangan = null)
     {
-        return $this->updateStatus(STATUS_SELESAI, $peninjau_id, $keterangan);
+        $this->attributes['tanggal_penerimaan'] = date('Y-m-d H:i:s');
+        $this->attributes['status'] = STATUS_SELESAI;
+        $this->attributes['peninjau_id'] = $peninjau_id;
+        $this->attributes['keterangan'] = $keterangan;
+        
+        $model = model('YudisiumPendaftaranModel');
+        $model->save($this);
+        return $this;
     }
 
     public function tolak($peninjau_id, $keterangan = null)

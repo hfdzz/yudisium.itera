@@ -87,7 +87,9 @@ class MahasiswaController extends BaseController
         }
 
         // validate input
-        $rules = [];
+        $rules = [
+            
+        ];
 
         $yudisium_service = new \App\Services\YudisiumService();
 

@@ -91,9 +91,9 @@
         "responsive": false,
         "lengthChange": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        "order": [[4, 'asc']],
+        "order": [[0, 'asc']],
         "columnDefs": [
-        { "targets": [4], "orderable": false }
+        // { "targets": [4], "orderable": false }
         ]
     });
 

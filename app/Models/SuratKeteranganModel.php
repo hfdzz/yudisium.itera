@@ -39,6 +39,7 @@ class SuratKeteranganModel extends Model
         'jenis_surat' => 'required|string',
         'status' => 'required|string',
         'nomor_surat' => 'string|permit_empty',
+        'tanggal_pengajuan' => 'required|date',
         'tanggal_terbit' => 'date|permit_empty',
         'keterangan' => 'string|permit_empty',
         'berkas_ba_sidang' => 'string|permit_empty',
@@ -106,6 +107,7 @@ class SuratKeteranganModel extends Model
             'id' => $mahasiswa->suratKeteranganBebasPerpustakaan()->id ?? null,
             'jenis_surat' => JENIS_SK_BEBAS_PERPUSTAKAAN,
             'status' => STATUS_MENUNGGU_VALIDASI,
+            'tanggal_pengajuan' => date('Y-m-d'),
         ];
 
         $sk_bebas_perpustakaan = new \App\Entities\SuratKeterangan($data);
@@ -129,6 +131,7 @@ class SuratKeteranganModel extends Model
             'id' => $mahasiswa->suratKeteranganBebasUkt()->id ?? null,
             'jenis_surat' => JENIS_SK_BEBAS_UKT,
             'status' => STATUS_MENUNGGU_VALIDASI,
+            'tanggal_pengajuan' => date('Y-m-d'),
         ];
 
         $sk_bebas_ukt = new \App\Entities\SuratKeterangan($data);
