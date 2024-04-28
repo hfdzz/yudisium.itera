@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Print Letter</title>
+<!-- Tautan ke Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<main>
+        <header>
+            <img src="../../assets/img/kop-sp.png" style="width: 100%;" alt="">
+        </header>
+        <section>
+            <div class="row">
+                <div class="text-center fw-bold text-decoration-underline mt-3 fs-6">SURAT KETERANGAN BEBAS PERPUSTAKAAN</div>
+                <div class="text-center fs-6 text-decoration-underline">Nomor: 736/IT9.4.1/TA/01.06.1./2024</div>
+            </div>
+            <div class="coba p-5">
+                <p class="">Kepala UPA Perpustakaan Institut Teknologi Sumatera menyatakan bahwa :</p>
+                <table>
+                    <tr>
+                        <td class="">Nama</td>
+                        <td class="ps-5">: Gery</td>
+                    </tr>
+                    <tr>
+                        <td class="">NIM</td>
+                        <td class="ps-5">: 123456789</td>
+                    </tr>
+                    <tr>
+                        <td class="">Program Studi</td>
+                        <td class="ps-5">: Sekretaris HMIF</td>
+                    </tr>
+                </table>
+                <div class="mt-4">
+                    <p>tidak memiliki pinjaman koleksi dan tangguangan lainnya di UPA Perpustakaan Institut Teknologi Sumatera.
+                    Demikian surat ini dibuat untuk digunakan sebagai syarat Yudisium/Wisuda</p>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                    </div>
+                    <div class="col-5">
+                        <div class="mt-3">
+                            <p>Lampung Selatan, 31 Oktober 2022</p>
+                            <p>Kepala UPA Perpustakaan ITERA</p>
+                            <img src="assets/img/qr.jpeg" width="100" alt="">
+                            <p class="fw-bold mb-0 text-decoration-underline">M.Alvien Ghifari, S.Si.,M.Sc.</p>
+                            <p class="mb-0">NIP. 199511082022031010</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row d-flex justify-content-end">
+                    
+                </div> -->
+            </div>
+        </section>
+
+    <button class="btn btn-primary" onclick="printLetter()">Print Letter</button>
+</main>
+
+<!-- Tautan ke Bootstrap JavaScript (opsional, jika Anda ingin menggunakan komponen Bootstrap yang memerlukan JavaScript) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function printLetter() {
+    window.print();
+}
+</script>
+
+</body>
+</html>

@@ -21,17 +21,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
-                <a href="<?= route_to('mahasiswa.dashboard') ?>"
-                class="nav-link <?= current_url(true)->getSegment(2) === '' ? 'aktif' : '' ?> "
-                style="color: black;">
-                    <i class="nav-icon fas fa-home"></i>
-                    <p>
-                    Dashboard
-                    </p>
-                </a>
-            </li>
-
             <?php if (auth()->user()->inGroup('user_mahasiswa')) : ?>
                 <?= $this->include('layout/side_bar/nav_mahasiswa') ?>
             <?php endif ?>

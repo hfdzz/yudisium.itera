@@ -3,6 +3,7 @@
      * @var \CodeIgniter\View\View $this
      */
 ?>
+
 <?= $this->extend('layout/guest') ?>
 
 <?= $this->section('content') ?>

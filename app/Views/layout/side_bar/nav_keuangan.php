@@ -5,6 +5,12 @@
 
     $links = [
         [
+            'route_name' => 'keuangan.dashboard',
+            'segment_name' => '',
+            'link_name' => 'Dashboard',
+            'icon' => 'fa fa-home'
+        ],
+        [
             'route_name' => 'keuangan.validasi_surat_keterangan',
             'segment_name' => 'validasi-surat-keterangan',
             'link_name' => 'Validasi Berkas',

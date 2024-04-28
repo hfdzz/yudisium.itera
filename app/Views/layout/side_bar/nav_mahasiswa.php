@@ -15,6 +15,12 @@
 
     $links = [
         [
+            'route_name' => 'mahasiswa.dashboard',
+            'segment_name' => '',
+            'link_name' => 'Dashboard',
+            'icon' => 'fa fa-home'
+        ],
+        [
             'route_name' => 'mahasiswa.daftar_yudisium',
             'segment_name' => 'daftar-yudisium',
             'link_name' => 'Pendaftaran Yudisium',

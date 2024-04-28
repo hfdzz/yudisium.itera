@@ -5,6 +5,12 @@
 
     $links = [
         [
+            'route_name' => 'fakultas.dashboard',
+            'segment_name' => '',
+            'link_name' => 'Dashboard',
+            'icon' => 'fa fa-home'
+        ],
+        [
             'route_name' => 'fakultas.validasi_yudisium',
             'segment_name' => 'validasi-yudisium',
             'link_name' => 'Validasi Yudisium',

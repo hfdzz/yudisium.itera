@@ -4,58 +4,150 @@
      */
 ?>
 
-<?= $this->extend('layout/default') ?>
+<?= $this->extend('layout/default'); ?>
 
-<?= $this->section('content') ?>
+<?= $this->section('head'); ?>
 
-<div class="p-4">
-    <div class="rounded p-3" style="background-color: #f3f3f3;">
-        <div>
-            <h1>Validasi Surat Keterangan</h1>
-        </div>
-        <div class="">
-            <div>
-                <table class="table table-bordered table-striped table-hover text-center"  style="font-size: 0.9em;">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">NIM</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Program Studi</th>
-                            <th scope="col">Tanggal Diajukan</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; foreach ($surat_keterangan as $p): ?>
-                            <tr>
-                                <th scope="row"><?= $i++ ?></th>
-                                <td><?= $p->mahasiswa_nim ?></td>
-                                <td><?= $p->mahasiswa_username ?></td>
-                                <td><?= $p->mahasiswa_program_studi ?></td>
-                                <td><?= $p->created_at->toLocalizedString('d MMM yyyy') ?></td>
-                                <!-- make the action column shrink to fit the content -->
-                                <td>
-                                    <form action="<?= route_to('upt-perpustakaan.validasi-surat-keterangan', $p->id)?>" method="post">
-                                        <input type="hidden" name="id" value="<?= $p->id ?>">
-                                        <div class="d-flex justify-content-center">
-                                            <button type="submit" name="action" value="<?= 'validasi' ?>" class="btn btn-primary mx-1">Terima</button>
-                                            <button type="submit" name="action" value="<?= 'tolak' ?>" class="btn btn-danger mx-1">Tolak</button>
-                                            <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" style="width: 200px;">
-                                            <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat" style="width: 200px;">
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center">
-                <?= $pager?->links() ?>
-            </div>
-        </div>
+<title>SIYUDIS | Dashboard</title>
+
+<?= $this->endSection(); ?>
+
+<?= $this->section('content'); ?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper pt-5 mt-3">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Validasi Berkas</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a class="warna-ketiga" href="#">Dashboard</a></li>
+              <li class="breadcrumb-item active">Validasi Berkas</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-</div>
+    <!-- /.content-header -->
 
-<?= $this->endSection() ?>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-body">
+              <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th style="background-color: #EEC01D;">No</th>
+                    <th style="background-color: #EEC01D;">Tanggal</th>
+                    <th style="background-color: #EEC01D;">Nama</th>
+                    <th style="background-color: #EEC01D;">NIM</th>
+                    <th style="background-color: #EEC01D;">Prodi</th>
+                    <th style="background-color: #EEC01D;">Status Peminjaman</th>
+                    <th style="background-color: #EEC01D;">Status</th>
+                    <th style="background-color: #EEC01D;">Surat Bebas Pustaka</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>2020-01-01</td>
+                    <td>Gery</td>
+                    <td>123456</td>
+                    <td>Sistem Informasi</td>
+                    <td><b>Tidak Ada</b></td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
+                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
+                    </td>
+                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>2020-01-01</td>
+                    <td>Gery</td>
+                    <td>123456</td>
+                    <td>Sistem Informasi</td>
+                    <td><b>Tidak Ada</b></td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
+                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
+                    </td>
+                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>2020-01-01</td>
+                    <td>Gery</td>
+                    <td>123456</td>
+                    <td>Sistem Informasi</td>
+                    <td><b>Tidak Ada</b></td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
+                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
+                    </td>
+                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>2020-01-01</td>
+                    <td>Gery</td>
+                    <td>123456</td>
+                    <td>Sistem Informasi</td>
+                    <td><b>Tidak Ada</b></td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
+                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
+                    </td>
+                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>2020-01-01</td>
+                    <td>Gery</td>
+                    <td>123456</td>
+                    <td>Sistem Informasi</td>
+                    <td><b>Tidak Ada</b></td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
+                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
+                    </td>
+                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th style="background-color: #EEC01D;">No</th>
+                    <th style="background-color: #EEC01D;">Tanggal</th>
+                    <th style="background-color: #EEC01D;">Nama</th>
+                    <th style="background-color: #EEC01D;">NIM</th>
+                    <th style="background-color: #EEC01D;">Prodi</th>
+                    <th style="background-color: #EEC01D;">Status Peminjaman</th>
+                    <th style="background-color: #EEC01D;">Status</th>
+                    <th style="background-color: #EEC01D;">Surat Bebas Pustaka</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+
+    </div>
+  <!-- /.content-wrapper -->
+
+<?= $this->endSection(); ?>
