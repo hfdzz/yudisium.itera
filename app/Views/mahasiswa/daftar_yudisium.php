@@ -50,6 +50,12 @@
                 <div>
                   <a href="<?= route_to('mahasiswa.cetak_yudisium') ?>" class="mx-1" target="_blank">Lihat Tanda Terima Yudisium</a>
                 </div>
+                <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
+                <div class="alert alert-info">
+                  <p class="m-0"><strong>Keterangan:</strong></p>
+                  <?= $yudisium_pendaftaran->keterangan ?>
+                </div>
+                <?php endif; ?>
 
               <?php elseif ($yudisium_pendaftaran?->isMenungguValidasi()): ?>
 
@@ -64,6 +70,13 @@
                   <div class="d-flex justify-content-center align-items-center py-2 mb-3" style="background-color: #EEC01D; border-radius: 20px;">
                     <b>Form Pendaftaran Yudisium</b>
                   </div>
+
+                  <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
+                  <div class="alert <?= $yudisium_pendaftaran->isDitolak() ? 'alert-danger' : 'alert-warning' ?>">
+                    <p class="m-0"><strong>Keterangan:</strong></p>
+                    <?= $yudisium_pendaftaran->keterangan ?>
+                  </div>
+                  <?php endif; ?>
                   
                   <div class="row">
                     <div class="col-4">
