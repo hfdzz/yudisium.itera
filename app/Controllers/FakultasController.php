@@ -13,10 +13,28 @@ class FakultasController extends BaseController
     {
         // Dashboard for fakultas
         $data = [
-            'belum_mengajukan' => 0,
-            'menunggu_validasi' => 0,
+            'belum_divalidasi' => 0,
+            // 'menunggu_validasi' => 0,
             'selesai' => 0,
         ];
+
+        /**
+         * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
+         */
+        $model = model('yudisiumPendaftaranModel');
+
+        $latest_periode = model('YudisiumPeriodeModel')->getLatestPeriode();
+
+        $data['belum_divalidasi'] = $model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
+            ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
+            ->countAllResults();
+
+        $data['selesai'] = $model->groupStart()
+            ->where('yudisium_pendaftaran.status', STATUS_SELESAI)
+            ->orWhere('yudisium_pendaftaran.status', STATUS_DITOLAK)
+            ->groupEnd()
+            ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
+            ->countAllResults();
 
         return view('fakultas/dashboard', $data);
     }
@@ -40,7 +58,8 @@ class FakultasController extends BaseController
                     ->orderBy('yudisium_pendaftaran.tanggal_daftar', 'desc')
                     ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
                     ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi')
-                    ->paginate($perPage),
+                    // ->paginate($perPage),
+                    ->findAll(),
                 'latest_periode' => $latest_periode,
                 'pager' => $pendaftaran_model->pager,
             ];

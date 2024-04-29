@@ -50,14 +50,15 @@
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Nama</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">NIM</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Prodi</th>
+                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Transkrip</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">FC Ijazah SMA</th>
+                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Pas Foto 3x4</th>
+                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Sertifikat TOEFL</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">FC Akta Kelahiran</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas UKT</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Lab</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Pustaka</th>
-                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Sertifikat TOEFL</th>
-                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Pas Foto 3x4</th>
-                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Detail Berkas</th>
+                      <!-- <th class="small align-items-center m-0" style="background-color: #EEC01D;">Detail Berkas</th> -->
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Status</th>
                     </tr>
                   </thead>
@@ -70,14 +71,15 @@
                       <td><?= $p->username; ?></td>
                       <td><?= $p->nim; ?></td>
                       <td><?= $p->program_studi; ?></td>
-                      <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                      <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                      <td><input type="checkbox" disabled></td>
-                      <td><input type="checkbox" disabled></td>
-                      <td><input type="checkbox" disabled></td>
-                      <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                      <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                      <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td>
+                      <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_transkrip') ?>" target="_blank">Lihat</a></td>
+                      <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_ijazah') ?>" target="_blank">Lihat</a></td>
+                      <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_pas_foto') ?>" target="_blank">Lihat</a></td>
+                      <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_sertifikat_bahasa_inggris') ?>" target="_blank">Lihat</a></td>
+                      <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_akta_kelahiran') ?>" target="_blank">Lihat</a></td>
+                      <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN)?->id]) ?></td>
+                      <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->id]) ?></td>
+                      <td><?= view_cell('LinkTextCell::bebasLabLink', ['sk_bebaslab' => $p->getSuratKeterangan(JENIS_SK_BEBAS_LABORATORIUM)]) ?></td>
+                      <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td> -->
                       <td>
                         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima" data-id="<?= $p->id; ?>">Terima</button>
                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" data-id="<?= $p->id; ?>">Tolak</button>

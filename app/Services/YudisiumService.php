@@ -67,7 +67,7 @@ class YudisiumService
     public function tolakPendaftaranYudisium(UserEntity $peninjau, YudisiumPendaftaran $yudisiumPendaftaran, array $data)
     {
         if ($yudisiumPendaftaran->status != STATUS_MENUNGGU_VALIDASI) {
-            throw new \Exception('Pendaftaran yudisium sudah divalidasi.');
+            throw new \Exception('Pendaftaran yudisium sudah ditolak.');
         }
 
         $yudisiumPendaftaran->tolak($peninjau->id, $data['keterangan']);

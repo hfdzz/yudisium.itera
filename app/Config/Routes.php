@@ -20,7 +20,7 @@ $routes->group('upt_perpustakaan', ['filter' => 'group:user_upt_perpustakaan'], 
     $routes->get('validasi-surat-keterangan', [App\Controllers\UptPerpustakaanController::class, 'validasiSuratKeterangan'], ['as' => 'upt_perpustakaan.validasi_surat_keterangan']);
     $routes->post('validasi-surat-keterangan', [App\Controllers\UptPerpustakaanController::class, 'validasiSuratKeterangan']);
 
-    $routes->presenter('bebas-perpustakaan', ['controller' => 'SkBebasPerpustakaanController', 'websafe' => 1, 'as' => 'upt_perpustakaan.bebas_perpustakaan']);
+    $routes->presenter('bebas-perpustakaan', ['controller' => 'SkBebasPerpustakaanController', 'websafe' => 1]);
 });
 
 $routes->group('keuangan', ['filter' => 'group:user_keuangan'], function ($routes) {
@@ -31,7 +31,7 @@ $routes->group('keuangan', ['filter' => 'group:user_keuangan'], function ($route
 
     // $routes->get('berkas-bebas-ukt/(:num)/(:segment)', [App\Controllers\KeuanganController::class, 'berkasBebasUkt']);
 
-    $routes->presenter('bebas-ukt', ['controller' => 'SkBebasUktController', 'websafe' => 1, 'as' => 'keuangan.bebas_ukt']);
+    $routes->presenter('bebas-ukt', ['controller' => 'SkBebasUktController', 'websafe' => 1]);
 });
 
 $routes->group('fakultas', ['filter' => 'group:user_fakultas'], function (RouteCollection $routes) {
@@ -45,7 +45,7 @@ $routes->group('fakultas', ['filter' => 'group:user_fakultas'], function (RouteC
 
     $routes->get('periode-yudisium/new', [App\Controllers\FakultasController::class, 'newPeriodeYudisium'], ['as' => 'fakultas.new_periode_yudisium']);
 
-    $routes->presenter('yudisium-pendaftaran', ['controller' => 'YudisiumPendaftaranController', 'websafe' => 1, 'as' => 'fakultas.yudisium_pendaftaran']);
+    $routes->presenter('yudisium-pendaftaran', ['controller' => 'YudisiumPendaftaranController', 'websafe' => 1]);
 });
 
 $routes->group('mahasiswa', ['filter' => 'group:user_mahasiswa'], function ($routes) {

@@ -54,7 +54,7 @@ class YudisiumPendaftaranController extends BaseController
         $perPage = $this->request->getGet('per_page') ?? 10;
 
         return view('fakultas/yudisium_pendaftaran/index', [
-            'yudisium_pendaftaran' => $model->paginate($perPage ?? 10),
+            'yudisium_pendaftaran' => $model->findAll(),
             'list_peninjau' => $this->getListPeninjau(),
             'list_periode' => $this->getListPeriode(),
             'pager' => $model->pager,
