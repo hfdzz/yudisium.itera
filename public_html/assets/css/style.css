@@ -201,7 +201,12 @@ form .btn input[type="submit"] {
 }
 
 .aktif {
-  background-color: #FFC107 !important;
+  background-color: #FFC107;
+}
+
+.card-info {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .bg-warna {
@@ -227,7 +232,13 @@ form .btn input[type="submit"] {
   color: white;
 }
 .tombol-kedua {
-  background-color: #ECD586;
+  padding-left: 140px;
+  padding-right: 140px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 20px;
+  background-color: #EEC01D;
+  color: white;
 }
 .warna-bglogin{
   background-color :#4E4420;
