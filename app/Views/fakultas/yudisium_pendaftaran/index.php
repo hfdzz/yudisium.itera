@@ -211,8 +211,6 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modalHapus').find('form').attr('action', '')">Batal</button>
             <button type="submit" class="btn btn-danger">Hapus</button>
           </form>
-          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger">Hapus</button> -->
         </div>
 
       </div>
