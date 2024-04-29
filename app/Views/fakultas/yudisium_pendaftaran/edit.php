@@ -54,6 +54,21 @@
                           <option value="<?= STATUS_DITOLAK ?>" <?= $yudisium_pendaftaran?->status == STATUS_DITOLAK ? 'selected' : '' ?>>Ditolak</option>
                       </select>
                   </div>
+
+                  <div class="mb-3">
+                    <label for="yudisium_periode_id" class="form-label">Periode Yudisium</label>
+                    <select class="form-control" name="yudisium_periode_id" id="yudisium_periode_id">
+                        <option value="">Pilih Periode</option>
+                        <?php foreach ($list_periode as $periode) : ?>
+                            <option value="<?= $periode->id ?>" <?= $yudisium_pendaftaran?->yudisium_periode_id == $periode->id ? 'selected' : '' ?>><?= $periode->periode ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group mb-3">
+                      <label for="tanggal_daftar" class="form-label">Tanggal Daftar</label>
+                      <input type="date" class="form-control" name="tanggal_daftar" id="tanggal_daftar" value="<?= $yudisium_pendaftaran?->tanggal_daftar ?>">
+                  </div>
       
                   <div class="form-group mb-3">
                       <label for="tanggal_penerimaan" class="form-label">Tanggal Penerimaan</label>

@@ -42,6 +42,7 @@ class YudisiumPendaftaranModel extends Model
         'status' => 'required',
         'mahasiswa_id' => 'required',
         'yudisium_periode_id' => 'required',
+        'tanggal_daftar' => 'required',
         'tanggal_penerimaan' => 'permit_empty',
         'keterangan' => 'permit_empty',
         'file_tanda_terima' => 'permit_empty',

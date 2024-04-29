@@ -48,7 +48,7 @@
                   <span>Pendaftaran Yudisium telah selesai.</span>
                 </div>
                 <div>
-                  <a href="<?= route_to('mahasiswa.cetak_yudisium') ?>" class="mx-1" target="_blank">Lihat Tanda Terima Yudisium</a>
+                  <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran?->id) ?>" class="mx-1" target="_blank">Lihat Tanda Terima Yudisium</a>
                 </div>
                 <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
                 <div class="alert alert-info">

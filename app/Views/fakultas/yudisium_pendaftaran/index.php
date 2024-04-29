@@ -152,7 +152,7 @@
                     </tfoot>
                   </table>
                 </div>
-                <a href="<?= site_url('fakultas/yudisium-pendaftaran/create') ?>" class="btn btn-primary">Tambah Data</a>
+                <a href="<?= site_url('fakultas/yudisium-pendaftaran/new') ?>" class="btn btn-primary">Tambah Data</a>
               </div>
               <!-- /.card-body -->
             </div>

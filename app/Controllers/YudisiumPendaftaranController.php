@@ -74,6 +74,7 @@ class YudisiumPendaftaranController extends BaseController
     {
         return view('fakultas/yudisium_pendaftaran/new', [
             'list_peninjau' => $this->getListPeninjau(),
+            'list_periode' => $this->getListPeriode(),
         ]);
     }
 
@@ -128,11 +129,23 @@ class YudisiumPendaftaranController extends BaseController
             return redirect()->back()->withInput()->with('errors', ['Mahasiswa sudah memiliki yudisium pendaftaran']);
         }
 
-        $newYudisiumPendaftaran = new YudisiumPendaftaran($data);
+        $newYudisiumPendaftaran = new YudisiumPendaftaran([
+            'mahasiswa_id' => $mahasiswa->id,
+            'status' => $data['status'],
+            'yudisium_periode_id' => $data['yudisium_periode_id'],
+            'tanggal_daftar' => $data['tanggal_daftar'],
+            'tanggal_penerimaan' => $data['tanggal_penerimaan'],
+            'keterangan' => $data['keterangan'],
+            'peninjau_id' => $data['peninjau'],
+        ]);
 
         $newYudisiumPendaftaran->saveUploadedFiles($files_data);
 
         $YudisiumPendaftaranModel->save($newYudisiumPendaftaran);
+        
+        if ($YudisiumPendaftaranModel->errors()) {
+            return redirect()->back()->withInput()->with('errors', $YudisiumPendaftaranModel->errors());
+        }
 
         return redirect()->with('success', 'Data berhasil ditambahkan')->to('/fakultas/yudisium-pendaftaran');
     }
@@ -144,6 +157,7 @@ class YudisiumPendaftaranController extends BaseController
         return view('fakultas/yudisium_pendaftaran/edit', [
             'yudisium_pendaftaran' => $model->find($id),
             'list_peninjau' => $this->getListPeninjau(),
+            'list_periode' => $this->getListPeriode(),
         ]);
     }
 
