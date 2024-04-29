@@ -203,6 +203,10 @@
 
         <div class="modal-body">
           <p>Apakah Anda yakin ingin menerima pengajuan ini?</p>
+          <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan..."></textarea>
+          </div>
         </div>
 
         <div class="modal-footer">

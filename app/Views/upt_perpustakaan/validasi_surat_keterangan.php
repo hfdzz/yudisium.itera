@@ -126,8 +126,14 @@
         </div>
 
         <div class="modal-body">
-          <p>Apakah Anda yakin ingin menerima pengajuan ini?</p>
-          <input type="text" class="form-control" name="nomor_surat" placeholder="Nomor Surat" required>
+          <div class="form-group">
+            <label for="nomor_surat">Nomor Surat</label>
+            <input type="text" class="form-control" name="nomor_surat" placeholder="Nomor Surat" required>
+          </div>
+          <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan..."></textarea>
+          </div>
         </div>
 
         <div class="modal-footer">

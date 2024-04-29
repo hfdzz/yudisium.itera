@@ -41,7 +41,7 @@
           <div class="col-lg-4 col-6">
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?= $belum_mengajukan; ?></h3>
 
                 <p>Belum Divalidasi</p>
               </div>
@@ -54,7 +54,7 @@
           <div class="col-lg-4 col-6">
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53</h3>
+                <h3><?= $selesai; ?></h3>
 
                 <p>Sudah Divalidasi</p>
               </div>

@@ -75,14 +75,14 @@
                         <td><?= $sk->mahasiswa_program_studi; ?></td>
                         <td class="text-center"><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk->status]) ?></td>
                         <td>
-                          <?php if ($sk->isSelesaiOrBeasiswa()) : ?>
+                          <?php if ($sk->isSelesai()) : ?>
                             <a href="<?= route_to('file_surat_keterangan', $sk->id) ?>" class="btn btn-sm btn-warning" target="_blank" >Lihat</a>
                           <?php endif; ?>
                         </td>
                         <td class="text-center">
                           <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $sk->id) ?>" class="btn btn-warning btn-sm">Edit</a>
                           <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus" data-action="<?= site_url('upt_perpustakaan/bebas-perpustakaan/delete/' . $sk->id) ?>">Hapus</button>
-                          <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/show/' . $sk->id) ?>" class="btn btn-success btn-sm">Detail</a>
+                          <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/' . $sk->id) ?>" class="btn btn-success btn-sm">Detail</a>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -122,6 +122,7 @@
                   </tfoot>
                 </table>
               </div>
+              <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/new') ?>" class="btn btn-primary">Tambah Data</a>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

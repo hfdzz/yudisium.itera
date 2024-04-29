@@ -21,12 +21,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Kelola Data Yudisium</h1>
+            <h1 class="m-0">Tambah Data Yudisium</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a class="warna-ketiga" href="#">Dashboard</a></li>
-              <li class="breadcrumb-item active">Kelola Data Yudisium</li>
+              <li class="breadcrumb-item active">Tambah Data Yudisium</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -152,6 +152,7 @@
                     </tfoot>
                   </table>
                 </div>
+                <a href="<?= site_url('fakultas/yudisium-pendaftaran/create') ?>" class="btn btn-primary">Tambah Data</a>
               </div>
               <!-- /.card-body -->
             </div>

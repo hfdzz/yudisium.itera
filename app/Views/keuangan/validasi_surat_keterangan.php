@@ -53,13 +53,34 @@
                     <th style="background-color: #EEC01D;">BA Sidang</th>
                     <th style="background-color: #EEC01D;">KHS (TTD Doswal)</th>
                     <th style="background-color: #EEC01D;">SS AVITA</th>
-                    <th style="background-color: #EEC01D;">Detail Berkas</th>
+                    <!-- <th style="background-color: #EEC01D;">Detail Berkas</th> -->
                     <th style="background-color: #EEC01D;">Status</th>
-                    <th style="background-color: #EEC01D;">Surat Bebas UKT</th>
+                    <!-- <th style="background-color: #EEC01D;">Surat Bebas UKT</th> -->
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+
+                  <?php foreach ($surat_keterangan as $sk) : ?>
+                    <tr>
+                      <td></td>
+                        <td><?= $sk->tanggal_pengajuan; ?></td>
+                        <td><?= $sk->mahasiswa_username; ?></td>
+                        <td><?= $sk->mahasiswa_nim; ?></td>
+                        <td><?= $sk->mahasiswa_program_studi; ?></td>
+                        <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td> -->
+                        <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_ba_sidang') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
+                        <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_khs') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
+                        <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_bukti_bayar_ukt') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
+                        <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td> -->
+                        <td>
+                          <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima" data-id="<?= $sk->id; ?>">Terima</button>
+                          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" data-id="<?= $sk->id; ?>">Tolak</button>
+                        </td>
+                        <!-- <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td> -->
+                    </tr>
+                  <?php endforeach; ?>
+
+                  <!-- <tr>
                     <td>1</td>
                     <td>2020-01-01</td>
                     <td>Gery</td>
@@ -74,71 +95,8 @@
                       <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
                     </td>
                     <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
-                    </td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
-                    </td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
-                    </td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
-                    </td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
-                  </tr>
+                  </tr> -->
+
                   </tbody>
                   <tfoot>
                   <tr>
@@ -150,9 +108,9 @@
                     <th style="background-color: #EEC01D;">BA Sidang</th>
                     <th style="background-color: #EEC01D;">KHS (TTD Doswal)</th>
                     <th style="background-color: #EEC01D;">SS AVITA</th>
-                    <th style="background-color: #EEC01D;">Detail Berkas</th>
+                    <!-- <th style="background-color: #EEC01D;">Detail Berkas</th> -->
                     <th style="background-color: #EEC01D;">Status</th>
-                    <th style="background-color: #EEC01D;">Tanda Terima</th>
+                    <!-- <th style="background-color: #EEC01D;">Tanda Terima</th> -->
                   </tr>
                   </tfoot>
                 </table>
@@ -239,8 +197,10 @@
   <!-- Modal Terima -->
   <div class="modal fade" id="modalTerima">
     <div class="modal-dialog">
-      <form action="" class="modal-content">
-
+      <form class="modal-content" method="post" action="<?= route_to('keuangan.validasi-surat-keterangan'); ?>">
+        <?= csrf_field(); ?>
+        <input type="hidden" name="id" id="id">
+                  
         <!-- Header modal -->
         <div class="modal-header">
           <h4 class="modal-title">Terima Pengajuan</h4>
@@ -249,13 +209,20 @@
 
         <!-- Isi modal -->
         <div class="modal-body">
-          <p>Apakah Anda yakin ingin menerima pengajuan ini?</p>
+          <div class="form-group">
+            <label for="nomor_surat">Nomor Surat</label>
+            <input type="text" class="form-control" name="nomor_surat" placeholder="Nomor Surat" required>
+          </div>
+          <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan..."></textarea>
+          </div>
         </div>
 
         <!-- Footer modal -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-success">Terima</button>
+          <button type="submit" class="btn btn-success" name="action" value="validasi">Terima</button>
         </div>
 
       </form>
@@ -265,7 +232,9 @@
   <!-- Modal Tolak -->
   <div class="modal fade" id="modalTolak">
     <div class="modal-dialog">
-      <form action="" class="modal-content">
+      <form method="post" action="<?= route_to('upt-perpustakaan.validasi-surat-keterangan'); ?>" class="modal-content">
+        <?= csrf_field(); ?>
+        <input type="hidden" name="id" id="id">
 
         <!-- Header modal -->
         <div class="modal-header">
@@ -275,18 +244,40 @@
 
         <!-- Isi modal -->
         <div class="modal-body">
-              <label for="keterangan">Alasan Penolakan</label>
-              <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+            <label for="keterangan">Alasan Penolakan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
         </div>
 
         <!-- Footer modal -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger">Tolak</button>
+          <button type="submit" class="btn btn-danger" name="action" value="tolak">Tolak</button>
         </div>
 
       </form>
     </div>
   </div>
+
+<?= $this->endSection(); ?>
+
+<?= $this->section('scripts'); ?>
+
+<script>
+  $('#modalTerima').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    console.log(id);
+    var modal = $(this);
+    modal.find('input[name="id"]').val(id);
+  });
+
+  $('#modalTolak').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    console.log(id);
+    var modal = $(this);
+    modal.find('input[name="id"]').val(id);
+  });
+</script>
 
 <?= $this->endSection(); ?>
