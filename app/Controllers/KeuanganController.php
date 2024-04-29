@@ -16,6 +16,21 @@ class KeuanganController extends BaseController
             'selesai' => 0,
         ];
 
+        /**
+         * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
+         */
+        $model = model('suratKeteranganModel');
+
+        $data['belum_mengajukan'] = $model->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
+            ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
+            ->countAllResults();
+
+        $data['selesai'] = $model->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
+            ->where('surat_keterangan.status', STATUS_SELESAI)
+            ->orWhere('surat_keterangan.jenis_surat', STATUS_SELESAI_BEASISWA)
+            ->orWhere('surat_keterangan.status', STATUS_DITOLAK)
+            ->countAllResults();
+
         return view('keuangan/dashboard', $data);
     }
 
@@ -31,7 +46,8 @@ class KeuanganController extends BaseController
                     ->orderBy('created_at', 'desc')
                     ->join('users', 'users.id = surat_keterangan.mahasiswa_id')
                     ->select('surat_keterangan.*, users.username as mahasiswa_username, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_program_studi')
-                    ->paginate(10),
+                    // ->paginate(10),
+                    ->findAll(),
                 'pager' => $suratKeteranganModel->pager,
             ];
 

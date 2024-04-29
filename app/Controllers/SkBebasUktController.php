@@ -23,7 +23,7 @@ class SkBebasUktController extends BaseController
         $query = $model->where('jenis_surat', JENIS_SK_BEBAS_UKT)
             ->join('users as mahasiswa', 'mahasiswa.id = surat_keterangan.mahasiswa_id', 'left')
             ->join('users as peninjau', 'peninjau.id = surat_keterangan.peninjau_id', 'left')
-            ->select('surat_keterangan.*, mahasiswa.username as mahasiswa_name, mahasiswa.nim as mahasiswa_nim, peninjau.username as peninjau_name, peninjau.nip as peninjau_nip');
+            ->select('surat_keterangan.*, mahasiswa.username as mahasiswa_name, mahasiswa.nim as mahasiswa_nim, mahasiswa.program_studi as mahasiswa_program_studi, peninjau.username as peninjau_name, peninjau.nip as peninjau_nip');
 
         if ($search) {
             $query->groupStart();
@@ -41,7 +41,8 @@ class SkBebasUktController extends BaseController
         $data = [
             'sk_bebas_ukt' => $query
                 ->orderBy('created_at', 'desc')
-                ->paginate($perPage),
+                // ->paginate($perPage),
+                ->findAll(),
             'pager' => $model->pager,
         ];
 
@@ -55,6 +56,8 @@ class SkBebasUktController extends BaseController
         $data = [
             'sk_bebas_ukt' => $model->find($id),
         ];
+
+        // dd($id);
 
         return view('keuangan/surat_keterangan/show', $data);
     }

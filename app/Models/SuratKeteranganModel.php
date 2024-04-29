@@ -121,14 +121,15 @@ class SuratKeteranganModel extends Model
     {
         /** @var \App\Entities\UserEntity */
         $mahasiswa = model('UserModel')->find($data['mahasiswa_id']);
+        $previous_sk = $mahasiswa->suratKeteranganBebasUkt();
 
-        if ($mahasiswa->suratKeteranganBebasUkt() && !$mahasiswa->suratKeteranganBebasUkt()->canAjukan()) {
+        if ($previous_sk && !$previous_sk->canAjukan()) {
             throw new \Exception('Anda sudah memiliki surat keterangan bebas UKT atau sedang dalam proses validasi');
         }
 
         $data = [
             ...$data,
-            'id' => $mahasiswa->suratKeteranganBebasUkt()->id ?? null,
+            'id' => $previous_sk->id ?? null,
             'jenis_surat' => JENIS_SK_BEBAS_UKT,
             'status' => STATUS_MENUNGGU_VALIDASI,
             'tanggal_pengajuan' => date('Y-m-d'),
@@ -138,7 +139,7 @@ class SuratKeteranganModel extends Model
 
         $this->save($sk_bebas_ukt);
 
-        $sk_bebas_ukt = $this->find($this->insertID());
+        $sk_bebas_ukt = $previous_sk ?? $this->find($this->insertID());
 
         if ($file_data) {
             $sk_bebas_ukt->saveUploadedFiles($file_data, true);
