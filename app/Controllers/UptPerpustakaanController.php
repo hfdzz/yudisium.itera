@@ -14,9 +14,25 @@ class UptPerpustakaanController extends BaseController
         // Dashboard for upt_perpustakaan
         $data = [
             'belum_mengajukan' => 0,
-            'menunggu_validasi' => 0,
+            // 'menunggu_validasi' => 0,
             'selesai' => 0,
         ];
+
+        /**
+         * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
+         */
+        $model = model('suratKeteranganModel');
+
+        $data['belum_divalidasi'] = $model->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN)
+            ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
+            ->countAllResults();
+
+        $data['selesai'] = $model->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN)
+            ->where('surat_keterangan.status', STATUS_SELESAI)
+            ->orWhere('surat_keterangan.jenis_surat', STATUS_SELESAI_BEASISWA)
+            ->orWhere('surat_keterangan.status', STATUS_DITOLAK)
+            ->countAllResults();
+
         return view('upt_perpustakaan/dashboard', $data);
     }
 
@@ -32,7 +48,8 @@ class UptPerpustakaanController extends BaseController
                     ->orderBy('created_at', 'desc')
                     ->join('users', 'users.id = surat_keterangan.mahasiswa_id')
                     ->select('surat_keterangan.*, users.username as mahasiswa_username, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_program_studi')
-                    ->paginate(10),
+                    // ->paginate(10),
+                    ->findAll(),
                 'pager' => $suratKeteranganModel->pager,
             ];
 

@@ -21,7 +21,7 @@ class SkBebasPerpustakaanController extends BaseController
         $query = $model->where('jenis_surat', 'sk_bebas_perpustakaan')
             ->join('users as mahasiswa', 'mahasiswa.id = surat_keterangan.mahasiswa_id', 'left')
             ->join('users as peninjau', 'peninjau.id = surat_keterangan.peninjau_id', 'left')
-            ->select('surat_keterangan.*, mahasiswa.username as mahasiswa_name, mahasiswa.nim as mahasiswa_nim, peninjau.username as peninjau_name, peninjau.nip as peninjau_nip');
+            ->select('surat_keterangan.*, mahasiswa.username as mahasiswa_name, mahasiswa.nim as mahasiswa_nim, mahasiswa.program_studi as mahasiswa_program_studi, peninjau.username as peninjau_name, peninjau.nip as peninjau_nip');
 
         if ($search) {
             $query->groupStart();
@@ -39,7 +39,8 @@ class SkBebasPerpustakaanController extends BaseController
         $data = [
             'sk_bebas_perpustakaan' => $query
                 ->orderBy('created_at', 'desc')
-                ->paginate($perPage),
+                // ->paginate($perPage),
+                ->findAll(),
             'pager' => $model->pager,
         ];
 

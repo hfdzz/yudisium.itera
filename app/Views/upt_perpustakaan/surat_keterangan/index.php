@@ -51,22 +51,43 @@
                     <th style="background-color: #EEC01D;">NIM</th>
                     <th style="background-color: #EEC01D;">Prodi</th>
                     <th style="background-color: #EEC01D;">
-                      <select class="rounded font-weight-bold btn btn-default" id="filterStatus">
+                      <select class="rounded font-weight-bold btn btn-default px-0 btn-sm" id="filterStatus" style="width: 120px;">
                         <option value="">Filter Status</option>
-                        <option value="Diterima">Diterima</option>
-                        <option value="Menunggu">Menunggu</option>
-                        <option value="Ditolak">Ditolak</option>
+                        <option value="selesai">Selesai</option>
+                        <option value="menunggu validasi">Menunggu Validasi</option>
+                        <option value="ditolak">Ditolak</option>
                       </select>
                     </th>
-                    <th style="background-color: #EEC01D;">Periode</th>
-                    <th style="background-color: #EEC01D;">Tahun</th>
-                    <th style="background-color: #EEC01D;">SK Bebas Pustaka</th>
+                    <!-- <th style="background-color: #EEC01D;">Periode</th> -->
+                    <!-- <th style="background-color: #EEC01D;">Tahun</th> -->
+                    <!-- <th style="background-color: #EEC01D;">SK Bebas Pustaka</th> -->
                     <th style="background-color: #EEC01D;">Surat</th>
                     <th style="background-color: #EEC01D;">Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                    <?php foreach ($sk_bebas_perpustakaan as $sk) : ?>
+                      <tr>
+                        <td></td>
+                        <td><?= $sk->tanggal_pengajuan; ?></td>
+                        <td><?= $sk->mahasiswa_name; ?></td>
+                        <td><?= $sk->mahasiswa_nim; ?></td>
+                        <td><?= $sk->mahasiswa_program_studi; ?></td>
+                        <td class="text-center"><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk->status]) ?></td>
+                        <td>
+                          <?php if ($sk->isSelesaiOrBeasiswa()) : ?>
+                            <a href="<?= route_to('file_surat_keterangan', $sk->id) ?>" class="btn btn-sm btn-warning" target="_blank" >Lihat</a>
+                          <?php endif; ?>
+                        </td>
+                        <td class="text-center">
+                          <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $sk->id) ?>" class="btn btn-warning btn-sm">Edit</a>
+                          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus" data-action="<?= site_url('upt_perpustakaan/bebas-perpustakaan/delete/' . $sk->id) ?>">Hapus</button>
+                          <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/show/' . $sk->id) ?>" class="btn btn-success btn-sm">Detail</a>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+
+                  <!-- <tr>
                     <td>1</td>
                     <td>2020-01-01</td>
                     <td>Gery</td>
@@ -82,75 +103,7 @@
                       <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button>
                       <a href="detail.html" class="btn btn-success btn-sm">Detail</a>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><p class="small text-center rounded bg-warning">Menunggu</p></td>
-                    <td>Januari</td>
-                    <td>2023</td>
-                    <td>Diterbitkan</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td class="text-center">
-                      <a href="edit.html" class="btn btn-warning btn-sm">Edit</a>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button>
-                      <a href="detail.html" class="btn btn-success btn-sm">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><p class="small text-center rounded bg-danger">Ditolak</p></td>
-                    <td>Januari</td>
-                    <td>2023</td>
-                    <td>Diterbitkan</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td class="text-center">
-                      <a href="edit.html" class="btn btn-warning btn-sm">Edit</a>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button>
-                      <a href="detail.html" class="btn btn-success btn-sm">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><p class="small text-center rounded bg-warning">Menunggu</p></td>
-                    <td>Januari</td>
-                    <td>2023</td>
-                    <td>Diterbitkan</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td class="text-center">
-                      <a href="edit.html" class="btn btn-warning btn-sm">Edit</a>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button>
-                      <a href="detail.html" class="btn btn-success btn-sm">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><p class="small text-center rounded bg-success">Diterima</p></td>
-                    <td>Januari</td>
-                    <td>2023</td>
-                    <td>Diterbitkan</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td class="text-center">
-                      <a href="edit.html" class="btn btn-warning btn-sm">Edit</a>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button>
-                      <a href="detail.html" class="btn btn-success btn-sm">Detail</a>
-                    </td>
-                  </tr>
+                  </tr> -->
                   </tbody>
                   <tfoot>
                   <tr>
@@ -160,9 +113,9 @@
                     <th style="background-color: #EEC01D;">NIM</th>
                     <th style="background-color: #EEC01D;">Prodi</th>
                     <th style="background-color: #EEC01D;">Status Berkas</th>
-                    <th style="background-color: #EEC01D;">Periode</th>
-                    <th style="background-color: #EEC01D;">Tahun</th>
-                    <th style="background-color: #EEC01D;">SK Bebas Pustaka</th>
+                    <!-- <th style="background-color: #EEC01D;">Periode</th> -->
+                    <!-- <th style="background-color: #EEC01D;">Tahun</th> -->
+                    <!-- <th style="background-color: #EEC01D;">SK Bebas Pustaka</th> -->
                     <th style="background-color: #EEC01D;">Surat</th>
                     <th style="background-color: #EEC01D;">Aksi</th>
                   </tr>
@@ -223,11 +176,25 @@
         <!-- Footer modal -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger">Hapus</button>
+          <form action="" method="post">
+            <?= csrf_field() ?>
+            <button type="submit" class="btn btn-danger">Hapus</button>
+          </form>
         </div>
 
       </div>
     </div>
   </div>
 
+<?= $this->endSection(); ?>
+
+<?= $this->section('scripts'); ?>
+<script>
+  $('#modalHapus').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    let action = button.data('action');
+    let modal = $(this);
+    modal.find('form').attr('action', action);
+  });
+</script>
 <?= $this->endSection(); ?>
