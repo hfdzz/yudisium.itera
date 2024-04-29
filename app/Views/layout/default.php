@@ -87,22 +87,48 @@
     <script>
     
     $(document).ready(function() {
-    var table = $('#example1').DataTable({
-        "responsive": false,
-        "lengthChange": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        "order": [[0, 'asc']],
-        "columnDefs": [
-        // { "targets": [4], "orderable": false }
-        ]
-    });
+        var table = $('#example1').DataTable({
+            "responsive": false,
+            // "lengthChange": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            "columnDefs": [
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0,
+                }
+            ],
+            pageLength: 25,
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ]
+        });
 
-    $('#filterStatus').on('change', function() {
-        var val = $(this).val();
-        table.column(5).search(val ? '^' + val + '$' : '', true, false).draw();
+        $('#filterStatus').on('click', (e) => {
+            e.stopPropagation();
+        });
+
+        $('#filterStatus').on('change', function(e) {
+            let val = $(this).val();
+            console.log(val);
+            table.column(5).search(val ? '^' + val + '$' : '', true, false).draw();
+        });
+
+        table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        table
+        .on('order.dt search.dt', function () {
+            let i = 1;
+            table
+                .cells(null, 0, { search: 'applied', order: 'applied' })
+                .every(function (cell) {
+                    this.data(i++);
+                });
+        })
+        .draw();
     });
-    table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
+    
     </script>
 
     <?= $this->renderSection('scripts') ?>

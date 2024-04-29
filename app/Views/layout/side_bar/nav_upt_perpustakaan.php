@@ -17,7 +17,7 @@
             'icon' => 'fa fa-check'
         ],
         [
-            'route_name' => 'upt_perpustakaan.bebas_perpustakaan',
+            'route_name' => 'upt_perpustakaan/bebas-perpustakaan',
             'segment_name' => 'bebas-perpustakaan',
             'link_name' => 'Kelola Data Bebas Perpustakaan',
             'icon' => 'fa fa-database'
@@ -27,7 +27,7 @@
     
 <?php foreach ($links as $link) : ?>
     <li class="nav-item">
-        <a href="<?= route_to($link['route_name']) ?>"
+        <a href="<?= route_to($link['route_name']) ?? site_url($link['route_name']) ?>"
         class="nav-link <?= current_url(true)->getSegment(2) === $link['segment_name'] ? ' aktif' : '' ?>"
         style="color: black;">
             <i class="nav-icon fas <?= $link['icon'] ?>"></i>

@@ -17,7 +17,7 @@
             'icon' => 'fa fa-check'
         ],
         [
-            'route_name' => 'fakultas.yudisium_pendaftaran',
+            'route_name' => 'fakultas/yudisium-pendaftaran',
             'segment_name' => 'yudisium-pendaftaran',
             'link_name' => 'Kelola Data Yudisium',
             'icon' => 'fa fa-database'
@@ -34,7 +34,7 @@
 
 <?php foreach ($links as $link) : ?>
     <li class="nav-item">
-        <a href="<?= route_to($link['route_name']) ?>"
+        <a href="<?= route_to($link['route_name']) ?? site_url($link['route_name']) ?>"
         class="nav-link <?= current_url(true)->getSegment(2) === $link['segment_name'] ? ' aktif' : '' ?>"
         style="color: black;">
             <i class="nav-icon fas <?= $link['icon'] ?>"></i>
