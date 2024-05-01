@@ -26,7 +26,6 @@ class YudisiumService
         if (! $currentPeriode?->isOpen()) {
             throw new \Exception('Pendaftaran yudisium belum dibuka.');
         }
-        
         // Check if user can register for yudisium
         if (! $currentPeriode?->canDaftarYudisium($user->id)) {
             throw new \Exception('Tidak bisa mendaftar yudisium pada periode ini. Periode sudah ditutup atau sudah mendaftar sebelumnya.');
@@ -44,8 +43,6 @@ class YudisiumService
 
         $yudisiumPendaftaranModel->save($yudisiumPendaftaran);
 
-        $yudisiumPendaftaran->generateSuratPdf();
-
         if ($yudisiumPendaftaranModel->errors()) {
             throw new \Exception($yudisiumPendaftaranModel->errors()[0]);
         }
@@ -60,6 +57,8 @@ class YudisiumService
         }
 
         $yudisiumPendaftaran->terima($peninjau->id, $data['keterangan']);
+
+        $yudisiumPendaftaran->generateSuratPdf();
 
         return true;
     }
@@ -114,7 +113,7 @@ class YudisiumService
 
     public function checkSkBebasLab(UserEntity $user)
     {
-        $silabor = service('silabor');
-        return $silabor->isBebasLabSelesai($user->nim);
+        $sk = $user->suratKeteranganBebasLaboratorium();
+        return $sk?->isSelesai();
     }
 }

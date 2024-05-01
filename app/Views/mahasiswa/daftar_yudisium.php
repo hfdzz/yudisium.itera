@@ -41,6 +41,7 @@
             <div class="card">
               <div class="card-body">
 
+              <?php // If yudisium pendaftaran is finished ?>
               <?php if ($yudisium_pendaftaran?->isSelesai()): ?>
 
                 <div class="alert alert-success">
@@ -57,95 +58,128 @@
                 </div>
                 <?php endif; ?>
 
-              <?php elseif ($yudisium_pendaftaran?->isMenungguValidasi()): ?>
-
-                <div class="alert alert-info">
-                  <i class="icon fas fa-info"></i>
-                  <span>Pendaftaran Yudisium sedang menunggu validasi.</span>
+                <div>
+                  Informasi Yudisium:
                 </div>
 
-              <?php elseif (!$yudisium_pendaftaran || $yudisium_pendaftaran?->canDafarYudisium()): ?>
+                <?php foreach($yudisium_periode->yudisiumPeriodeInformasi() as $informasi): ?>
+                  <div class="alert alert-info">
+                    <div>
+                      <strong>
+                        <?= $informasi->keterangan ?>
+                      </strong>
+                    </div>
+                    <div>
+                      <a href="<?= $informasi->link_grup_whatsapp ?>" target="_blank"><?= $informasi->link_grup_whatsapp ?></a>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+
+              <?php // Else check if periode is open ?>
+              <?php elseif ($yudisium_periode?->isOpen()): ?>
                 
-                <form class="" action="" method="post" enctype="multipart/form-data">
-                  <div class="d-flex justify-content-center align-items-center py-2 mb-3" style="background-color: #EEC01D; border-radius: 20px;">
-                    <b>Form Pendaftaran Yudisium</b>
+                <?php // Check if yudisium pendaftaran is waiting for validation ?>
+                <?php if ($yudisium_pendaftaran?->isMenungguValidasi()): ?>
+
+                  <div class="alert alert-info">
+                    <i class="icon fas fa-info"></i>
+                    <span>Pendaftaran Yudisium sedang menunggu validasi.</span>
                   </div>
 
-                  <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
-                  <div class="alert <?= $yudisium_pendaftaran->isDitolak() ? 'alert-danger' : 'alert-warning' ?>">
-                    <p class="m-0"><strong>Keterangan:</strong></p>
-                    <?= $yudisium_pendaftaran->keterangan ?>
-                  </div>
-                  <?php endif; ?>
+                <?php // If not, show form ?>
+                <?php elseif (!$yudisium_pendaftaran || $yudisium_pendaftaran?->canDafarYudisium()): ?>
                   
-                  <div class="row">
-                    <div class="col-4">
-                      <div><strong>Surat Bebas UKT</strong></div>
-                      <div>
-                        <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_perpustakaan')]) ?>
+                  <form class="" action="" method="post" enctype="multipart/form-data">
+                    <div class="d-flex justify-content-center align-items-center py-2 mb-3" style="background-color: #EEC01D; border-radius: 20px;">
+                      <b>Form Pendaftaran Yudisium</b>
+                    </div>
+
+                    <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
+                    <div class="alert <?= $yudisium_pendaftaran->isDitolak() ? 'alert-danger' : 'alert-warning' ?>">
+                      <p class="m-0"><strong>Keterangan:</strong></p>
+                      <?= $yudisium_pendaftaran->keterangan ?>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <div class="row">
+                      <div class="col-4">
+                        <div><strong>Surat Bebas UKT</strong></div>
+                        <div>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_perpustakaan')]) ?>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="col-4">
-                      <div><strong>Surat Bebas UKT</strong></div>
-                      <div>
-                        <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_ukt')]) ?>
+                      <div class="col-4">
+                        <div><strong>Surat Bebas UKT</strong></div>
+                        <div>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_ukt')]) ?>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="col-4">
-                      <div><strong>Surat Bebas Laboratorium</strong></div>
-                      <div>
-                        <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url' => $sk_bebas_laboratorium?->surat]) ?>
+                      <div class="col-4">
+                        <div><strong>Surat Bebas Laboratorium</strong></div>
+                        <div>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url' => $sk_bebas_laboratorium?->surat]) ?>
+                        </div>
                       </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="transkrip">Transkrip</label>
+                        <input type="file" class="form-control" name="transkrip" id="transkrip"  placeholder="transkrip">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="toefl">Sertifikat TOEFL</label>
+                        <input type="file" class="form-control" name="toefl" id="toefl"  placeholder="toefl">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="ijazah">Ijazah SMA</label>
+                        <input type="file" class="form-control" name="ijazah" id="ijazah"  placeholder="ijazah">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="foto">Foto 3x4</label>
+                        <input type="file" class="form-control" name="foto" id="foto"  placeholder="foto">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="akta">Akta kelahiran</label>
+                        <input type="file" class="form-control" name="akta" id="akta"  placeholder="akta">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="surat_lunas">Surat Keterangan Lunas (Opsional)</label>
+                        <input type="file" class="form-control" name="surat_lunas" id="surat_lunas" enabled placeholder="surat_lunas">
+                      </div>
+
                     </div>
 
-                    <div class="form-group col-6">
-                      <label class="form-label" for="transkrip">Transkrip</label>
-                      <input type="file" class="form-control" name="transkrip" id="transkrip"  placeholder="transkrip">
-                    </div>
+                    <?php if(validation_errors()): ?>
+                      <div class="alert alert-danger">
+                        <ul class="m-0">
+                          <?php foreach(validation_errors() as $error): ?>
+                            <li><?= esc($error) ?></li>
+                          <?php endforeach; ?>
+                        </ul>
+                      </div>
+                    <?php endif; ?>
 
-                    <div class="form-group col-6">
-                      <label class="form-label" for="toefl">Sertifikat TOEFL</label>
-                      <input type="file" class="form-control" name="toefl" id="toefl"  placeholder="toefl">
+                    <div class="d-flex justify-content-center align-items-center">
+                      <button type="submit" class="btn text-white px-5" style="background-color: #EEC01D;">DAFTAR</button>
                     </div>
+                  </form>
+                
+                <?php endif; ?>
 
-                    <div class="form-group col-6">
-                      <label class="form-label" for="ijazah">Ijazah SMA</label>
-                      <input type="file" class="form-control" name="ijazah" id="ijazah"  placeholder="ijazah">
-                    </div>
-
-                    <div class="form-group col-6">
-                      <label class="form-label" for="foto">Foto 3x4</label>
-                      <input type="file" class="form-control" name="foto" id="foto"  placeholder="foto">
-                    </div>
-
-                    <div class="form-group col-6">
-                      <label class="form-label" for="akta">Akta kelahiran</label>
-                      <input type="file" class="form-control" name="akta" id="akta"  placeholder="akta">
-                    </div>
-
-                    <div class="form-group col-6">
-                      <label class="form-label" for="surat_lunas">Surat Keterangan Lunas (Opsional)</label>
-                      <input type="file" class="form-control" name="surat_lunas" id="surat_lunas" enabled placeholder="surat_lunas">
-                    </div>
-
+              <?php // else if periode is closed ?>
+              <?php else: ?>
+                  
+                  <div class="alert alert-danger">
+                    <i class="icon fas fa-times"></i>
+                    <span>Pendaftaran Yudisium belum dibuka atau sudah ditutup.</span>
                   </div>
 
-                  <?php if(validation_errors()): ?>
-                    <div class="alert alert-danger">
-                      <ul class="m-0">
-                        <?php foreach(validation_errors() as $error): ?>
-                          <li><?= esc($error) ?></li>
-                        <?php endforeach; ?>
-                      </ul>
-                    </div>
-                  <?php endif; ?>
-
-                  <div class="d-flex justify-content-center align-items-center">
-                    <button type="submit" class="btn text-white px-5" style="background-color: #EEC01D;">DAFTAR</button>
-                  </div>
-                </form>
               <?php endif; ?>
               </div>
             </div>
