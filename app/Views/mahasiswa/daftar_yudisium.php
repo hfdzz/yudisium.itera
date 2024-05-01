@@ -51,7 +51,7 @@
                 <div>
                   <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran?->id) ?>" class="mx-1" target="_blank">Lihat Tanda Terima Yudisium</a>
                 </div>
-                <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
+                <?php if(!empty($yudisium_pendaftaran->keterangan)) : ?>
                 <div class="alert alert-info">
                   <p class="m-0"><strong>Keterangan:</strong></p>
                   <?= $yudisium_pendaftaran->keterangan ?>
@@ -105,21 +105,21 @@
                       <div class="col-4">
                         <div><strong>Surat Bebas UKT</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_perpustakaan')]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_perpustakaan'), 'url2' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id)]) ?>
                         </div>
                       </div>
 
                       <div class="col-4">
                         <div><strong>Surat Bebas UKT</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_ukt')]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_ukt'), 'url2' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id)]) ?>
                         </div>
                       </div>
 
                       <div class="col-4">
                         <div><strong>Surat Bebas Laboratorium</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url' => $sk_bebas_laboratorium?->surat]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url' => 'https://silabor.itera.ac.id', 'url2' => $sk_bebas_laboratorium?->surat]) ?>
                         </div>
                       </div>
 

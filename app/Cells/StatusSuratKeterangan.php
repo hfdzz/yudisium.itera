@@ -32,11 +32,11 @@ class StatusSuratKeterangan
         }
     }
 
-    public function renderLink($status, $url, $target = '_blank')
+    public function renderLink($status, $url, $url2 = null, $target = '_blank')
     {
         // only if status is not 'Selesai' or 'Menunggu Validasi'
         if ($status == STATUS_SELESAI) {
-            return sprintf($this->linkTemplate, $url, $target, 'Lihat Surat Keterangan');
+            return sprintf($this->linkTemplate, $url2, $target, 'Lihat Surat Keterangan');
         } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
             return '';
         }
@@ -44,8 +44,8 @@ class StatusSuratKeterangan
         return sprintf($this->linkTemplate, $url, $target, 'Ajukan');
     }
 
-    public function renderBadgeAndLink($status, $url, $target = '_blank')
+    public function renderBadgeAndLink($status, $url, $url2 = null, $target = '_blank')
     {
-        return $this->renderBadge($status) . $this->renderLink($status, $url, $target);
+        return $this->renderBadge($status) . $this->renderLink($status, $url, $url2, $target);
     }
 }

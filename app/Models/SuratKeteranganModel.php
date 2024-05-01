@@ -17,6 +17,7 @@ class SuratKeteranganModel extends Model
         'jenis_surat',
         'status',
         'nomor_surat',
+        'tanggal_pengajuan',
         'tanggal_terbit',
         'keterangan',
         'file_surat_keterangan',
