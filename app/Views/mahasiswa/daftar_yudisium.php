@@ -62,7 +62,7 @@
                   Informasi Yudisium:
                 </div>
 
-                <?php foreach($yudisium_periode->yudisiumPeriodeInformasi() as $informasi): ?>
+                <?php foreach($yudisium_pendaftaran->getYudisiumPeriode()->yudisiumPeriodeInformasi() as $informasi): ?>
                   <div class="alert alert-info">
                     <div>
                       <strong>

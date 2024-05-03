@@ -39,6 +39,7 @@ class FileResourceController extends BaseController
     
     public function fileSuratKeterangan($sk_id)
     {
+        $force_generate = $this->request->getGet('force_generate') == '1';
         $user = auth()->user();
 
         $suratKeteranganModel = model('SuratKeteranganModel');
@@ -59,12 +60,14 @@ class FileResourceController extends BaseController
         //     }
         // }
 
-        $file_path = WRITEPATH . 'generated_files/' . $suratKeterangan->file_surat_keterangan;
+        // $file_path = WRITEPATH . 'generated_files/' . $suratKeterangan->file_surat_keterangan;
+        $file_path = $suratKeterangan->getSuratKeteranganPdf($force_generate);
 
         // dd($file_path);
 
         if (! file_exists($file_path) || ! is_file($file_path)) {
-            $file_path = $suratKeterangan->getSuratKeteranganPdf();
+            // $file_path = $suratKeterangan->getSuratKeteranganPdf($force_generate);
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('File not found');
         }
 
         return $this->response
@@ -134,7 +137,7 @@ class FileResourceController extends BaseController
         $file_path = $yudisiumPendaftaran->getTandaTerimaPdf();
 
         if (! file_exists($file_path) || ! is_file($file_path)) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('File not found');
         }
 
         return $this->response

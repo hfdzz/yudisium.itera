@@ -32,7 +32,7 @@ class StatusSuratKeterangan
         }
     }
 
-    public function renderLink($status, $url, $url2 = null, $target = '_blank')
+    public function renderLink($status, $url = null, $url2 = null, $target = '_blank')
     {
         // only if status is not 'Selesai' or 'Menunggu Validasi'
         if ($status == STATUS_SELESAI) {
@@ -44,7 +44,7 @@ class StatusSuratKeterangan
         return sprintf($this->linkTemplate, $url, $target, 'Ajukan');
     }
 
-    public function renderBadgeAndLink($status, $url, $url2 = null, $target = '_blank')
+    public function renderBadgeAndLink($status, $url = null, $url2 = null, $target = '_blank')
     {
         return $this->renderBadge($status) . $this->renderLink($status, $url, $url2, $target);
     }
