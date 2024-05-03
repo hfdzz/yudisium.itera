@@ -33,7 +33,7 @@ class LoadTestSeeder extends Seeder
         // admin
 
         // user_fakultas
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $data = [
                 'id' => $i + 200,
                 'username' => 'fakultas' . $i,
@@ -64,7 +64,7 @@ class LoadTestSeeder extends Seeder
         }
 
         // user_upt_perpustakaan
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $data = [
                 'id' => $i + 300,
                 'username' => 'upt_perpustakaan' . $i,
@@ -95,7 +95,7 @@ class LoadTestSeeder extends Seeder
         }
 
         // user_keuangan
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $data = [
                 'id' => $i + 400,
                 'username' => 'keuangan' . $i,
