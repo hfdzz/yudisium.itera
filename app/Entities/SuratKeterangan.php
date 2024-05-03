@@ -156,12 +156,21 @@ class SuratKeterangan extends Entity
 
     public function generateSuratPdf() : ?string
     {
-        $options = new \Dompdf\Options();    
-        $options->set( 'chroot', 'kop.png' );
-        $dompdf = new Dompdf( $options );
+        // $kop_path = $this->attributes['jenis_surat'] == JENIS_SK_BEBAS_PERPUSTAKAAN ? 'assets/img/kop-perpustakaan.png' : 'assets/img/kop-ukt.png';
+        $kop_path = $this->attributes['jenis_surat'] == JENIS_SK_BEBAS_PERPUSTAKAAN ? 'assets/img/kop-perpustakaan.png' : 'assets/img/kop-ukt.png';
+        
+        // $options = new \Dompdf\Options();    
+        // $options->set( 'chroot', $kop_path );
+        // $dompdf = new Dompdf( $options );
+
+        $dompdf = new Dompdf();
         
         $fmt = new \IntlDateFormatter('id_ID');
         $fmt->setPattern('  d MMMM yyyy');
+
+        $kop_type = pathinfo($kop_path, PATHINFO_EXTENSION);
+        $kop_data = base64_encode(file_get_contents($kop_path));
+        $kop_src = 'data:image/' . $kop_type . ';base64,' . $kop_data;
 
         $data = [
             'nama' => $this->getMahasiswa()->username,
@@ -171,6 +180,7 @@ class SuratKeterangan extends Entity
             'peninjau' => $this->getPeninjau(),
             'nomor_surat' => $this->attributes['nomor_surat'],
             'tanggal' => $fmt->format(new \DateTime($this->attributes['tanggal_terbit'])),
+            'kop_src' => $kop_src,
         ];
 
         switch($this->attributes['jenis_surat']) {
@@ -210,9 +220,9 @@ class SuratKeterangan extends Entity
         return !empty($this->attributes['file_surat_keterangan']) && file_exists(WRITEPATH . 'generated_files/' . $this->attributes['file_surat_keterangan']);
     }
 
-    public function getSuratKeteranganPdf()
+    public function getSuratKeteranganPdf($force_generate = false)
     {
-        if (!$this->hasGeneratedPdf()) {
+        if (!$this->hasGeneratedPdf() || $force_generate) {
             $path = $this->generateSuratPdf();
 
             // update the file path if it's different

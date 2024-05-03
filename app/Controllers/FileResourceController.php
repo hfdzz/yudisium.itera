@@ -112,6 +112,7 @@ class FileResourceController extends BaseController
         // $fmt = new \IntlDateFormatter('id_ID');
         // $fmt->setPattern('d MMMM Y');
         // return $fmt->format(new \DateTime('2024-04-04'));
+        $force_generate = $this->request->getGet('force_generate') == '1';
         $user = auth()->user();
 
         $yudisiumPendaftaranModel = model('YudisiumPendaftaranModel');
@@ -134,7 +135,7 @@ class FileResourceController extends BaseController
 
         // $file_path = WRITEPATH . 'generated_files/' . $yudisiumPendaftaran->file_tanda_terima_yudisium;
         
-        $file_path = $yudisiumPendaftaran->getTandaTerimaPdf();
+        $file_path = $yudisiumPendaftaran->getTandaTerimaPdf($force_generate);
 
         if (! file_exists($file_path) || ! is_file($file_path)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('File not found');

@@ -179,19 +179,26 @@ class YudisiumPendaftaran extends Entity
 
     public function generateSuratPdf() : ?string
     {
-        $options = new \Dompdf\Options();    
-        $options->set( 'chroot', 'kop.png' );
-        $dompdf = new Dompdf( $options );
+        // $options = new \Dompdf\Options();    
+        // $options->set( 'chroot', 'kop.png' );
+        // $dompdf = new Dompdf( $options );
+        $dompdf = new Dompdf();
 
         $fmt = new \IntlDateFormatter('id_ID');
         $fmt->setPattern('d MMMM yyyy');
+
+        $kop_path = 'assets/img/kop-fti.png';
+        $kop_type = pathinfo($kop_path, PATHINFO_EXTENSION);
+        $kop_data = base64_encode(file_get_contents($kop_path));
+        $kop_src = 'data:image/' . $kop_type . ';base64,' . $kop_data;
 
         $data = [
             'nama' => $this->getMahasiswa()->username,
             'nim' => $this->getMahasiswa()->nim,
             'program_studi' => $this->getMahasiswa()->program_studi,
             'tanggal' => $fmt->format(new \DateTime($this->attributes['tanggal_penerimaan'])),
-            'kop_surat' => 'kop.png',
+            'kop_src' => $kop_src,
+            'peninjau' => $this->getPeninjau(),
         ];
 
         $html = view('template_surat/tanda_terima_yudisium', $data);
@@ -222,9 +229,9 @@ class YudisiumPendaftaran extends Entity
         return !empty($this->attributes['file_tanda_terima']) && file_exists(WRITEPATH . 'generated_files/' . $this->attributes['file_tanda_terima']);
     }
 
-    public function getTandaTerimaPdf()
+    public function getTandaTerimaPdf($force_generate = false)
     {
-        if (!$this->hasGeneratedPdf()) {
+        if (!$this->hasGeneratedPdf() || $force_generate) {
             $path = $this->generateSuratPdf();
 
             // update the file path if it's different
