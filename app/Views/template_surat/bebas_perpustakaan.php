@@ -11,21 +11,27 @@
         }
         
         body{
-            margin: 10mm 6mm;
+            margin: 1em 0;
             padding: 0;
         }
+
+        #body{
+            /* margin: 10mm 20mm; */
+            padding: 0;
+        }
+
         .header {
             margin: 0;
             padding: 0;
             text-align: center;
         }
         main {
-            margin: 0 10mm;
+            margin: 0 3em;
             padding: 0;
             text-align: justify;
         }
         table {
-            margin: 0 10mm;
+            margin: 0;
             padding: 0;
         }
         /* indent for middle columnd */
@@ -36,46 +42,48 @@
     </style>
 </head>
 <body>
-    <!-- kop -->
-    <div class="header">
-        <img src="kop.png" alt="kop" style="width: 100%;">
-        <p style="text-align: center;text-decoration:underline;font-weight:bold;">SURAT KETERANGAN BEBAS PERPUSTAKAAN</p>
-        <p style="text-align: center;">Nomor: <?= $nomor_surat?></p>
+    <div id="body">
+        <!-- kop -->
+        <div class="header">
+            <img src="<?= $kop_src ?>" alt="kop" style="width: 100%;">
+            <div style="text-align: center;text-decoration:underline;font-weight:bold;margin-top:1rem">SURAT KETERANGAN BEBAS PERPUSTAKAAN</div>
+            <div style="text-align: center;text-decoration:underline;margin-top:0.5rem">Nomor: <?= $nomor_surat?></div>
+        </div>
+        <main>
+            <br>
+            <br>
+            <p style="text-align: justify;">Kepala UPA Perpustakaan Institut Teknologi Sumatera menyatakan bahwa :</p>
+            <table>
+                <tr>
+                    <td>Nama</td>
+                    <td>:</td>
+                    <td><?= $nama ?></td>
+                </tr>
+                <tr>
+                    <td>NIM</td>
+                    <td>:</td>
+                    <td><?= $nim ?></td>
+                </tr>
+                <tr>
+                    <td>Program Studi</td>
+                    <td>:</td>
+                    <td><?= $program_studi ?></td>
+                </tr>
+            </table>
+    
+            <p style="text-align: justify;">tidak memiliki pinjaman koleksi dan tangguangan lainnya di UPA Perpustakaan Institut Teknologi Sumatera. Demikian surat ini dibuat untuk digunakan sebagai syarat Yudisium/Wisuda</p>
+            <br>
+    
+            <div style="float: right;">
+                <div style="text-align: left;">Lampung Selatan, <?= $tanggal ?></div>
+                <div style="text-align: left;margin-top:1rem">Kepala UPA Perpustakaan ITERA</div>
+                <br>
+                <br>
+                <br>
+                <div style="text-align: left;text-decoration:underline;font-weight:bold;">M.Alvien Ghifari, S.Si.,M.Sc.</div>
+                <div style="text-align: left;margin-top:0.5rem">NIP. 199511082022031010</div>
+            </div>
+        </main>
     </div>
-    <main>
-        <p style="text-align: justify;">Dengan ini kami menyatakan bahwa :</p>
-        <table>
-            <tr>
-                <td>Nama Mahasiswa</td>
-                <td>:</td>
-                <td><?= $nama ?></td>
-            </tr>
-            <tr>
-                <td>NIM</td>
-                <td>:</td>
-                <td><?= $nim ?></td>
-            </tr>
-            <tr>
-                <td>Program Studi</td>
-                <td>:</td>
-                <td><?= $program_studi ?></td>
-            </tr>
-            <tr>
-                <td>Fakultas</td>
-                <td>:</td>
-                <td>Fakultas Industry</td>
-            </tr>
-        </table>
-        <p style="text-align: justify;">Mahasiswa ini telah menyelesaikan semua administrasi maupun peminjaman buku yang ada di Perpustakaan Institut Teknologi dan dinyatakan bebas dari tanggungan perpustakaan.
-        <p style="text-align: justify;">Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya.</p>
-        <p style="text-align: right;">Lampung Selatan, <?= $tanggal ?></p>
-        <p style="text-align: right; font-weight:bold;">Mengetahui,</p>
-        <p style="text-align: right;">Kepala Perpustakaan</p>
-        <br>
-        <br>
-        <br>
-        <p style="text-align: right;">John Does Perpustakaan, S.T., M.T</p>
-        <p style="text-align: right;">NIP. 123456789012</p>
-    </main>
 </body>
 </html>
