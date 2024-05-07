@@ -21,7 +21,7 @@ class UptPerpustakaanController extends BaseController
         /**
          * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
          */
-        $model = model('suratKeteranganModel');
+        $model = model('SuratKeteranganModel');
 
         $data['belum_divalidasi'] = $model->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN)
             ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)

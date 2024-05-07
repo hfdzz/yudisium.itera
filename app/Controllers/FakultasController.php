@@ -21,20 +21,23 @@ class FakultasController extends BaseController
         /**
          * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
          */
-        $model = model('yudisiumPendaftaranModel');
+        $model = model('YudisiumPendaftaranModel');
 
         $latest_periode = model('YudisiumPeriodeModel')->getLatestPeriode();
 
-        $data['belum_divalidasi'] = $model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
-            ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
-            ->countAllResults();
+        if ($latest_periode) {
+            $data['belum_divalidasi'] = $model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
+                ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
+                ->countAllResults();
+    
+            $data['selesai'] = $model->groupStart()
+                ->where('yudisium_pendaftaran.status', STATUS_SELESAI)
+                ->orWhere('yudisium_pendaftaran.status', STATUS_DITOLAK)
+                ->groupEnd()
+                ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
+                ->countAllResults();
+        }
 
-        $data['selesai'] = $model->groupStart()
-            ->where('yudisium_pendaftaran.status', STATUS_SELESAI)
-            ->orWhere('yudisium_pendaftaran.status', STATUS_DITOLAK)
-            ->groupEnd()
-            ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
-            ->countAllResults();
 
         return view('fakultas/dashboard', $data);
     }
@@ -46,7 +49,7 @@ class FakultasController extends BaseController
             /**
              * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
              */
-            $pendaftaran_model = model('yudisiumPendaftaranModel');
+            $pendaftaran_model = model('YudisiumPendaftaranModel');
 
             $perPage = $this->request->getGet('per_page') ?? 10;
 
@@ -54,7 +57,7 @@ class FakultasController extends BaseController
 
             $data = [
                 'pendaftaran' => $pendaftaran_model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
-                    ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
+                    ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode?->id)
                     ->orderBy('yudisium_pendaftaran.tanggal_daftar', 'desc')
                     ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
                     ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi')
@@ -197,7 +200,7 @@ class FakultasController extends BaseController
     public function newPeriodeYudisium()
     {
         $latest_periode = model('YudisiumPeriodeModel')->getLatestPeriode();
-        $warning = model('YudisiumPendaftaranModel')->where('yudisium_periode_id', $latest_periode->id)
+        $warning = model('YudisiumPendaftaranModel')->where('yudisium_periode_id', $latest_periode?->id)
             ->where('status', STATUS_MENUNGGU_VALIDASI)
             ->findAll() ? true : false;
         return view('fakultas/new_periode_yudisium', ['warning' => $warning]);
