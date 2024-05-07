@@ -200,7 +200,7 @@ form .btn input[type="submit"] {
   background-color: #FFC107;
 }
 
-.aktif {
+a.nav-link.aktif {
   background-color: #FFC107;
 }
 
