@@ -37,5 +37,8 @@
     },
     "scripts": {
         "test": "phpunit"
-    }
+    },
+    "post-install-cmd": [
+        "chmod -R 775 public/"
+    ]
 }
