@@ -34,8 +34,6 @@
 
 namespace App\Services;
 
-use CodeIgniter\Config\Services;
-
 class SILABORService
 {
     protected $client;
@@ -46,15 +44,15 @@ class SILABORService
     
     public function __construct()
     {
-        $this->client = Services::curlrequest();
-        $this->cache = Services::cache();
+        /** @var \CodeIgniter\HTTP\CURLRequest $client */
+        $this->client = service('curlrequest');
+        /** @var \CodeIgniter\Cache\CacheInterface $cache */
+        $this->cache = service('cache');
         $this->cacheKey = 'bebasLab';
-        /**
-         * @var \Config\CURLRequest $silaborConfig
-         */
-        $this->silaborConfig = config('CURLRequest');
+        /** @var \Config\SILABOR $silaborConfig */
+        $this->silaborConfig = config('SILABOR');
         
-        $this->refreshCache = false;
+        $this->refreshCache = $this->silaborConfig->refreshCache ?? false;
     }
 
     static function withRefreshCache($refresh = true) : self
