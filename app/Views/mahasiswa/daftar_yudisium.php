@@ -94,7 +94,7 @@
                       <b>Form Pendaftaran Yudisium</b>
                     </div>
 
-                    <?php if(isset($yudisium_pendaftaran->keterangan)) : ?>
+                    <?php if(!empty($yudisium_pendaftaran->keterangan)): ?>
                     <div class="alert <?= $yudisium_pendaftaran->isDitolak() ? 'alert-danger' : 'alert-warning' ?>">
                       <p class="m-0"><strong>Keterangan:</strong></p>
                       <?= $yudisium_pendaftaran->keterangan ?>
@@ -105,52 +105,52 @@
                       <div class="col-4">
                         <div><strong>Surat Bebas UKT</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_perpustakaan'), 'url2' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id)]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url_ajukan' => route_to('mahasiswa.sk_bebas_perpustakaan'), 'url_lihat_surat' => $sk_bebas_perpustakaan ? route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id):null]) ?>
                         </div>
                       </div>
 
                       <div class="col-4">
                         <div><strong>Surat Bebas UKT</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url' => route_to('mahasiswa.sk_bebas_ukt'), 'url2' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id)]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_ukt?->status, 'url_ajukan' => route_to('mahasiswa.sk_bebas_ukt'), 'url_lihat_surat' => $sk_bebas_ukt ? route_to('file_surat_keterangan', $sk_bebas_ukt?->id):null]) ?>
                         </div>
                       </div>
 
                       <div class="col-4">
                         <div><strong>Surat Bebas Laboratorium</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url' => 'https://silabor.itera.ac.id', 'url2' => $sk_bebas_laboratorium?->surat]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url_ajukan' => 'https://silabor.itera.ac.id', 'url_lihat_surat' => $sk_bebas_laboratorium?->surat]) ?>
                         </div>
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="transkrip">Transkrip</label>
-                        <input type="file" class="form-control" name="transkrip" id="transkrip"  placeholder="transkrip">
+                        <label class="form-label" for="berkas_transkrip">Transkrip</label>
+                        <input type="file" class="form-control" name="berkas_transkrip" id="berkas_transkrip"  placeholder="transkrip">
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="toefl">Sertifikat TOEFL</label>
-                        <input type="file" class="form-control" name="toefl" id="toefl"  placeholder="toefl">
+                        <label class="form-label" for="berkas_sertifikat_bahasa_inggris">Sertifikat TOEFL</label>
+                        <input type="file" class="form-control" name="berkas_sertifikat_bahasa_inggris" id="berkas_sertifikat_bahasa_inggris"  placeholder="toefl">
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="ijazah">Ijazah SMA</label>
-                        <input type="file" class="form-control" name="ijazah" id="ijazah"  placeholder="ijazah">
+                        <label class="form-label" for="berkas_ijazah">Ijazah SMA</label>
+                        <input type="file" class="form-control" name="berkas_ijazah" id="berkas_ijazah"  placeholder="ijazah">
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="foto">Foto 3x4</label>
-                        <input type="file" class="form-control" name="foto" id="foto"  placeholder="foto">
+                        <label class="form-label" for="berkas_pas_foto">Foto 3x4</label>
+                        <input type="file" class="form-control" name="berkas_pas_foto" id="berkas_pas_foto"  placeholder="foto">
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="akta">Akta kelahiran</label>
-                        <input type="file" class="form-control" name="akta" id="akta"  placeholder="akta">
+                        <label class="form-label" for="berkas_akta_kelahiran">Akta kelahiran</label>
+                        <input type="file" class="form-control" name="berkas_akta_kelahiran" id="berkas_akta_kelahiran"  placeholder="akta">
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="surat_lunas">Surat Keterangan Lunas (Opsional)</label>
-                        <input type="file" class="form-control" name="surat_lunas" id="surat_lunas" enabled placeholder="surat_lunas">
+                        <label class="form-label" for="berkas_surat_keterangan_mahasiswa">Surat Keterangan Lunas (Opsional)</label>
+                        <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" enabled placeholder="surat_lunas">
                       </div>
 
                     </div>

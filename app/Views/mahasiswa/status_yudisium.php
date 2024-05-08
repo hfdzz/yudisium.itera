@@ -43,16 +43,12 @@
               <div class="m-3">
                 <ul class="bar-progres">
                   <li class="progres">Pengisian Data</li>
-                  <!-- <li class="progres">Pengajuan Berkas SK</li> -->
-                  <!-- <li class="progres">Submit Pendaftaran</li> -->
-                  <!-- <li class="progres">Validasi Admin FTI</li> -->
-                  <!-- <li>Selesai</li> -->
                   <li class="<?= (( $sk_bebas_perpustakaan?->isMenungguValidasi() || $sk_bebas_perpustakaan?->isSelesai() ) &&
-                    ( $sk_bebas_perpustakaan?->isMenungguValidasi() || $sk_bebas_perpustakaan?->isSelesaiOrBeasiswa() ) &&
+                    ( $sk_bebas_ukt?->isMenungguValidasi() || $sk_bebas_ukt?->isSelesaiOrBeasiswa() ) &&
                     ( $sk_bebas_laboratorium?->isMenungguValidasi() || $sk_bebas_laboratorium?->isSelesai()))
                     ? 'progres' : '' ?>">Pengajuan Berkas SK</li>
 
-                  <li class="<?= ($sk_bebas_perpustakaan?->isSelesai() && $sk_bebas_perpustakaan?->isSelesaiOrBeasiswa() && ($sk_bebas_laboratorium?->isSelesai())) ? 'progres' : '' ?>">Submit Pendaftaran</li>
+                  <li class="<?= ($sk_bebas_perpustakaan?->isSelesai() && $sk_bebas_ukt?->isSelesaiOrBeasiswa() && $sk_bebas_laboratorium?->isSelesai()) ? 'progres' : '' ?>">Submit Pendaftaran</li>
 
                   <li class="<?= ( $yudisium_pendaftaran?->isMenungguValidasi() || $yudisium_pendaftaran?->isSelesai() ) ? 'progres' : '' ?>">Validasi Admin FTI</li>
 
