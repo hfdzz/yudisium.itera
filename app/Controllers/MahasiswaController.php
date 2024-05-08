@@ -16,10 +16,10 @@ class MahasiswaController extends BaseController
         $user = auth()->user();
 
         $userData = [
-            $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan(),
-            $skBebasUkt = $user->suratKeteranganBebasUkt(),
-            $skBebasLabotatorium = $user->suratKeteranganBebasLaboratorium(),
-            $pendaftaranYudisium = $user->yudisiumPendaftaran(),
+            $user->suratKeteranganBebasPerpustakaan(),
+            $user->suratKeteranganBebasUkt(),
+            $user->suratKeteranganBebasLaboratorium(),
+            $user->yudisiumPendaftaran(),
         ];
 
         // data for dashboard number
@@ -145,7 +145,7 @@ class MahasiswaController extends BaseController
 
         $upload_data = $this->request->getFiles();
 
-        if (! $this->validateData($upload_data, $rules)) {
+        if (! $this->validateData([], $rules)) {
             return redirect()->back()->withInput();
         }
 
@@ -209,29 +209,29 @@ class MahasiswaController extends BaseController
                     'ext_in' => 'Berkas BA Sidang harus berformat PDF.',
                 ],
             ],
-            // 'berkas_khs' => [
-            //     // required uploaded file (max: 2MB, mime: pdf)
-            //     'rules' => 'uploaded[berkas_khs]|max_size[berkas_khs,2048]|ext_in[berkas_khs,pdf]',
-            //     'errors' => [
-            //         'uploaded' => 'Berkas KHS harus diunggah.',
-            //         'max_size' => 'Ukuran berkas KHS maksimal 2MB.',
-            //         'ext_in' => 'Berkas KHS harus berformat PDF.',
-            //     ],
-            // ],
-            // 'berkas_bukti_bayar_avita' => [
-            //     // required uploaded file (max: 2MB, mime: pdf)
-            //     'rules' => 'uploaded[berkas_bukti_bayar_avita]|max_size[berkas_bukti_bayar_avita,2048]|ext_in[berkas_bukti_bayar_avita,pdf]',
-            //     'errors' => [
-            //         'uploaded' => 'Berkas bukti bayar AVITA harus diunggah.',
-            //         'max_size' => 'Ukuran berkas bukti bayar AVITA maksimal 2MB.',
-            //         'ext_in' => 'Berkas bukti bayar AVITA harus berformat PDF.',
-            //     ],
-            // ],
+            'berkas_khs' => [
+                // required uploaded file (max: 2MB, mime: pdf)
+                'rules' => 'uploaded[berkas_khs]|max_size[berkas_khs,2048]|ext_in[berkas_khs,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas KHS harus diunggah.',
+                    'max_size' => 'Ukuran berkas KHS maksimal 2MB.',
+                    'ext_in' => 'Berkas KHS harus berformat PDF.',
+                ],
+            ],
+            'berkas_bukti_bayar_ukt' => [
+                // required uploaded file (max: 2MB, mime: pdf)
+                'rules' => 'uploaded[berkas_bukti_bayar_ukt]|max_size[berkas_bukti_bayar_ukt,2048]|ext_in[berkas_bukti_bayar_ukt,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas bukti bayar AVITA harus diunggah.',
+                    'max_size' => 'Ukuran berkas bukti bayar AVITA maksimal 2MB.',
+                    'ext_in' => 'Berkas bukti bayar AVITA harus berformat PDF.',
+                ],
+            ],
         ];
 
         $file_data = $this->request->getFiles();
 
-        if (! $this->validateData($file_data, $rules)) {
+        if (! $this->validateData([], $rules)) {
             return redirect()->back()->withInput();
         }   
 
