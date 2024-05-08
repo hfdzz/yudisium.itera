@@ -1,3 +1,70 @@
+# Deployment Checklist
+
+## 1. Server Requirements
+
+PHP version 8.1.10 or higher is required, with the following extensions installed:
+- CodeIgniter 4 requires the following PHP extensions:
+  - intl
+  - mbstring
+  - json
+- App-specific requirements:
+  - curl
+  - gd
+- Database dependent extensions
+
+Supported databases (CodeIgniter 4.5.1):
+- MySQL (5.1+)
+- PostgreSQL (7.4+)
+- SQLite3
+- Microsoft SQL Server (2012+)
+- Oracle Database (12.1+)
+
+## 2. Optimizations
+
+Spark Optimizations:
+```bash
+php spark optimize
+```
+
+## 3. Shared Hosting Deployment
+
+Document Root:
+- Set the document root to the `public` folder.
+- The `public` folder contains the `index.php` file.
+- The `public` folder is the only folder that should be exposed to the web.
+- The `app` folder should be outside the document root.
+
+
+## 4. Environment Configuration
+
+### `app.baseURL`
+
+Depends on application URL. Example:
+
+```php
+app.baseURL = 'http://example.com/'
+```
+
+### Database Configuration:
+
+Set accordingly to the database credentials. Example:
+
+```php
+database.default.hostname = 'localhost'
+database.default.database = 'mydatabase'
+database.default.username = 'myusername'
+database.default.password = 'mypassword'
+database.default.DBDriver = 'MySQLi'
+```
+
+### SILABOR Configuration:
+
+Set accordingly to the SILABOR credentials. Example:
+
+```php
+SILABOR.silaborAPIURL.getAllBebasLabURL = 'http://silabor.com/api/'
+```
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
