@@ -39,7 +39,9 @@ class YudisiumService
             'status' => STATUS_MENUNGGU_VALIDASI,
         ]);
 
-        $yudisiumPendaftaran->saveUploadedFiles($uploaded_files);
+        if (!$yudisiumPendaftaran->saveUploadedFiles($uploaded_files)) {
+            throw new \Exception('Gagal menyimpan berkas pendaftaran yudisium.');
+        }
 
         $yudisiumPendaftaranModel->save($yudisiumPendaftaran);
 
@@ -108,7 +110,7 @@ class YudisiumService
     {
         $sk = $user->suratKeteranganBebasUkt();
 
-        return $sk?->isSelesai();
+        return $sk?->isSelesaiOrBeasiswa();
     }
 
     public function checkSkBebasLab(UserEntity $user)

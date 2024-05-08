@@ -157,10 +157,6 @@ class YudisiumPendaftaran extends Entity
 
     public function saveUploadedFile($file, $jenis_berkas, $saveModel = false)
     {
-        if (! $file->isValid()) {
-            return false;
-        }
-
         $path = $file->store(PATH_UPLOAD_PENDAFTARAN_YUDISIUM . '/' . date('Y-m') . '/' . $this->attributes['id'], $this->attributes['id'] . '_' . $jenis_berkas . '.pdf');
 
         $this->attributes[$jenis_berkas] = $path;
@@ -171,9 +167,11 @@ class YudisiumPendaftaran extends Entity
     public function saveUploadedFiles($files, $saveModel = false)
     {
         foreach ($files as $jenis_berkas => $file) {
+            if (! $file->isValid()) {
+                return false;
+            }
             $this->saveUploadedFile($file, $jenis_berkas, $saveModel);
         }
-
         return true;
     }
 

@@ -47,13 +47,4 @@ class Services extends BaseService
 
         return new \App\Services\YudisiumService();
     }
-
-    public static function suratKeterangan($getShared = true)
-    {
-        if ($getShared) {
-            return static::getSharedInstance('suratKeterangan');
-        }
-
-        return new \App\Services\SuratKeteranganService();
-    }
 }

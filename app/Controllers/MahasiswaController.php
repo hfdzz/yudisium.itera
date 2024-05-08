@@ -86,14 +86,70 @@ class MahasiswaController extends BaseController
             return view('mahasiswa/daftar_yudisium', $data);
         }
 
+        $skBebasUkt = $user->suratKeteranganBebasUkt();
+
         // validate input
         $rules = [
-            
+            'berkas_transkrip' => [
+                'rules' => 'uploaded[berkas_transkrip]|max_size[berkas_transkrip,2048]|ext_in[berkas_transkrip,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas BA Sidang harus diunggah.',
+                    'max_size' => 'Ukuran berkas BA Sidang maksimal 2MB.',
+                    'ext_in' => 'Berkas BA Sidang harus berformat PDF.',
+                ],
+            ],
+            'berkas_ijazah' => [
+                'rules' => 'uploaded[berkas_ijazah]|max_size[berkas_ijazah,2048]|ext_in[berkas_ijazah,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas Ijazah harus diunggah.',
+                    'max_size' => 'Ukuran berkas Ijazah maksimal 2MB.',
+                    'ext_in' => 'Berkas Ijazah harus berformat PDF.',
+                ],
+            ],
+            'berkas_pas_foto' => [
+                'rules' => 'uploaded[berkas_pas_foto]|max_size[berkas_pas_foto,2048]|ext_in[berkas_pas_foto,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas Pas Foto harus diunggah.',
+                    'max_size' => 'Ukuran berkas Pas Foto maksimal 2MB.',
+                    'ext_in' => 'Berkas Pas Foto harus berformat PDF.',
+                ],
+            ],
+            'berkas_akta_kelahiran' => [
+                'rules' => 'uploaded[berkas_akta_kelahiran]|max_size[berkas_akta_kelahiran,2048]|ext_in[berkas_akta_kelahiran,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas Akta Kelahiran harus diunggah.',
+                    'max_size' => 'Ukuran berkas Akta Kelahiran maksimal 2MB.',
+                    'ext_in' => 'Berkas Akta Kelahiran harus berformat PDF.',
+                ],
+            ],
+            'berkas_sertifikat_bahasa_inggris' => [
+                'rules' => 'uploaded[berkas_sertifikat_bahasa_inggris]|max_size[berkas_sertifikat_bahasa_inggris,2048]|ext_in[berkas_sertifikat_bahasa_inggris,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas Sertifikat Bahasa Inggris harus diunggah.',
+                    'max_size' => 'Ukuran berkas Sertifikat Bahasa Inggris maksimal 2MB.',
+                    'ext_in' => 'Berkas Sertifikat Bahasa Inggris harus berformat PDF.',
+                ],
+            ],
         ];
 
-        $yudisium_service = new \App\Services\YudisiumService();
+        if ($skBebasUkt?->isBeasiswa()) {
+            $rules['berkas_surat_keterangan_mahasiswa'] = [
+                'rules' => 'uploaded[berkas_surat_keterangan_mahasiswa]|max_size[berkas_surat_keterangan_mahasiswa,2048]|ext_in[berkas_surat_keterangan_mahasiswa,pdf]',
+                'errors' => [
+                    'uploaded' => 'Berkas Surat Keterangan Mahasiswa harus diunggah untuk mahasiswa beasiswa.',
+                    'max_size' => 'Ukuran berkas Surat Keterangan Mahasiswa maksimal 2MB.',
+                    'ext_in' => 'Berkas Surat Keterangan Mahasiswa harus berformat PDF.',
+                ],
+            ];
+        }
 
         $upload_data = $this->request->getFiles();
+
+        if (! $this->validateData($upload_data, $rules)) {
+            return redirect()->back()->withInput();
+        }
+
+        $yudisium_service = new \App\Services\YudisiumService();
 
         try {
             $yudisium_service->daftarYudisium($user, $upload_data);

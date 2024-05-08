@@ -2,6 +2,8 @@
     
 namespace App\Cells;
 
+use App\Entities\SuratKeterangan;
+use App\Entities\YudisiumPendaftaran;
 
 // <div>Surat Keterangan Bebas Perpustakaan</div>
 // <div class="d-flex align-items-center">
@@ -32,20 +34,28 @@ class StatusSuratKeterangan
         }
     }
 
-    public function renderLink($status, $url = null, $url2 = null, $target = '_blank')
+    public function renderLink($status, $url_ajukan = null, $url_lihat_surat = null, $target = '_self')
     {
         // only if status is not 'Selesai' or 'Menunggu Validasi'
         if ($status == STATUS_SELESAI) {
-            return sprintf($this->linkTemplate, $url2, $target, 'Lihat Surat Keterangan');
+            return sprintf($this->linkTemplate, $url_lihat_surat, '_blank', 'Lihat Surat Keterangan');
         } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
             return '';
         }
         
-        return sprintf($this->linkTemplate, $url, $target, 'Ajukan');
+        return sprintf($this->linkTemplate, $url_ajukan, $target, 'Ajukan');
     }
 
-    public function renderBadgeAndLink($status, $url = null, $url2 = null, $target = '_blank')
+    /**
+     * Render badge and link for Surat Keterangan
+     * 
+     * @param string $status Status of Surat Keterangan or Yudisium Pendaftaran
+     * @param string $url_ajukan URL to pengajuan
+     * @param string $url_lihat_surat URL to lihat surat
+     * @param string $target Target of link (default: '_self')
+     */
+    public function renderBadgeAndLink($status, $url_ajukan = null, $url_lihat_surat = null, $target = '_self')
     {
-        return $this->renderBadge($status) . $this->renderLink($status, $url, $url2, $target);
+        return $this->renderBadge($status) . $this->renderLink($status, $url_ajukan, $url_lihat_surat, $target);
     }
 }
