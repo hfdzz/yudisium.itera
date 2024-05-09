@@ -168,7 +168,8 @@ class YudisiumPendaftaran extends Entity
     {
         foreach ($files as $jenis_berkas => $file) {
             if (! $file->isValid()) {
-                return false;
+                // return false;
+                continue;
             }
             $this->saveUploadedFile($file, $jenis_berkas, $saveModel);
         }

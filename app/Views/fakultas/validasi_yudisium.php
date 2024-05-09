@@ -55,6 +55,7 @@
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Pas Foto 3x4</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Sertifikat TOEFL</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">FC Akta Kelahiran</th>
+                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">Surat Keterangan Mahasiswa</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas UKT</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Lab</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Pustaka</th>
@@ -76,6 +77,7 @@
                       <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_pas_foto') ?>" target="_blank">Lihat</a></td>
                       <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_sertifikat_bahasa_inggris') ?>" target="_blank">Lihat</a></td>
                       <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_akta_kelahiran') ?>" target="_blank">Lihat</a></td>
+                      <td><a href="<?= route_to('berkas_pendaftaran_yudisium', $p->id, 'berkas_surat_keterangan_mahasiswa') ?>" target="_blank">Lihat</a></td>
                       <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN)?->id]) ?></td>
                       <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->id]) ?></td>
                       <td><?= view_cell('LinkTextCell::bebasLabLink', ['sk_bebaslab' => $p->getSuratKeterangan(JENIS_SK_BEBAS_LABORATORIUM)]) ?></td>
