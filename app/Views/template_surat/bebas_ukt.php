@@ -56,17 +56,17 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td><?= $nama ?></td>
+                    <td>M.Nanda Idrika</td>
                 </tr>
                 <tr>
-                    <td>NIM</td>
+                    <td>NIP</td>
                     <td>:</td>
-                    <td><?= $nim ?></td>
+                    <td>19940328 201903 1 020</td>
                 </tr>
                 <tr>
-                    <td>Program Studi</td>
+                    <td>Jabatan</td>
                     <td>:</td>
-                    <td><?= $program_studi ?></td>
+                    <td>Bendahara Penerimaan</td>
                 </tr>
             </table>
 
@@ -100,7 +100,7 @@
                 <br>
                 <br>
                 <br>
-                <div style="text-align: left;">M. Nanda Idrika</div>
+                <div style="text-align: left;">M.Nanda Idrika</div>
                 <div style="text-align: left;margin-top:0.5rem">NIP. 19940328 201903 1 020</div>
             </div>
         </main>

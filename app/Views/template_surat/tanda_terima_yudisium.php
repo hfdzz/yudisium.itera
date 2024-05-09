@@ -75,7 +75,7 @@
     
             <div style="float: right;">
                 <div style="text-align: left;">Lampung Selatan, <?= $tanggal ?></div>
-                <div style="text-align: left;margin-top:0.5rem">Bendahara Penerimaan</div>
+                <div style="text-align: left;margin-top:0.5rem">Yang Menerima</div>
                 <br>
                 <br>
                 <br>
