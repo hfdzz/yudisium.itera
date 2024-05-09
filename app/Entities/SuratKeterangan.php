@@ -133,7 +133,7 @@ class SuratKeterangan extends Entity
             return false;
         }
         
-        $path = $file->store(PATH_UPLOAD_SK_BEBAS_UKT . '/' . date('Y-m'), $this->attributes['id'] . '_' . $jenis_berkas . '.pdf');
+        $path = $file->store(PATH_UPLOAD_SK_BEBAS_UKT . '/' . date('Y-m') . '/' . $this->attributes['id'], $this->attributes['id'] . '_' . $jenis_berkas . '.pdf');
 
         $this->attributes[$jenis_berkas] = $path;
 
