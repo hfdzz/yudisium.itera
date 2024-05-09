@@ -86,13 +86,15 @@ class SkBebasUktController extends BaseController
         $rules = [
             'nama_mahasiswa' => 'required',
             'nim' => 'required',
-            // 'program_studi' => 'required',
+            'program_studi' => 'required',
             'status' => 'required',
-            // 'nomor_surat' => 'required',
-            // 'tanggal_terbit' => 'required',
-            // 'keterangan' => 'required',
-            // 'peninjau' => 'required',
+            'tanggal_pengajuan' => 'required',
         ];
+        if ($data['status'] == 'selesai') {
+            $rules['nomor_surat'] = 'required';
+            $rules['tanggal_terbit'] = 'required';
+            $rules['peninjau_id'] = 'required';
+        }
 
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -113,13 +115,14 @@ class SkBebasUktController extends BaseController
 
 
         $model->save([
+            ...$data,
             'jenis_surat' => 'sk_bebas_ukt',
             'mahasiswa_id' => $mahasiswa->id,
-            'status' => $data['status'],
-            'nomor_surat' => $data['nomor_surat'],
-            'tanggal_terbit' => $data['tanggal_terbit'],
-            'keterangan' => $data['keterangan'],
-            'peninjau_id' => $data['peninjau'],
+            // 'status' => $data['status'],
+            // 'nomor_surat' => $data['nomor_surat'],
+            // 'tanggal_terbit' => $data['tanggal_terbit'],
+            // 'keterangan' => $data['keterangan'],
+            // 'peninjau_id' => $data['peninjau'],
         ]);
 
         return redirect()->with('success', 'Data berhasil ditambahkan')->to('/keuangan/bebas-ukt');

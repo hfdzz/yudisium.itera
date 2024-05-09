@@ -72,6 +72,11 @@
                 </div>
 
                 <div class="form-group mb-3">
+                    <label for="tanggal_pengajuan" class="form-label">Tanggal Pengajuan</label>
+                    <input type="date" class="form-control" name="tanggal_pengajuan" id="tanggal_pengajuan" value="<?= old('tanggal_pengajuan') ?>">
+                </div>
+
+                <div class="form-group mb-3">
                     <label for="nomor_surat" class="form-label">Nomor Surat</label>
                     <input type="text" class="form-control" name="nomor_surat" id="nomor_surat" value="<?= old('nomor_surat') ?>">
                 </div>
