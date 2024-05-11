@@ -22,10 +22,10 @@ class UserModel extends ShieldUserModel
             
         ];
 
-        // $this->returnType = 'App\Entities\UserEntity';
+        $this->returnType = UserEntity::class;
     }
 
-    protected $returnType = 'App\Entities\UserEntity';
+    protected $returnType = UserEntity::class;
 
     public function findOrCreateMahasiswa($nim, $username, $programStudi): UserEntity
     {

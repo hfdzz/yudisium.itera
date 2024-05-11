@@ -14,13 +14,10 @@ class UptPerpustakaanController extends BaseController
         // Dashboard for upt_perpustakaan
         $data = [
             'belum_mengajukan' => 0,
-            // 'menunggu_validasi' => 0,
             'selesai' => 0,
         ];
 
-        /**
-         * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
-         */
+        /** @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model */
         $model = model('SuratKeteranganModel');
 
         $data['belum_divalidasi'] = $model->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_PERPUSTAKAAN)

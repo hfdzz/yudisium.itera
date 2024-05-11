@@ -67,7 +67,10 @@ class YudisiumPendaftaran extends Entity
 
     public function getJenis($humanize = false) : string
     {
-        return 'Pendaftaran Yudisium';
+        if ($humanize) {
+            return 'Pendaftaran Yudisium';
+        }
+        return JENIS_PENDAFTARAN_YUDISIUM;
     }
 
     public function isSelesai()

@@ -27,13 +27,12 @@ class YudisiumPendaftaranController extends BaseController
 
     public function index()
     {
-        /**
-         * @var \App\Models\YudisiumPendaftaranModel $model
-         */
+        /** @var \App\Models\YudisiumPendaftaranModel $model */
         $model = model('YudisiumPendaftaranModel')
             ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id', 'left')
             ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi');
 
+        // Check filters
         if ($this->request->getGet('search')) {
             $model->groupStart();
             $fields = ['nim', 'username', 'program_studi', 'yudisium_pendaftaran.status', 'tanggal_penerimaan', 'keterangan'];
@@ -42,16 +41,15 @@ class YudisiumPendaftaranController extends BaseController
             }
             $model->groupEnd();
         }
-
         if ($this->request->getGet('status')) {
             $model->where('yudisium_pendaftaran.status', $this->request->getGet('status'));
         }
-
         if ($this->request->getGet('periode')) {
             $model->where('yudisium_pendaftaran.yudisium_periode_id', $this->request->getGet('periode'));
         }
-
-        $perPage = $this->request->getGet('per_page') ?? 10;
+        if ($this->request->getGet('program_studi')) {
+            $model->where('users.program_studi', $this->request->getGet('program_studi'));
+        }
 
         return view('fakultas/yudisium_pendaftaran/index', [
             'yudisium_pendaftaran' => $model->findAll(),
@@ -163,9 +161,6 @@ class YudisiumPendaftaranController extends BaseController
 
     public function update($id = null)
     {
-        
-        $model = model('YudisiumPendaftaranModel');
-
         $data = array_map(function ($value) {
             return $value === '' ? null : $value;
         }, $this->request->getPost());
@@ -193,6 +188,8 @@ class YudisiumPendaftaranController extends BaseController
             return redirect()->back()->withInput();
         }
 
+        $model = model('YudisiumPendaftaranModel');
+        
         $model->save($data);
 
         if ($model->errors()) {

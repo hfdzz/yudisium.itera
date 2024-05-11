@@ -23,7 +23,6 @@ class MahasiswaController extends BaseController
         ];
 
         // data for dashboard number
-
         $data = [
             'belum_mengajukan' => 0,
             'menunggu_validasi' => 0,
@@ -36,8 +35,6 @@ class MahasiswaController extends BaseController
                     $data['menunggu_validasi']++;
                 } elseif ($ud->isSelesai()) {
                     $data['selesai']++;
-                } elseif ($ud->isDitolak()) {
-                    $data['belum_mengajukan']++;
                 }
             } else {
                 $data['belum_mengajukan']++;
@@ -59,18 +56,6 @@ class MahasiswaController extends BaseController
             $currentPeriode = $yudisiumPeriodeModel->getCurrentPeriode();
             $yudisiumPendaftaran = auth()->user()->yudisiumPendaftaran();
 
-            // if ($yudisiumPendaftaran->isSelesai()) {
-            //     return view('mahasiswa/daftar_yudisium', [
-            //         'yudisium_pendaftaran' => $yudisiumPendaftaran,
-            //     ]);
-            // }
-
-            // if (! $currentPeriode || ! $currentPeriode->isOpen()) {
-            //     return view('mahasiswa/daftar_yudisium', [
-            //         'yudisium_periode' => null,
-            //     ]);
-            // }
-
             $skBebasPerpustakaan = $user->suratKeteranganBebasPerpustakaan();
             $skBebasUkt = $user->suratKeteranganBebasUkt();
             $skBebasLaboratorium = $user->suratKeteranganBebasLaboratorium();
@@ -82,7 +67,7 @@ class MahasiswaController extends BaseController
                 'yudisium_pendaftaran' => $yudisiumPendaftaran,
                 'yudisium_periode' => $currentPeriode,
             ];
-            // dd($data);
+
             return view('mahasiswa/daftar_yudisium', $data);
         }
 
@@ -178,11 +163,9 @@ class MahasiswaController extends BaseController
             $model_sk->ajukanSkBebasPerpustakaan([
                 'mahasiswa_id' => auth()->id(),
             ]);
-
             if($model_sk->errors()) {
                 return redirect()->back()->with('errors', $model_sk->errors());
             }
-            
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -243,11 +226,9 @@ class MahasiswaController extends BaseController
             $model_sk->ajukanSkBebasUkt([
                 'mahasiswa_id' => auth()->id(),
             ], $file_data);
-
             if($model_sk->errors()) {
                 return redirect()->back()->with('errors', $model_sk->errors());
             }
-            
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -271,8 +252,6 @@ class MahasiswaController extends BaseController
             'sk_bebas_laboratorium' => $skBebasLabotatorium,
             'yudisium_pendaftaran' => $pendaftaranYudisium,
         ];
-
-        // dd($data);
 
         return view('mahasiswa/status_yudisium', $data);
     }

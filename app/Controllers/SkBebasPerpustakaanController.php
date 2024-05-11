@@ -114,11 +114,6 @@ class SkBebasPerpustakaanController extends BaseController
             ...$data,
             'jenis_surat' => 'sk_bebas_perpustakaan',
             'mahasiswa_id' => $mahasiswa->id,
-            // 'status' => $data['status'],
-            // 'nomor_surat' => $data['nomor_surat'],
-            // 'tanggal_terbit' => $data['tanggal_terbit'],
-            // 'keterangan' => $data['keterangan'],
-            // 'peninjau_id' => $data['peninjau'],
         ]);
 
         return redirect()->with('success', 'Data berhasil ditambahkan')->to('/upt_perpustakaan/bebas-perpustakaan');

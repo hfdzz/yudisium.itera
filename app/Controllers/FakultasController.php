@@ -14,7 +14,6 @@ class FakultasController extends BaseController
         // Dashboard for fakultas
         $data = [
             'belum_divalidasi' => 0,
-            // 'menunggu_validasi' => 0,
             'selesai' => 0,
         ];
 
@@ -37,7 +36,6 @@ class FakultasController extends BaseController
                 ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode->id)
                 ->countAllResults();
         }
-
 
         return view('fakultas/dashboard', $data);
     }
@@ -70,43 +68,33 @@ class FakultasController extends BaseController
             return view('fakultas/validasi_yudisium', $data);
         }
 
-        $yudisium = new \App\Services\YudisiumService();
-
         /** @var \App\Models\YudisiumPendaftaranModel $yudisiumPendaftaranModel */
         $yudisiumPendaftaranModel = model('YudisiumPendaftaranModel');
 
         $data = $this->request->getPost();
-
-        // dd($data);
 
         $yudisiumPendaftaran = $yudisiumPendaftaranModel->where('id', $data['id'])->first();
 
         if (! $yudisiumPendaftaran) {
             return redirect()->to('/fakultas/validasi-yudisium')->with('error', 'Pendaftaran yudisium tidak ditemukan');
         }
-        
+
+        $yudisium = new \App\Services\YudisiumService();
+
         try{
             if ($data['action'] == 'validasi') {
-                // Terima pendaftaran yudisium
-    
                 $yudisium->validasiPendaftaranYudisium(
                     auth()->user(),
                     $yudisiumPendaftaran,
                     $data
                 );
-    
-                return redirect()->to('/fakultas/validasi-yudisium')->with('success', 'Pendaftaran yudisium berhasil diterima');
             }
             else if ($data['action'] == 'tolak') {
-                // Tolak pendaftaran yudisium
-    
                 $yudisium->tolakPendaftaranYudisium(
                     auth()->user(),
                     $yudisiumPendaftaran,
                     $data
                 );
-    
-                return redirect()->to('/fakultas/validasi-yudisium')->with('success', 'Pendaftaran yudisium berhasil ditolak');
             }
             else {
                 throw new \Exception('Invalid action');
@@ -115,6 +103,7 @@ class FakultasController extends BaseController
         catch (\Exception $e) {
             return redirect()->to('/fakultas/validasi-yudisium')->with('error', $e->getMessage());
         }
+        return redirect()->to('/fakultas/validasi-yudisium')->with('success', 'Pendaftaran yudisium berhasil ' . ($data['action'] == 'validasi' ? 'diterima' : 'ditolak'));
     }
 
     public function periodeYudisium()
@@ -149,7 +138,6 @@ class FakultasController extends BaseController
         $db = \Config\Database::connect();
         
         $db->transStart();
-
         // Create new periode or update existing periode
         if ( !isset($data['id']) ) {
             try {
@@ -189,10 +177,7 @@ class FakultasController extends BaseController
             }
         }
 
-
         $db->transComplete();
-
-        // dd($db->error());
 
         return redirect()->to('/fakultas/periode-yudisium')->with('success', 'Periode berhasil disimpan');
     }
