@@ -137,11 +137,12 @@ define('PATH_UPLOAD_SK_BEBAS_LABORATORIUM', 'berkas_sk_bebas_laboratorium');
 
 /*
  | --------------------------------------------------------------------------
- | Jenis Surat Keterangan
+ | Jenis Berkas
  | --------------------------------------------------------------------------
  |
- | Jenis surat keterangan yang tersedia
+ | Jenis berkas yang ada
  */
 define('JENIS_SK_BEBAS_PERPUSTAKAAN', 'sk_bebas_perpustakaan');
 define('JENIS_SK_BEBAS_UKT', 'sk_bebas_ukt');
 define('JENIS_SK_BEBAS_LABORATORIUM', 'sk_bebas_laboratorium');
+define('JENIS_PENDAFTARAN_YUDISIUM', 'pendaftaran_yudisium');

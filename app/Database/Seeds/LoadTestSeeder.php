@@ -39,13 +39,14 @@ class LoadTestSeeder extends Seeder
 
         //  user_mahasiswa
         // predefined mahasiswa (for pendafataran yudisium testing)
+        define('BASE_NIM', 120140001);
         for ($i = 0; $i < MAHASISWA_USER_AMOUNT; $i++) {
             $this->create_user([
                 'id' => $i,
                 'username' => 'mahasiswa' . $i,
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'email' => 'mahasiswa' . $i . '@test.com',
-                'nim' => $faker->unique()->randomNumber(9),
+                'nim' => (BASE_NIM + $i),
                 'program_studi' => PRODI_LIST[$i % count(PRODI_LIST)],
                 'group' => 'user_mahasiswa',
             ]);
