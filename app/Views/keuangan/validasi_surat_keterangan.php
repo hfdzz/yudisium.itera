@@ -74,6 +74,7 @@
                         <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td> -->
                         <td>
                           <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima" data-id="<?= $sk->id; ?>">Terima</button>
+                          <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalBeasiswa" data-id="<?= $sk->id; ?>">Beasiswa</button>
                           <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" data-id="<?= $sk->id; ?>">Tolak</button>
                         </td>
                         <!-- <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td> -->
@@ -229,6 +230,37 @@
     </div>
   </div>
 
+  <!-- Modal Beasiswa -->
+  <div class="modal fade" id="modalBeasiswa">
+    <div class="modal-dialog">
+      <form class="modal-content" method="post" action="<?= route_to('keuangan.validasi-surat-keterangan'); ?>">
+        <?= csrf_field(); ?>
+        <input type="hidden" name="id" id="id">
+                  
+        <!-- Header modal -->
+        <div class="modal-header">
+          <h4 class="modal-title">Terima Pengajuan (Beasiswa)</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Isi modal -->
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan..."></textarea>
+          </div>
+        </div>
+
+        <!-- Footer modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-info" name="action" value="validasi_beasiswa">Terima (Beasiswa)</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
   <!-- Modal Tolak -->
   <div class="modal fade" id="modalTolak">
     <div class="modal-dialog">
@@ -264,6 +296,14 @@
 
 <script>
   $('#modalTerima').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    console.log(id);
+    var modal = $(this);
+    modal.find('input[name="id"]').val(id);
+  });
+
+  $('#modalBeasiswa').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var id = button.data('id');
     console.log(id);

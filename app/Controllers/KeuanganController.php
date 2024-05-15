@@ -103,7 +103,7 @@ class KeuanganController extends BaseController
             return redirect()->route('keuangan.validasi_surat_keterangan')->with('errors', model('SuratKeteranganModel')->errors());
         }
 
-        return redirect()->route('keuangan.validasi_surat_keterangan')->with('success', 'Surat keterangan berhasil ' . ($action === 'validasi' ? 'divalidasi' : 'ditolak'));
+        return redirect()->route('keuangan.validasi_surat_keterangan')->with('success', 'Surat keterangan berhasil ' . ($action === 'validasi' ? 'divalidasi' : ($action === 'validasi_beasiswa' ? 'divalidasi (beasiswa)' : 'ditolak')));
     }
 
     public function berkasBebasUkt($id, $jenis_berkas)
