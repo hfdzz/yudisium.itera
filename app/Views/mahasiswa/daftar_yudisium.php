@@ -149,7 +149,12 @@
                       </div>
 
                       <div class="form-group col-6">
-                        <label class="form-label" for="berkas_surat_keterangan_mahasiswa">Surat Keterangan Lunas (Opsional)</label>
+                        <label class="form-label" for="berkas_surat_keterangan_mahasiswa">Surat Keterangan Mahasiswa (Penerima Beasiswa)</label>
+                        <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" enabled placeholder="surat_lunas">
+                      </div>
+
+                      <div class="form-group col-6">
+                        <label class="form-label" for="berkas_surat_keterangan_mahasiswa">BA Sidang</label>
                         <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" enabled placeholder="surat_lunas">
                       </div>
 
