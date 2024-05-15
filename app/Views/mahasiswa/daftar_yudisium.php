@@ -103,7 +103,7 @@
                     
                     <div class="row">
                       <div class="col-4">
-                        <div><strong>Surat Bebas UKT</strong></div>
+                        <div><strong>Surat Bebas Perpustakaan</strong></div>
                         <div>
                           <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_perpustakaan?->status, 'url_ajukan' => route_to('mahasiswa.sk_bebas_perpustakaan'), 'url_lihat_surat' => $sk_bebas_perpustakaan ? route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id):null]) ?>
                         </div>
