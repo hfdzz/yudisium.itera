@@ -42,33 +42,16 @@
             <div class="card mb-5">
               <div class="card-body">
 
-                <div class="d-flex justify-content-start align-items-center mb-3">
-                    <div class="d-flex mr-2">
-                        <form action="<?= site_url('fakultas/yudisium-pendaftaran') ?>" method="get" class="d-flex gap-2">
-                            <select name="periode" id="periode" class="form-select" onchange="this.form.submit()">
-                                <option value="">Cari Periode</option>
-                                <?php foreach ($list_periode as $p) : ?>
-                                    <option value="<?= $p->id ?>" <?= isset($_GET['periode']) && $_GET['periode'] == $p->id ? 'selected' : '' ?>><?= $p->periode ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </form>
-                    </div>
-                    <?php if (isset($_GET['periode']) && $_GET['periode'] !== '') : ?>
-                    <div>
-                      <form action="<?= site_url('fakultas/yudisium-pendaftaran') ?>" method="get" class="d-flex gap-2">
-                        <button type="submit" class="btn btn-danger">Reset</button>
-                      </form>
-                    </div>
-                    <?php endif ?>
-                </div>
-
                 <?php if (isset($_GET['periode']) && $_GET['periode'] !== '') : ?>
                 <div>
                   <span>Hasil untuk periode: <strong><?= model('YudisiumPeriodeModel')->find($_GET['periode'])->periode ?></strong></span>
                 </div>
                 <?php endif ?>
-                
+               
                 <div class="table-responsive">
+                <div class="d-flex justify-content-end mb-3">
+                <a href="<?= site_url('fakultas/yudisium-pendaftaran/new') ?>" class="btn btn-primary">Tambah Data</a>
+              </div>
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -151,9 +134,6 @@
                       </tr>
                     </tfoot>
                   </table>
-                </div>
-                <a href="<?= site_url('fakultas/yudisium-pendaftaran/new') ?>" class="btn btn-primary">Tambah Data</a>
-              </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
