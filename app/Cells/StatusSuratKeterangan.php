@@ -15,7 +15,7 @@ use App\Entities\YudisiumPendaftaran;
 class StatusSuratKeterangan
 {
     protected $badgeTemplate = '<span class="badge p-1 bg-%s text-light">%s</span>';
-    protected $linkTemplate = '<a href="%s" class="btn text-white px-0 ml-2 p-1 text-sm" style="background-color : #EEC01D" target="%s">%s</a>';
+    protected $linkTemplate = '<a href="%s" class="btn text-white px-0 ml-2 p- text-sm" style="background-color : #EEC01D" target="%s">%s</a>';
 
     public function renderBadge($status)
     {
