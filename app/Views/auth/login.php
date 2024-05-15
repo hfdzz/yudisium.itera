@@ -57,7 +57,7 @@
     </div>
     <div class="col-lg-6 d-none d-lg-block p-0" style="background-image: url('../../assets/img/bg-login.png'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
     
-    <br>    <h2 class="pt-5 text-center mt-5 font-weight-bold" style="color: black;">WELCOME TO STUDENT PORTAL </h2>
+    <br>    <h2 class="pt-5 text-center mt-5 font-weight-bold" style="color: black;">WELCOME TO SIYUDIS PORTAL </h2>
     </div>
 </div>
 
