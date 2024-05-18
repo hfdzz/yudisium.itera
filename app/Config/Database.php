@@ -197,5 +197,11 @@ class Database extends Config
         if (ENVIRONMENT === 'testing') {
             $this->defaultGroup = 'tests';
         }
+
+        // Decode variable "encrypt" if set as json for SSL connection
+        $var_encrypt_array = json_decode($this->default['encrypt'], true);
+        if(is_array($var_encrypt_array)) {
+            $this->default['encrypt'] = $var_encrypt_array;
+        }
     }
 }
