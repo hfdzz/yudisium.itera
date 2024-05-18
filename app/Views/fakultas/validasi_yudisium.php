@@ -56,6 +56,7 @@
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Sertifikat TOEFL</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">FC Akta Kelahiran</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">Surat Keterangan Mahasiswa</th>
+                      <th class="small align-items-center m-0" style="background-color: #EEC01D;">BA Sidang</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas UKT</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Pustaka</th>
                       <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Lab</th>
@@ -72,22 +73,24 @@
                       <td><?= $p->username; ?></td>
                       <td><?= $p->nim; ?></td>
                       <td><?= $p->program_studi; ?></td>
-                      <td><?= view_cell('LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_transkrip, 'id' => $p->id, 'jenis_berkas' => 'berkas_transkrip']) ?></td>
-                      <td><?= view_cell('LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_ijazah, 'id' => $p->id, 'jenis_berkas' => 'berkas_ijazah']) ?></td>
-                      <td><?= view_cell('LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_pas_foto, 'id' => $p->id, 'jenis_berkas' => 'berkas_pas_foto']) ?></td>
-                      <td><?= view_cell('LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_sertifikat_bahasa_inggris, 'id' => $p->id, 'jenis_berkas' => 'berkas_sertifikat_bahasa_inggris']) ?></td>
-                      <td><?= view_cell('LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_akta_kelahiran, 'id' => $p->id, 'jenis_berkas' => 'berkas_akta_kelahiran']) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_transkrip, 'id' => $p->id, 'jenis_berkas' => 'berkas_transkrip']) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_ijazah, 'id' => $p->id, 'jenis_berkas' => 'berkas_ijazah']) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_pas_foto, 'id' => $p->id, 'jenis_berkas' => 'berkas_pas_foto']) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_sertifikat_bahasa_inggris, 'id' => $p->id, 'jenis_berkas' => 'berkas_sertifikat_bahasa_inggris']) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_akta_kelahiran, 'id' => $p->id, 'jenis_berkas' => 'berkas_akta_kelahiran']) ?></td>
                       <td>
                         <?php if ($p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->isBeasiswa()): ?>
-                          <?= view_cell('LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_surat_keterangan_mahasiswa, 'id' => $p->id, 'jenis_berkas' => 'berkas_surat_keterangan_mahasiswa']) ?>
+                          <?= view_cell('\App\Cells\LinkTextCell::uploadedFileYudisiumLink', ['path' => $p->berkas_surat_keterangan_mahasiswa, 'id' => $p->id, 'jenis_berkas' => 'berkas_surat_keterangan_mahasiswa']) ?>
                         <?php else: ?>
                           <!-- Give user indication that this mahasiswa is not beasiswa -->
                           <span class="text-sm text-gray">Tidak Beasiswa</span>
                         <?php endif; ?>
                       </td>
-                      <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN)?->id]) ?></td>
-                      <td><?= view_cell('LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->id]) ?></td>
-                      <td><?= view_cell('LinkTextCell::bebasLabLink', ['sk_bebaslab' => $p->getSuratKeterangan(JENIS_SK_BEBAS_LABORATORIUM)]) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::uploadedFileUKTLink', ['path' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->berkas_ba_sidang, 'id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->id, 'jenis_berkas' => 'berkas_ba_sidang']) ?></td>
+                      
+                      <td><?= view_cell('\App\Cells\LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_PERPUSTAKAAN)?->id]) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::skLink', ['sk_id' => $p->getSuratKeterangan(JENIS_SK_BEBAS_UKT)?->id]) ?></td>
+                      <td><?= view_cell('\App\Cells\LinkTextCell::bebasLabLink', ['sk_bebaslab' => $p->getSuratKeterangan(JENIS_SK_BEBAS_LABORATORIUM)]) ?></td>
                       <td>
                         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima" data-id="<?= $p->id; ?>">Terima</button>
                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" data-id="<?= $p->id; ?>">Tolak</button>

@@ -28,7 +28,7 @@ class LinkTextCell
 
     public function uploadedFileUKTLink($path, $id, $jenis_berkas)
     {
-        $url = route_to('berkas_bebas_ukt', $id, $jenis_berkas);
+        $url = route_to('berkas_bebas_ukt', (int)$id, $jenis_berkas);
 
         if (!$path || !$url) {
             return $this->fileNotUploadedHTML;

@@ -64,11 +64,11 @@ $routes->group('mahasiswa', ['filter' => 'group:user_mahasiswa'], function ($rou
     $routes->get('status-yudisium', [App\Controllers\MahasiswaController::class, 'statusYudisium'], ['as' => 'mahasiswa.status_yudisium']);
 });
 
-$routes->get('berkas-bebas-ukt/(:num)/(:segment)', [App\Controllers\FileResourceController::class, 'berkasBebasUkt'], ['filter' => 'group:user_keuangan,user_mahasiswa', 'as' => 'berkas_bebas_ukt']);
+$routes->get('berkas-bebas-ukt/(:num)/(:segment)', [App\Controllers\FileResourceController::class, 'berkasBebasUkt'], ['as' => 'berkas_bebas_ukt']);
 
 $routes->get('file-surat-keterangan/(:num)', [App\Controllers\FileResourceController::class, 'fileSuratKeterangan'], ['as' => 'file_surat_keterangan']);
 
-$routes->get('berkas-pendaftaran-yudisium/(:num)/(:segment)', [App\Controllers\FileResourceController::class, 'berkasPendaftaranYudisium'], ['filter' => 'group:user_fakultas,user_mahasiswa', 'as' => 'berkas_pendaftaran_yudisium']);
+$routes->get('berkas-pendaftaran-yudisium/(:num)/(:segment)', [App\Controllers\FileResourceController::class, 'berkasPendaftaranYudisium'], ['as' => 'berkas_pendaftaran_yudisium']);
 
 $routes->get('file-tanda-terima-yudisium/(:num)', [App\Controllers\FileResourceController::class, 'fileTandaTerimaYudisium'], ['as' => 'file_tanda_terima_yudisium']);
 
