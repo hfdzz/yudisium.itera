@@ -110,21 +110,6 @@
                     </td>
                   </tr> -->
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th style="background-color: #EEC01D;">No</th>
-                    <th style="background-color: #EEC01D;">Tanggal</th>
-                    <th style="background-color: #EEC01D;">Nama</th>
-                    <th style="background-color: #EEC01D;">NIM</th>
-                    <th style="background-color: #EEC01D;">Prodi</th>
-                    <th style="background-color: #EEC01D;">Status Berkas</th>
-                    <!-- <th style="background-color: #EEC01D;">Periode</th>
-                    <th style="background-color: #EEC01D;">Tahun</th>
-                    <th style="background-color: #EEC01D;">SK Bebas UKT</th> -->
-                    <th style="background-color: #EEC01D;">Surat</th>
-                    <th style="background-color: #EEC01D;">Aksi</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
