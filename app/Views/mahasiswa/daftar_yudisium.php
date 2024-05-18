@@ -155,7 +155,7 @@
 
                       <div class="form-group col-6">
                         <label class="form-label" for="berkas_surat_keterangan_mahasiswa">Surat Keterangan Mahasiswa (Penerima Beasiswa)</label>
-                        <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" enabled placeholder="surat_lunas">
+                        <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" placeholder="surat_lunas"  <?= $sk_bebas_ukt?->status == STATUS_SELESAI_BEASISWA ? 'enabled required' : 'disabled' ?>>
                       </div>
 
                       <div class="form-group col-6">
