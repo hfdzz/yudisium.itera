@@ -41,8 +41,8 @@
             <div class="card">
               <div class="card-body">
 
-              <?php // If yudisium pendaftaran is finished ?>
-              <?php if ($yudisium_pendaftaran?->isSelesai()): ?>
+                <?php if ($yudisium_pendaftaran?->isSelesai()): ?>
+                <!-- Yudisium Selesai View -->
 
                 <div class="alert alert-success">
                   <i class="icon fas fa-check"></i>
@@ -51,7 +51,10 @@
                 <div>
                   <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran?->id) ?>" class="mx-1" target="_blank">Lihat Tanda Terima Yudisium</a>
                 </div>
+
                 <?php if(!empty($yudisium_pendaftaran->keterangan)) : ?>
+                <!-- Keterangan -->
+
                 <div class="alert alert-info">
                   <p class="m-0"><strong>Keterangan:</strong></p>
                   <?= $yudisium_pendaftaran->keterangan ?>
@@ -63,6 +66,8 @@
                 </div>
 
                 <?php foreach($yudisium_pendaftaran->getYudisiumPeriode()->yudisiumPeriodeInformasi() as $informasi): ?>
+                  <!-- Informasi Yudisium -->
+
                   <div class="alert alert-info">
                     <div>
                       <strong>
@@ -75,19 +80,19 @@
                   </div>
                 <?php endforeach; ?>
 
-              <?php // Else check if periode is open ?>
-              <?php elseif ($yudisium_periode?->isOpen()): ?>
-                
-                <?php // Check if yudisium pendaftaran is waiting for validation ?>
-                <?php if ($yudisium_pendaftaran?->isMenungguValidasi()): ?>
+                <?php elseif ($yudisium_periode?->isOpen()): ?>
+                <!-- Yudisium Periode Open View -->
+
+                  <?php if ($yudisium_pendaftaran?->isMenungguValidasi()): ?>
+                  <!-- Yudisium Menunggu Validasi View -->
 
                   <div class="alert alert-info">
                     <i class="icon fas fa-info"></i>
                     <span>Pendaftaran Yudisium sedang menunggu validasi.</span>
                   </div>
 
-                <?php // If not, show form ?>
-                <?php elseif (!$yudisium_pendaftaran || $yudisium_pendaftaran?->canDafarYudisium()): ?>
+                  <?php elseif (!$yudisium_pendaftaran || $yudisium_pendaftaran?->canDafarYudisium()): ?>
+                  <!-- Yudisium Form View -->
                   
                   <form class="" action="" method="post" enctype="multipart/form-data">
                     <div class="d-flex justify-content-center align-items-center py-2 mb-3" style="background-color: #EEC01D; border-radius: 20px;">
@@ -119,7 +124,7 @@
                       <div class="col-4">
                         <div><strong>Surat Bebas Laboratorium</strong></div>
                         <div>
-                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url_ajukan' => 'https://silabor.itera.ac.id', 'url_lihat_surat' => $sk_bebas_laboratorium?->surat]) ?>
+                          <?= view_cell('\App\Cells\StatusSuratKeterangan::renderBadgeAndLink', ['status' => $sk_bebas_laboratorium?->status, 'url_ajukan' => 'https://silabor.itera.ac.id', 'url_lihat_surat' => $sk_bebas_laboratorium?->surat, 'target' => '_blank']) ?>
                         </div>
                       </div>
 
@@ -150,7 +155,7 @@
 
                       <div class="form-group col-6">
                         <label class="form-label" for="berkas_surat_keterangan_mahasiswa">Surat Keterangan Mahasiswa (Penerima Beasiswa)</label>
-                        <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" enabled placeholder="surat_lunas">
+                        <input type="file" class="form-control" name="berkas_surat_keterangan_mahasiswa" id="berkas_surat_keterangan_mahasiswa" placeholder="surat_lunas"  <?= $sk_bebas_ukt?->status == STATUS_SELESAI_BEASISWA ? 'enabled required' : 'disabled' ?>>
                       </div>
 
                       <div class="form-group col-6">
@@ -177,15 +182,15 @@
                 
                 <?php endif; ?>
 
-              <?php // else if periode is closed ?>
-              <?php else: ?>
+                <?php else: ?>
+                <!-- Yudisium Closed View -->
                   
                   <div class="alert alert-danger">
                     <i class="icon fas fa-times"></i>
                     <span>Pendaftaran Yudisium belum dibuka atau sudah ditutup.</span>
                   </div>
 
-              <?php endif; ?>
+                <?php endif; ?>
               </div>
             </div>
           </div>

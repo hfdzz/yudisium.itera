@@ -39,7 +39,7 @@ class StatusSuratKeterangan
         // only if status is not 'Selesai' or 'Menunggu Validasi'
         if ($status == STATUS_SELESAI) {
             return sprintf($this->linkTemplate, $url_lihat_surat, '_blank', 'Lihat Surat Keterangan');
-        } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
+        } else if ($status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
             return '';
         }
         
