@@ -41,7 +41,7 @@
           <div class="col-12 mb-5">
             <div class="pengajuan py-4">
               <div class="title-text">
-                <div class="title">Bebas Pustaka</div>
+                <div class="title mb-3">Bebas Pustaka</div>
               </div>
 
               <?php if ($sk_bebas_perpustakaan?->isSelesai()): ?>
@@ -65,11 +65,12 @@
 
               <div class="form-container">
                 <!-- Text Persyaratan bebas Pustaka in list -->
-                <div>
+                <div mt-3>
                   <ul>
-                    <li>Sudah mengumpulkan TA Hardcopy.</li>
-                    <li>Sudah mengumpulkan TA softcopy.</li>
-                    <li>Turnitin.</li>
+                    <li>Sebelum mengajukan surat bebas pustaka, pastikan anda sudah mengumpulkan Tugas Akhir versi Hardcopy.</li>
+                    <li>Pastikan sudah mengumpulkan Tugas Akhir versi Soft Copy kepada admin Perpustakaan.</li>
+                    <li>Pastikan sudah tidak memiliki tanggungan peminjaman buku di Perpustakaan ITERA </li>
+                    <li>Setelah semua syarat di atas terpenuhi, silahkan mengajukan surat bebas pustaka di bawah ini. </li>
                   </ul>
                 </div>
 

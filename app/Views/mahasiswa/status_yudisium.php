@@ -96,6 +96,7 @@
                   </tr>
                   </thead>
                   <tbody>
+
                   <?php $i=1; if ($sk_bebas_perpustakaan) : ?>
                     <tr>
                       <td><?= $i++ ?></td>
@@ -110,6 +111,7 @@
                       <td><?= $sk_bebas_perpustakaan?->keterangan ?></td>
                     </tr>
                   <?php endif; ?>
+
                   <?php if ($sk_bebas_ukt) : ?>
                     <tr>
                       <td><?= $i++ ?></td>
@@ -125,6 +127,7 @@
                       <td><?= $sk_bebas_ukt?->keterangan ?></td>
                     </tr>
                   <?php endif; ?>
+                  
                   <?php if ($sk_bebas_laboratorium) : ?>
                     <tr>
                       <td><?= $i++ ?></td>
@@ -135,9 +138,11 @@
                         <?php if ($sk_bebas_laboratorium?->isSelesai()) : ?>
                           <a href="<?=$sk_bebas_laboratorium?->surat ?>" class="btn btn-primary" target="_blank">Lihat</a>
                         <?php endif ?>
+                      </td>
                       <td><?= $sk_bebas_laboratorium?->keterangan ?></td>
                     </tr>
                   <?php endif; ?>
+
                   <?php if ($yudisium_pendaftaran) : ?>
                     <tr>
                       <td><?= $i++ ?></td>
@@ -148,9 +153,11 @@
                         <?php if ($yudisium_pendaftaran?->isSelesai()) : ?>
                           <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran?->id) ?>" class="btn btn-primary" target="_blank">Lihat</a>
                         <?php endif ?>
+                      </td>
                       <td><?= $yudisium_pendaftaran?->keterangan ?></td>
                     </tr>
                   <?php endif; ?>
+
                   </tbody>
                 </table>
               </div>

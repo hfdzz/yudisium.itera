@@ -40,9 +40,28 @@
                 </div>
                 <div class="form-group">
                     <select class="form-control" name="program_studi" id="program_studi">
-                        <option value="Sistem Informasi">Sistem Informasi</option>
+                     <option value="Teknik Geofisika">Teknik Geofisika</option>
+                        <option value="Teknik Geologi">Teknik Geologi</option>
+                        <option value="Teknik Industri">Teknik Industri</option>
+                        <option value="Teknik Mesin">Teknik Mesin</option>
+                        <option value="Teknik Pertambangan">Teknik Pertambangan</option>
+                        <option value="Rekayasa Minyak dan Gas">Rekayasa Minyak dan Gas</option>
+                        <option value="Teknik Material">Teknik Material</option>
+                        <option value="Teknik Elektro">Teknik Elektro</option>
                         <option value="Teknik Informatika">Teknik Informatika</option>
-                        <option value="Manajemen Informatika">Manajemen Informatika</option>
+                        <option value="Teknik Sistem Energi">Teknik Sistem Energi</option>
+                        <option value="Teknik Biomedis">Teknik Biomedis</option>
+                        <option value="Teknik Fisika">Teknik Fisika</option>
+                        <option value="Rekayasa Instrumentasi dan Automasi">Rekayasa Instrumentasi dan Automasi</option>
+                        <option value="Teknik Telekomunikasi">Teknik Telekomunikasi</option>
+                        <option value="Rekayasa Keolahragaan">Rekayasa Keolahragaan</option>
+                        <option value="Teknik Kimia">Teknik Kimia</option>
+                        <option value="Teknik Biosistem">Teknik Biosistem</option>
+                        <option value="Teknologi Industri Pertanian">Teknologi Industri Pertanian</option>
+                        <option value="Teknologi Pangan">Teknologi Pangan</option>
+                        <option value="Rekayasa Kehutanan">Rekayasa Kehutanan</option>
+                        <option value="Rekayasa Kosmetik">Rekayasa Kosmetik</option>
+
                     </select>
                 </div>
                 <div class="form-group">

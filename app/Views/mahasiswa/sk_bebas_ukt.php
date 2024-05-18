@@ -41,7 +41,7 @@
           <div class="col-12 mb-5">
             <div class="pengajuan py-4">
               <div class="title-text">
-                <div class="title">Bebas UKT</div>
+                <div class="title mb-3">Bebas UKT</div>
               </div>
 
               <?php if ($sk_bebas_ukt?->isSelesai()): ?>
@@ -77,9 +77,11 @@
                 <!-- Text Persyaratan bebas Pustaka in list -->
                 <div>
                   <ul>
-                    <li>Bayar UKT.</li>
-                    <li>Sudah lunas.</li>
-                    <li>Yang beasiswa minta Surat Keterangan Mahasiswa dari administrasi kampus.</li>
+                    <li>Sebelum mengajukan surat bebas UKt, Pastikan anda sudah memenuhi persyaratan dengan mengupload berkas-berkas di bawah ini.</li>
+                    <li>Bagi Mahasiswa yang mendapatkan beasiswa,Silahkan mengajukan surat keterangan mahasiswa pada bagian Akademik ITERA</li>
+                    <li>Silahkan upload Surat Keterangan Mahasiswa dalam pendaftaran yudisium sebagai pengganti sementara SK Bebas UKT</li>
+                    <li>File yang diupload bertipe PDF dengan maksimal size 2MB</li>
+                    <li>Apabila sudah terpenuhi semua persyaratan, silahkan mengajukan SK Bebas UKT di bawah ini</li>
                   </ul>
                 </div>
 
@@ -102,11 +104,11 @@
                         <input type="file" class="form-control" name="berkas_ba_sidang" id="berkas_ba_sidang" required placeholder="berkas_ba_sidang">
                       </div>
                       <div class="form-group col-4">
-                        <label class="form-label" for="berkas_khs">Kartu Hasil Studi (TerTTD Dosen Wali)</label>
+                        <label class="form-label" for="berkas_khs">Transkip Nilai (Tertanda tangan) </label>
                         <input type="file" class="form-control" name="berkas_khs" id="berkas_khs" required placeholder="berkas_khs">
                       </div>
                       <div class="form-group col-4">
-                        <label class="form-label" for="berkas_bukti_bayar_ukt">Screenshot Lunas UKT AVITA</label>
+                        <label class="form-label" for="berkas_bukti_bayar_ukt">Screenshot Lunas UKT AVITA (TTD Dosen Wali) </label>
                         <input type="file" class="form-control" name="berkas_bukti_bayar_ukt" id="berkas_bukti_bayar_ukt" required placeholder="berkas_bukti_bayar_ukt">
                       </div>
                     </div>

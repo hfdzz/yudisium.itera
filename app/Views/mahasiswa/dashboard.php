@@ -78,11 +78,18 @@
         <!-- /.row -->
         <div class="row">
           <div class="col-lg-12 col-12">
-            <div class="small-box">
+            <br>
+            <div class="card card-warning card-outline p-3">
               <div class="inner">
-                <h3>Pengumuman</h3>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab similique vitae quisquam optio? Quod, nulla eius exercitationem corporis repudiandae neque excepturi deleniti maiores earum aut, ipsa architecto minus vel, vero ex facilis qui voluptate magni. Laudantium, exercitationem, consectetur, provident distinctio temporibus veritatis unde dolorum dolores itaque tempore quas possimus? Quibusdam?</p>
+                <i class="fas fa-info-circle"></i>
+                <span class="card-info">Informasi Pendaftaran Yudisium</span>
+                <p class="text-justify px-3">
+                  1. Periode pendaftaran  yudisium FTI dilakukan setiap bulan dan biasanya dilakukan pada akhir bulan. <br>
+                  2. Mahasiswa diharuskan untuk mendaftarkan akun dan mengumpulkan berkas pendaftaran yudisium dengan mengajukan berkas terlebih dahulu lewat menu pengajuan berkas. <br>
+                  3. Setelah mengajukan berkas, mahasiswa harus melengkapi seluruh berkas pendaftaran dan dapat melihat status dari pendaftaran pada menu cek status. <br>
+                  4. Apabila pendaftaran sudah divalidasi, silahkan unduh tanda terima dan join di grup whatsapp yang tersedia sesuai dengan program studi. <br>
+                  5. Apabila terdapat hal yang tidak dimengerti silahkan tanyakan pada Admin Fakultas.
+                </p>
               </div>
             </div>
           </div>

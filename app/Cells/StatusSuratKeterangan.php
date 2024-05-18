@@ -15,7 +15,7 @@ use App\Entities\YudisiumPendaftaran;
 class StatusSuratKeterangan
 {
     protected $badgeTemplate = '<span class="badge p-1 bg-%s text-light">%s</span>';
-    protected $linkTemplate = '<a href="%s" class="mx-1" target="%s">%s</a>';
+    protected $linkTemplate = '<a href="%s" class="btn text-white px-0 ml-2 p- text-sm" style="background-color : #EEC01D" target="%s">%s</a>';
 
     public function renderBadge($status)
     {
@@ -39,7 +39,7 @@ class StatusSuratKeterangan
         // only if status is not 'Selesai' or 'Menunggu Validasi'
         if ($status == STATUS_SELESAI) {
             return sprintf($this->linkTemplate, $url_lihat_surat, '_blank', 'Lihat Surat Keterangan');
-        } else if ($status == STATUS_DITOLAK || $status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
+        } else if ($status == STATUS_MENUNGGU_VALIDASI || $status == STATUS_SELESAI_BEASISWA) {
             return '';
         }
         

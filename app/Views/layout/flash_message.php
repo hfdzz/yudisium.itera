@@ -1,5 +1,5 @@
 <!-- Error Alert -->
-<div class="position-fixed mx-auto my-2" style="bottom: 0; right: 0; left: 0; z-index: 1050; max-width: 90%; max-height: 60%;">
+<div class="position-fixed mx-auto my-2" style="top: 0; right: 0; left: 100px; z-index: 1050; max-width: 90%; max-height: 60%;">
 
     <?php if(session()->has('errors')): ?>
         <div class="alert alert-danger alert-dismissible mt-1 mb-0" role="alert">

@@ -42,6 +42,9 @@
             <div class="card mb-5">
               <div class="card-body">
               <div class="table-responsive">
+                <div class="d-flex justify-content-end mb-3">
+                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/new') ?>" class="btn btn-primary">Tambah Data</a>
+                </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -122,7 +125,6 @@
                   </tfoot>
                 </table>
               </div>
-              <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/new') ?>" class="btn btn-primary">Tambah Data</a>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
