@@ -102,7 +102,6 @@
                       <td><?= $i++ ?></td>
                       <td><?= $sk_bebas_perpustakaan?->getJenis(true) ?></td>
                       <td><?= view_cell('\App\Cells\StatusBadgeCell::render', ['status' => $sk_bebas_perpustakaan?->status]) ?></td>
-                      <!-- <td><button type="button" class="btn btn-primary">Lihat</button></td> -->
                       <td>
                         <?php if ($sk_bebas_perpustakaan?->isSelesai()) : ?>
                           <a href="<?= route_to('file_surat_keterangan', $sk_bebas_perpustakaan?->id) ?>" class="btn btn-primary" target="_blank">Lihat</a>
@@ -117,7 +116,6 @@
                       <td><?= $i++ ?></td>
                       <td><?= $sk_bebas_ukt?->getJenis(true) ?></td>
                       <td><?= view_cell('\App\Cells\StatusBadgeCell::render', ['status' => $sk_bebas_ukt?->status]) ?></td>
-                      <!-- <td><button type="button" class="btn btn-primary">Lihat</button></td> -->
                       <td>
                         <?php if ($sk_bebas_ukt?->isSelesai()) : ?>
                           <a href="<?= route_to('file_surat_keterangan', $sk_bebas_ukt?->id) ?>" class="btn btn-primary" target="_blank">Lihat</a>
@@ -133,7 +131,6 @@
                       <td><?= $i++ ?></td>
                       <td><?= $sk_bebas_laboratorium?->getJenis(true) ?></td>
                       <td><?= view_cell('\App\Cells\StatusBadgeCell::render', ['status' => $sk_bebas_laboratorium?->status]) ?></td>
-                      <!-- <td><button type="button" class="btn btn-primary">Lihat</button></td> -->
                       <td>
                         <?php if ($sk_bebas_laboratorium?->isSelesai()) : ?>
                           <a href="<?=$sk_bebas_laboratorium?->surat ?>" class="btn btn-primary" target="_blank">Lihat</a>
@@ -146,9 +143,8 @@
                   <?php if ($yudisium_pendaftaran) : ?>
                     <tr>
                       <td><?= $i++ ?></td>
-                      <td><?= $yudisium_pendaftaran?->getJenis(true) ?></td>
+                      <td>Tanda Terima Yudisium</td>
                       <td><?= view_cell('\App\Cells\StatusBadgeCell::render', ['status' => $yudisium_pendaftaran?->status]) ?></td>
-                      <!-- <td><button type="button" class="btn btn-primary">Lihat</button></td> -->
                       <td>
                         <?php if ($yudisium_pendaftaran?->isSelesai()) : ?>
                           <a href="<?= route_to('file_tanda_terima_yudisium', $yudisium_pendaftaran?->id) ?>" class="btn btn-primary" target="_blank">Lihat</a>

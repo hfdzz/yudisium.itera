@@ -51,7 +51,8 @@
                   <span>Surat Keterangan Bebas Pustaka telah selesai.</span>
                 </div>
                 <div>
-                  <?= view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => $sk_bebas_perpustakaan->status ?? 'selesai', 'url_lihat_surat' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan->id)]) ?>
+                  <!-- <?= view_cell('\App\Cells\StatusSuratKeterangan::renderLink', ['status' => STATUS_SELESAI, 'url_lihat_surat' => route_to('file_surat_keterangan', $sk_bebas_perpustakaan->id)]) ?> -->
+                  <a href="<?= route_to('file_surat_keterangan', $sk_bebas_perpustakaan->id) ?>" target="_blank">Lihat Surat Keterangan</a>
                 </div>
 
               <?php elseif ($sk_bebas_perpustakaan?->isMenungguValidasi()): ?>
