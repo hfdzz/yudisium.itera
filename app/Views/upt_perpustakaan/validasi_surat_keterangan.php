@@ -85,18 +85,6 @@
                   </tr> -->
 
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <th style="background-color: #EEC01D;">No</th>
-                      <th style="background-color: #EEC01D;">Tanggal</th>
-                      <th style="background-color: #EEC01D;">Nama</th>
-                      <th style="background-color: #EEC01D;">NIM</th>
-                      <th style="background-color: #EEC01D;">Prodi</th>
-                      <!-- <th style="background-color: #EEC01D;">Status Peminjaman</th> -->
-                      <th style="background-color: #EEC01D;">Status</th>
-                      <!-- <th style="background-color: #EEC01D;">Surat Bebas Pustaka</th> -->
-                    </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

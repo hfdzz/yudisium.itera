@@ -99,21 +99,6 @@
                   </tr> -->
 
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th style="background-color: #EEC01D;">No</th>
-                    <th style="background-color: #EEC01D;">Tanggal</th>
-                    <th style="background-color: #EEC01D;">Nama</th>
-                    <th style="background-color: #EEC01D;">NIM</th>
-                    <th style="background-color: #EEC01D;">Prodi</th>
-                    <th style="background-color: #EEC01D;">BA Sidang</th>
-                    <th style="background-color: #EEC01D;">KHS (TTD Doswal)</th>
-                    <th style="background-color: #EEC01D;">SS AVITA</th>
-                    <!-- <th style="background-color: #EEC01D;">Detail Berkas</th> -->
-                    <th style="background-color: #EEC01D;">Status</th>
-                    <!-- <th style="background-color: #EEC01D;">Tanda Terima</th> -->
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

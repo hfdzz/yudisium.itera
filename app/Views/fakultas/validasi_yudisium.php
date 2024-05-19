@@ -98,26 +98,7 @@
                     </tr>
 
                   <?php endforeach; ?>
-                  
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">No</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Tanggal</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Nama</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">NIM</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Prodi</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">FC Ijazah SMA</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">FC Akta Kelahiran</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas UKT</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Lab</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">SK Bebas Pustaka</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Sertifikat TOEFL</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Pas Foto 3x4</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Detail Berkas</th>
-                    <th class="small align-items-center m-0" style="background-color: #EEC01D;">Status</th>
-                  </tr>
-                  </tfoot>
                 </table>
                 </div>
                 </div>
