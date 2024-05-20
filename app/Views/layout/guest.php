@@ -24,12 +24,19 @@
     <link href="<?= base_url('assets/css/sb-admin-2.min.css') ?>" rel="stylesheet">
 
     <?= $this->renderSection('head') ?>
+    <style>
+        .guest-flash-message div {
+            left: 0 !important;
+        }
+    </style>
 
 </head>
 
 <body style="background-color: #fff;">
 
-    <?= $this->include('layout/flash_message') ?>
+    <div class="guest-flash-message">
+        <?= $this->include('layout/flash_message') ?>
+    </div>
 
     <div class="container">
 
@@ -51,8 +58,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
-    <script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="<?= base_url('assets/jquery-easing/jquery.easing.min.js') ?>"></script>
