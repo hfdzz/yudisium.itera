@@ -43,7 +43,7 @@ class KeuanganController extends BaseController
             $data = [
                 'surat_keterangan' => $suratKeteranganModel->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
                     ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
-                    ->orderBy('created_at', 'desc')
+                    ->orderBy('tanggal_pengajuan', 'asc')
                     ->join('users', 'users.id = surat_keterangan.mahasiswa_id')
                     ->select('surat_keterangan.*, users.username as mahasiswa_username, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_program_studi')
                     // ->paginate(10),
@@ -85,7 +85,10 @@ class KeuanganController extends BaseController
 
         $action = $data['action'];
 
-        // dd($action);
+        // Check if action is previosly done
+        if ($skEntity->status !== STATUS_MENUNGGU_VALIDASI) {
+            return redirect()->route('upt_perpustakaan.validasi_surat_keterangan')->with('error', 'Surat keterangan sudah divalidasi atau ditolak sebelumnya.');
+        }
 
         switch ($action) {
             case 'validasi':

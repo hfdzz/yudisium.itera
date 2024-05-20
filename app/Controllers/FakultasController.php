@@ -56,7 +56,7 @@ class FakultasController extends BaseController
             $data = [
                 'pendaftaran' => $pendaftaran_model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
                     ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode?->id)
-                    ->orderBy('yudisium_pendaftaran.tanggal_daftar', 'desc')
+                    ->orderBy('yudisium_pendaftaran.tanggal_daftar', 'asc')
                     ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
                     ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi')
                     // ->paginate($perPage),
@@ -152,7 +152,8 @@ class FakultasController extends BaseController
                 return redirect()->to('/fakultas/periode-yudisium/new')->with('error', $e->getMessage());
             }
         } else {
-            $periodeModel->update($data['id'], [
+            $periodeModel->save([
+                $data['id'], 
                 'periode' => $periodeModel->find($data['id'])->periode,
                 'tanggal_awal' => $data['tanggal_awal'],
                 'tanggal_akhir' => $data['tanggal_akhir'],
