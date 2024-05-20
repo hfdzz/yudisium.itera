@@ -108,26 +108,4 @@ class KeuanganController extends BaseController
 
         return redirect()->route('keuangan.validasi_surat_keterangan')->with('success', 'Surat keterangan berhasil ' . ($action === 'validasi' ? 'divalidasi' : ($action === 'validasi_beasiswa' ? 'divalidasi (beasiswa)' : 'ditolak')));
     }
-
-    public function berkasBebasUkt($id, $jenis_berkas)
-    {
-        $suratKeteranganModel = model('SuratKeteranganModel');
-
-        $suratKeterangan = $suratKeteranganModel->find($id);
-
-        if (! $suratKeterangan) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
-        $file_path = WRITEPATH . 'uploads/' . $suratKeterangan->getBerkasPath($jenis_berkas);
-
-        if (! file_exists($file_path)) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
-        return $this->response
-        ->setHeader('Content-Type', 'application/pdf')
-        ->download($file_path, null, true)
-        ->inline();
-    }
 }
