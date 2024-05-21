@@ -41,6 +41,11 @@
           <div class="col-12">
             <div class="card mb-5">
               <div class="card-body">
+              <?php if ($latest_periode) : ?>
+                <h3>Periode: <?= $latest_periode->periode ?></h3>
+              <?php else : ?>
+                <h3 class="text-red">Belum ada periode yudisium yang dibuat</h3>
+              <?php endif ?>
               <div class="table-responsive">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
