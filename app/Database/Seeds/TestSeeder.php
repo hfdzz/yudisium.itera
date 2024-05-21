@@ -94,6 +94,14 @@ class TestSeeder extends Seeder
         $this->db->table('yudisium_periode_informasi')->truncate();
         $this->db->enableForeignKeyChecks();
 
+        
+        /**
+         * ==============================
+         * Section 1
+         * ==============================
+         */
+        echo 'Running Section 1...' . PHP_EOL;
+
         /**
          * ==============================
          * UserSeeder
@@ -198,9 +206,9 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => $i == 1 ? 'menunggu_validasi' : ($i == 2 ? 'selesai_mahasiswa_beasiswa' : 'selesai'),
-                'berkas_ba_sidang' => $i > 2 ? 'faker/berkas_ba_sidang.pdf' : null,
-                'berkas_khs' => $i > 2 ? 'faker/berkas_khs.pdf' : null,
-                'berkas_bukti_bayar_ukt' => $i > 2 ? 'faker/berkas_bukti_bayar_ukt.pdf' : null,
+                'berkas_ba_sidang' => $i + 1 > 1 ? 'faker/berkas_ba_sidang.pdf' : null,
+                'berkas_khs' => $i +1 > 1 ? 'faker/berkas_khs.pdf' : null,
+                'berkas_bukti_bayar_ukt' => $i + 1 > 1 ? 'faker/berkas_bukti_bayar_ukt.pdf' : null,
                 // 2 month ago + ( $i/10 ) day 
                 'tanggal_pengajuan' => date('Y-m-d', strtotime("-2 month" . (int) ($i/10) . " day")),
                 'tanggal_terbit' => $i > 2 ? date('Y-m-d', strtotime("-2 month" . (int) ($i/10 + 1) . " day")) : null,
@@ -273,16 +281,64 @@ class TestSeeder extends Seeder
         
         // insert created_at and updated_at for all tables
         $this->db->table('yudisium_periode')->update(['created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
+
+
+        /**
+         * ==============================
+         * Section 2
+         * ==============================
+         */
+        echo 'Running Section 2...' . PHP_EOL;
+
+        //  user_mahasiswa with menunggu validasi SK
+        $amount = 50;
+        for ($i = 0; $i < $amount; $i++) {
+            $insert_id = $this->create_user([
+                'username' => $faker->name,
+                'password' => password_hash('password', PASSWORD_DEFAULT),
+                'email' =>  $faker->email,
+                'nim' => $faker->unique()->randomNumber(9),
+                'program_studi' => self::PRODI_LIST[$i % count(self::PRODI_LIST)],
+                'group' => 'user_mahasiswa',
+            ]);
+
+            $this->db->table('surat_keterangan')->insert([
+                'mahasiswa_id' => $insert_id,
+                'jenis_surat' => 'sk_bebas_perpustakaan',
+                'status' => 'menunggu_validasi',
+                'tanggal_pengajuan' => date('Y-m-d', strtotime('-1 day')),
+                'created_at' => date('Y-m-d', strtotime('-1 day')),
+                'updated_at' => date('Y-m-d', strtotime('-1 day')),
+            ]);
+
+            $this->db->table('surat_keterangan')->insert([
+                'mahasiswa_id' => $insert_id,
+                'jenis_surat' => 'sk_bebas_ukt',
+                'status' => 'menunggu_validasi',
+                'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
+                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
+                'tanggal_pengajuan' => date('Y-m-d', strtotime('-1 day')),
+                'created_at' => date('Y-m-d', strtotime('-1 day')),
+                'updated_at' => date('Y-m-d', strtotime('-1 day')),
+            ]);
+        }
+
+
+
+
     
         $end_time = microtime(true);
         // Round execution time to 4 decimal places
         $execution_time = round($end_time - $start_time, 4);
         echo 'Execution time: ' . $execution_time . ' seconds' . PHP_EOL;
+
     }
     
-    protected function create_user(array $data, bool $authable = true) : void
+
+    protected function create_user(array $data, bool $authable = true)
     {
-        $data['id'] = $data['id']+=1 ?? 1;
+        $data['id'] = isset($data['id']) ? $data['id']+1 : null;
         $this->db->table('users')->insert([
             'id' => $data['id'],
             'username' => $data['username'],
@@ -294,9 +350,10 @@ class TestSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s', strtotime('-1 day +' . $data['id'] . ' minutes')),
         ]);
 
+        $user_insert_id = $this->db->insertID();
+
         $this->db->table('auth_groups_users')->insert([
-            'id' => $data['id'],
-            'user_id' => $data['id'],
+            'user_id' => $data['id'] ?? $user_insert_id,
             'group' => $data['group'],
             // one day before the current date added with + {id} minutes
             'created_at' => date('Y-m-d H:i:s', strtotime('-1 day +' . $data['id'] . ' minutes')),
@@ -304,8 +361,7 @@ class TestSeeder extends Seeder
 
         if ($authable) {
             $this->db->table('auth_identities')->insert([
-                'id' => $data['id'],
-                'user_id' => $data['id'],
+                'user_id' => $data['id'] ?? $user_insert_id,
                 'type' => 'email_password',
                 'secret' => $data['email'],
                 'secret2' => $data['password'],
@@ -314,5 +370,7 @@ class TestSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s', strtotime('-1 day +' . $data['id'] . ' minutes')),
             ]);
         }
+
+        return $user_insert_id ?? null;
     }
 }
