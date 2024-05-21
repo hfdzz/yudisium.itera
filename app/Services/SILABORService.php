@@ -90,7 +90,8 @@ class SILABORService
             return $result;
 
         } catch (\Exception $e) {
-            throw $e;
+            // throw $e;
+            return [];
         }
     }
 
