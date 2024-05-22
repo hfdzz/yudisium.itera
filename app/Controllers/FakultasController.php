@@ -47,22 +47,28 @@ class FakultasController extends BaseController
             /**
              * @var \App\Models\YudisiumPendaftaranModel $pendaftaran_model
              */
-            $pendaftaran_model = model('YudisiumPendaftaranModel');
 
             $perPage = $this->request->getGet('per_page') ?? 10;
 
             $latest_periode = model('YudisiumPeriodeModel')->getLatestPeriode();
 
+            $db = db_connect();
+
+            $sql = "select yudisium_pendaftaran.*,
+                users.username as mahasiswa_nama, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_prodi,
+                skbp.id as skbp_id, skbu.id as skbu_id, skbu.berkas_ba_sidang as skbu_berkas_ba_sidang, skbu.status as skbu_status
+            from
+                yudisium_pendaftaran left join users on yudisium_pendaftaran.mahasiswa_id = users.id,
+                surat_keterangan skbp, surat_keterangan skbu
+            where yudisium_pendaftaran.yudisium_periode_id = :periode_id: and yudisium_pendaftaran.status = :status:
+            and skbp.mahasiswa_id = yudisium_pendaftaran.id and skbp.jenis_surat = \"sk_bebas_perpustakaan\" and skbu.jenis_surat = \"sk_bebas_ukt\" and skbp.mahasiswa_id = skbu.mahasiswa_id
+            order by yudisium_pendaftaran.tanggal_daftar desc";
+
+            $pendaftaran = $db->query($sql, ['periode_id' => $latest_periode?->id, 'status' => STATUS_MENUNGGU_VALIDASI]);
+
             $data = [
-                'pendaftaran' => $pendaftaran_model->where('yudisium_pendaftaran.status', STATUS_MENUNGGU_VALIDASI)
-                    ->where('yudisium_pendaftaran.yudisium_periode_id', $latest_periode?->id)
-                    ->orderBy('yudisium_pendaftaran.tanggal_daftar', 'desc')
-                    ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id')
-                    ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi')
-                    // ->paginate($perPage),
-                    ->findAll(),
+                'pendaftaran' => $pendaftaran->getResult(),
                 'latest_periode' => $latest_periode,
-                'pager' => $pendaftaran_model->pager,
             ];
 
             return view('fakultas/validasi_yudisium', $data);
