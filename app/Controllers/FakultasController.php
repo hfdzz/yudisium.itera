@@ -152,7 +152,13 @@ class FakultasController extends BaseController
                 return redirect()->to('/fakultas/periode-yudisium/new')->with('error', $e->getMessage());
             }
         } else {
-            $periodeModel->update($data['id'], [
+            // $periodeModel->update($data['id'], [
+            //     'periode' => $periodeModel->find($data['id'])->periode,
+            //     'tanggal_awal' => $data['tanggal_awal'],
+            //     'tanggal_akhir' => $data['tanggal_akhir'],
+            // ]);
+            $periodeModel->save([
+                'id' => $data['id'],
                 'periode' => $periodeModel->find($data['id'])->periode,
                 'tanggal_awal' => $data['tanggal_awal'],
                 'tanggal_akhir' => $data['tanggal_akhir'],
