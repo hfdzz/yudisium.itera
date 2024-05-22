@@ -85,7 +85,7 @@
                         <td><?= $y->nim ?></td>
                         <td><?= $y->program_studi ?></td>
                         <td class="text-center"><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $y->status]) ?></td>
-                        <td><?= $y->yudisiumPeriode->periode ?></td>
+                        <td><?= $y->periode ?></td>
                         <td>
                           <?php if($y->status == STATUS_SELESAI) : ?>
                             <a href="<?= route_to('file_tanda_terima_yudisium', $y->id) ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a>
