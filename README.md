@@ -55,17 +55,45 @@ database.default.database = 'mydatabase'
 database.default.username = 'myusername'
 database.default.password = 'mypassword'
 database.default.DBDriver = 'MySQLi'
+database.default.encrypt  = {"ssl_verify":true,"ssl_ca":"path/to/ca.pem"} // Accept JSON format for SSL connection
 ```
 
 ### SILABOR Configuration:
 
-Set accordingly to the SILABOR credentials. Example:
+Set accordingly to the SILABOR API URL. Example:
 
 ```php
-SILABOR.silaborAPIURL.getAllBebasLabURL = 'http://silabor.com/api/'
+silabor.silaborAPIURL.getAllBebasLabURL = 'http://url.to/api/example'
 ```
 
-# CodeIgniter 4 Application Starter
+## 4. Database Migration
+
+Run the following command to migrate the database:
+
+```bash
+php spark migrate --all
+```
+
+This includes the following namespaces:
+- App
+- CodeIgniter\Shield
+- CodeIgniter\Settings
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+> from codeigniter4/appstarter (January 4th, 2024)
+
+# CodeIgniter 4 Application Starter (By CodeIgniter4)
 
 ## What is CodeIgniter?
 

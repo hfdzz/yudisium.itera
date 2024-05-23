@@ -29,10 +29,9 @@ class YudisiumPendaftaranController extends BaseController
     {
         /** @var \App\Models\YudisiumPendaftaranModel $model */
         $model = model('YudisiumPendaftaranModel')
-            // Most recent first 
-            ->orderBy('created_at', 'desc')
+            ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi, yudisium_periode.periode')
             ->join('users', 'users.id = yudisium_pendaftaran.mahasiswa_id', 'left')
-            ->select('yudisium_pendaftaran.*, users.username, users.nim, users.program_studi');
+            ->join('yudisium_periode', 'yudisium_periode.id = yudisium_pendaftaran.yudisium_periode_id', 'left');
 
         // Check filters
         if ($this->request->getGet('search')) {
