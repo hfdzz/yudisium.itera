@@ -73,36 +73,9 @@ $routes->get('berkas-pendaftaran-yudisium/(:num)/(:segment)', [App\Controllers\F
 $routes->get('file-tanda-terima-yudisium/(:num)', [App\Controllers\FileResourceController::class, 'fileTandaTerimaYudisium'], ['as' => 'file_tanda_terima_yudisium']);
 
 if (ENVIRONMENT == 'development') {
-    $routes->group('test', function ($routes) {
-
-        $routes->get('terminal', function () {
-            return view('_test/terminal');
-        }, ['as' => 'test.terminal']);
-
-        $routes->post('terminal', function () {
-            $data = service('request')->getPost();
-
-            if (!isset($data['command'])) {
-                return response()->setJSON([
-                    'output' => 'Server: Command not found.'
-                ]);
-            }
-
-            try {
-                $res = command($data['command']);
-            } catch (\Exception $e) {
-                $res = $e->getMessage();
-            }
-
-            return response()->setJSON([
-                'output' => $res
-            ]);
-        });
+    $routes->cli('trigger-bebaslab-cache', function () {
+        $bebaslab = new \App\Services\SILABORService();
+        $bebaslab->getAllBebasLab();
+        return 'OK';
     });
 }
-
-$routes->cli('trigger-bebaslab-cache', function () {
-    $bebaslab = new \App\Services\SILABORService();
-    $bebaslab->getAllBebasLab();
-    return 'OK';
-});
