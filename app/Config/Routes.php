@@ -11,8 +11,10 @@ $routes->get('/', 'Home::index');
 
 service('auth')->routes($routes);
 
-$routes->group('admin', ['filter' => 'group:admin'], function ($routes) {
+$routes->group('admin', ['filter' => 'group:admin,superadmin'], function (RouteCollection $routes) {
     $routes->get('/', [App\Controllers\AdminController::class, 'dashboard'], ['as' => 'admin.dashboard']);
+
+    $routes->resource('user-management', ['controller' => 'UserManagementController', 'except' => ['new, edit']]);
 });
 
 $routes->group('upt_perpustakaan', ['filter' => 'group:user_upt_perpustakaan'], function ($routes) {
