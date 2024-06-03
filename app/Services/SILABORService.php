@@ -53,6 +53,8 @@ class SILABORService
         $this->silaborConfig = config('SILABOR');
         
         $this->refreshCache = $this->silaborConfig->refreshCache ?? false;
+
+        $this->urlConfigCheck();
     }
 
     static function withRefreshCache($refresh = true) : self
@@ -165,6 +167,16 @@ class SILABORService
             return $a->status == STATUS_SELESAI ? -1 : ($a->status == STATUS_DITOLAK ? 1 : 0);
         });
         return !empty($bebasLab[0]) ? new SkBebasLaboratorium($bebasLab[0]) : null;
+    }
+
+    protected function urlConfigCheck() : void
+    {
+        if (
+            !filter_var($this->silaborConfig->silaborAPIURL['getAllBebasLabURL'], FILTER_VALIDATE_URL)
+            ) 
+        {
+            throw new \Exception('SILABOR Sercive configuration is not set properly');
+        }
     }
 }
 

@@ -14,7 +14,7 @@ class SILABOR extends BaseConfig
      * The URL of the SILABOR API. 
      */
     public array $silaborAPIURL = [
-        'getAllBebasLabURL' => 'https://silabor.itera.ac.id/data/bebaslab',
+        'getAllBebasLabURL' => '',
     ];
 
     public bool $refreshCache = false;
