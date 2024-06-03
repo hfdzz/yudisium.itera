@@ -12,6 +12,8 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-gd": "*",
+        "ext-intl": "*",
+        "ext-mbstring": "*",
         "codeigniter4/framework": "^4.5",
         "codeigniter4/shield": "^1.0",
         "dompdf/dompdf": "^2.0"
