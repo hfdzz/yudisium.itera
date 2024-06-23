@@ -8,7 +8,7 @@
 
 <?= $this->section('head') ?>
 
-<title>SB Admin 2 - Login</title>
+<title>Login - SIYUDIS</title>
 
 <?= $this->endSection() ?>
 
