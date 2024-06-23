@@ -58,14 +58,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script defer src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
     <script defer src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 
     <!-- Core plugin JavaScript-->
-    <script defer src="<?= base_url('assets/jquery-easing/jquery.easing.min.js') ?>"></script>
+    <!-- <script defer src="<?= base_url('assets/jquery-easing/jquery.easing.min.js') ?>"></script> -->
 
     <!-- Custom scripts for all pages-->
-    <script defer src="<?= base_url('assets/js/sb-admin-2.min.js') ?>"></script>
+    <!-- <script defer src="<?= base_url('assets/js/sb-admin-2.min.js') ?>"></script> -->
 
     <?= $this->renderSection('scripts') ?>
 
