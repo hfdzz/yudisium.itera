@@ -133,6 +133,11 @@ class FakultasController extends BaseController
         }
 
         $data = $this->request->getPost();
+
+        // tanggal_awal has to be before tanggal_akhir
+        if ($data['tanggal_awal'] > $data['tanggal_akhir']) {
+            return redirect()->to('/fakultas/periode-yudisium')->with('error', 'Tanggal awal harus sebelum tanggal akhir');
+        }
     
         if (isset($data['close_periode']) && $data['close_periode'] == 1) {
             // Close periode
