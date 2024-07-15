@@ -82,10 +82,11 @@
 
                   <div class="form-group mb-3">
                       <label for="peninjau_id" class="form-label">Peninjau</label>
-                      <select class="form-control" name="peninjau_id" id="peninjau_id">
-                          <option value="">Pilih Peninjau</option>
+                      <select class="form-control" name="peninjau_id" id="peninjau_id" disabled>
+                        <option> <?= auth()->user()->username ?> (<?= auth()->user()->nip ?>)</option>
+                          <!-- <option value="">Pilih Peninjau</option> -->
                           <?php foreach ($list_peninjau as $peninjau) : ?>
-                              <option value="<?= $peninjau->id ?>" <?= $yudisium_pendaftaran?->peninjau_id == $peninjau->id ? 'selected' : '' ?>><?= $peninjau->username ?> (<?= $peninjau->nip ?>)</option>
+                              <!-- <option value="<?= $peninjau->id ?>" <?= $yudisium_pendaftaran?->peninjau_id == $peninjau->id ? 'selected' : '' ?>><?= $peninjau->username ?> (<?= $peninjau->nip ?>)</option> -->
                           <?php endforeach; ?>
                       </select>
                   </div>

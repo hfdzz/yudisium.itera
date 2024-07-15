@@ -85,6 +85,9 @@ class YudisiumPendaftaranController extends BaseController
             return $value === '' ? null : $value;
         }, $this->request->getPost());
 
+        // set current user as peninjau
+        $data['peninjau_id'] = auth()->id();
+
         $files_data = $this->request->getFiles();
 
         $rules = [
@@ -165,6 +168,9 @@ class YudisiumPendaftaranController extends BaseController
         $data = array_map(function ($value) {
             return $value === '' ? null : $value;
         }, $this->request->getPost());
+
+        // set current user as peninjau
+        $data['peninjau_id'] = auth()->id();
 
         $data['id'] = $id;
         

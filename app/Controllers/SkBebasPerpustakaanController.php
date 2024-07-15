@@ -81,6 +81,9 @@ class SkBebasPerpustakaanController extends BaseController
             return $value === '' ? null : $value;
         }, $this->request->getPost());
 
+        // set current user as peninjau
+        $data['peninjau_id'] = auth()->id();
+
         $rules = [
             'nama_mahasiswa' => 'required',
             'nim' => 'required',
@@ -150,6 +153,9 @@ class SkBebasPerpustakaanController extends BaseController
         $data = array_map(function ($value) {
             return $value === '' ? null : $value;
         }, $this->request->getPost());
+
+        // set current user as peninjau
+        $data['peninjau_id'] = auth()->id();
 
         $data['id'] = $id;
         // dd($data);
