@@ -156,12 +156,13 @@ class SuratKeteranganModel extends Model
     // afterUpdate
     protected function removeFileSuratKeterangan($eventData)
     {
-        // set 'file_surat_keterangan' to null if updated field is not 'file_surat_keterangan'
-        if (!isset($eventData['data']['file_surat_keterangan'])) {
+        // set 'file_surat_keterangan' to null if updated field does not contain 'file_surat_keterangan'
+        if (isset($eventData['data']['file_surat_keterangan'])) {
             return $eventData;
         }
         $this->set('file_surat_keterangan', null)
             ->where('id', $eventData['id'])
+            ->allowCallbacks(false)
             ->update();
 
         return $eventData;

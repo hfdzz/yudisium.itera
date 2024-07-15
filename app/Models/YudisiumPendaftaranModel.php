@@ -115,11 +115,12 @@ class YudisiumPendaftaranModel extends Model
     protected function removeFileTandaTerima($eventData)
     {
         // set 'file_surat_keterangan' to null if updated field is not 'file_surat_keterangan'
-        if (!isset($eventData['file_tanda_terima'])) {
+        if (isset($eventData['data']['file_tanda_terima'])) {
             return $eventData;
         }
         $this->set('file_tanda_terima', null)
             ->where('id', $eventData['id'])
+            ->allowCallbacks(false)
             ->update();
 
         return $eventData;
