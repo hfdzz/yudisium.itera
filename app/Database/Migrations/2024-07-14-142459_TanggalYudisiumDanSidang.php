@@ -22,6 +22,7 @@ class TanggalYudisiumDanSidang extends Migration
         $this->forge->addColumn('surat_keterangan', [
             'tanggal_sidang' => [
                 'type' => 'DATE',
+                'null' => true,
                 'after' => 'file_surat_keterangan'
             ]
         ]);

@@ -166,6 +166,7 @@ class FakultasController extends BaseController
             $periodeModel->save([
                 'id' => $data['id'],
                 'periode' => $periodeModel->find($data['id'])->periode,
+                'tanggal_yudisium' => $data['tanggal_yudisium'],
                 'tanggal_awal' => $data['tanggal_awal'],
                 'tanggal_akhir' => $data['tanggal_akhir'],
             ]);

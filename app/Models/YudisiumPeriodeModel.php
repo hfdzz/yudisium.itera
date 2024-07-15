@@ -16,6 +16,7 @@ class YudisiumPeriodeModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'periode',
+        'tanggal_yudisium',
         'tanggal_awal',
         'tanggal_akhir',
     ];
@@ -30,6 +31,7 @@ class YudisiumPeriodeModel extends Model
     // Validation
     protected $validationRules      = [
         'periode' => 'required',
+        'tanggal_yudisium' => 'required|valid_date',
         'tanggal_awal' => 'required|valid_date',
         'tanggal_akhir' => 'required|valid_date',
     ];

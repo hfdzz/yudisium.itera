@@ -183,6 +183,13 @@ class MahasiswaController extends BaseController
         }
 
         $rules = [
+            'tanggal_sidang' => [
+                'rules' => 'required|valid_date',
+                'errors' => [
+                    'required' => 'Tanggal sidang harus diisi.',
+                    'valid_date' => 'Tanggal sidang tidak valid.',
+                ],
+            ],
             'berkas_ba_sidang' => [
                 // required uploaded file (max: 2MB, mime: pdf)
                 'rules' => 'uploaded[berkas_ba_sidang]|max_size[berkas_ba_sidang,2048]|ext_in[berkas_ba_sidang,pdf]',
@@ -212,11 +219,14 @@ class MahasiswaController extends BaseController
             ],
         ];
 
+        $input_data = $this->request->getPost();
         $file_data = $this->request->getFiles();
 
-        if (! $this->validateData([], $rules)) {
+        if (! $this->validateData($input_data, $rules)) {
             return redirect()->back()->withInput();
         }   
+
+        var_dump($input_data, $file_data);
 
         /** @var \App\Models\SuratKeteranganModel $model_sk */
 
@@ -225,6 +235,7 @@ class MahasiswaController extends BaseController
         try {
             $model_sk->ajukanSkBebasUkt([
                 'mahasiswa_id' => auth()->id(),
+                'tanggal_sidang' => $input_data['tanggal_sidang'],
             ], $file_data);
             if($model_sk->errors()) {
                 return redirect()->back()->with('errors', $model_sk->errors());
