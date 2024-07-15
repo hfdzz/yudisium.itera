@@ -50,6 +50,7 @@
                     <th style="background-color: #EEC01D;">Nama</th>
                     <th style="background-color: #EEC01D;">NIM</th>
                     <th style="background-color: #EEC01D;">Prodi</th>
+                    <th style="background-color: #EEC01D;">Tanggal Sidang</th>
                     <th style="background-color: #EEC01D;">BA Sidang</th>
                     <th style="background-color: #EEC01D;">KHS (TTD Doswal)</th>
                     <th style="background-color: #EEC01D;">SS AVITA</th>
@@ -67,6 +68,7 @@
                         <td><?= $sk->mahasiswa_username; ?></td>
                         <td><?= $sk->mahasiswa_nim; ?></td>
                         <td><?= $sk->mahasiswa_program_studi; ?></td>
+                        <td><?= $sk->tanggal_sidang; ?></td>
                         <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td> -->
                         <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_ba_sidang') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
                         <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_khs') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>

@@ -53,6 +53,7 @@
                     <th style="background-color: #EEC01D;">Nama</th>
                     <th style="background-color: #EEC01D;">NIM</th>
                     <th style="background-color: #EEC01D;">Prodi</th>
+                    <th style="background-color: #EEC01D;">Tanggal Sidang</th>
                     <th style="background-color: #EEC01D;">
                       <span class="d-none">Status</span>
                       <select class="rounded font-weight-bold btn btn-default px-0 btn-sm" id="filterStatus" style="width: 120px;">
@@ -78,6 +79,7 @@
                       <td><?= $sk->mahasiswa_name ?></td>
                       <td><?= $sk->mahasiswa_nim ?></td>
                       <td><?= $sk->mahasiswa_program_studi ?></td>
+                      <td><?= $sk->tanggal_sidang ?></td>
                       <td class="text-center"><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk->status]) ?></td>
                       <td>
                       <?php if ($sk->isSelesai()) : ?>

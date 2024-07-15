@@ -166,6 +166,7 @@ class TestSeeder extends Seeder
             $this->db->table('yudisium_periode')->insert([
                 'id' => 3 - $i,
                 'periode' => date('F/Y', strtotime("-$i month")),
+                'tanggal_yudisium' => date('Y-m-d', strtotime("-$i month")),
                 'tanggal_awal' => date('Y-m-05', strtotime("-$i month")),
                 // last day of the month
                 'tanggal_akhir' => date('Y-m-t', strtotime("-$i month")),
@@ -206,6 +207,7 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $i + 1,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => $i == 1 ? 'menunggu_validasi' : ($i == 2 ? 'selesai_mahasiswa_beasiswa' : 'selesai'),
+                'tanggal_sidang' => $i + 1 > 1 ? date('Y-m-d', strtotime("-2 month" . (int) ($i/10) . " day")) : null,
                 'berkas_ba_sidang' => $i + 1 > 1 ? 'faker/berkas_ba_sidang.pdf' : null,
                 'berkas_khs' => $i +1 > 1 ? 'faker/berkas_khs.pdf' : null,
                 'berkas_bukti_bayar_ukt' => $i + 1 > 1 ? 'faker/berkas_bukti_bayar_ukt.pdf' : null,
@@ -315,6 +317,7 @@ class TestSeeder extends Seeder
                 'mahasiswa_id' => $insert_id,
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'menunggu_validasi',
+                'tanggal_sidang' => date('Y-m-d', strtotime('-1 day')),
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
                 'berkas_khs' => 'faker/berkas_khs.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',

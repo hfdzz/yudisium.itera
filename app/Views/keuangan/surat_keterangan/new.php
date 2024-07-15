@@ -63,6 +63,11 @@
                 </div>
 
                 <div class="form-group mb-3">
+                    <label for="tanggal_sidang" class="form-label">Tanggal Sidang</label>
+                    <input type="date" class="form-control" name="tanggal_sidang" id="tanggal_sidang" value="<?= old('tanggal_sidang') ?>">
+                </div>
+
+                <div class="form-group mb-3">
                     <label for="status" class="form-label">Status</label>
                     <select class="form-control" name="status" id="status">
                         <option value="<?= STATUS_MENUNGGU_VALIDASI ?>">Menunggu Validasi</option>

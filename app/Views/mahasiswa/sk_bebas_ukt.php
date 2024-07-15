@@ -101,6 +101,12 @@
                   <form action="<?= route_to('sk_bebas_ukt') ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                       <div class="form-group col-4">
+                        <label class="form-label" for="tanggal_sidang">Tanggal Sidang</label>
+                        <input type="date" class="form-control" name="tanggal_sidang" id="tanggal_sidang" required placeholder="tanggal_sidang">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-4">
                         <label class="form-label" for="berkas_ba_sidang">Berita Acara Sidang</label>
                         <input type="file" class="form-control" name="berkas_ba_sidang" id="berkas_ba_sidang" required placeholder="berkas_ba_sidang">
                       </div>

@@ -99,6 +99,11 @@
                             </div>
                         </div>
 
+
+                        <div class="mb-3">
+                            <label for="tanggal_awal" class="form-label">Tanggal Yudisium</label>
+                            <?= form_input('tanggal_yudisium', $latest_periode->tanggal_yudisium, ['class' => 'form-control', 'id' => 'tanggal_yudisium'], 'date') ?>
+                        </div>
                         <div class="mb-3">
                             <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
                             <?= form_input('tanggal_awal', $latest_periode->tanggal_awal, ['class' => 'form-control', 'id' => 'tanggal_awal'], 'date') ?>

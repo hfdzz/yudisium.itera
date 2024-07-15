@@ -56,6 +56,10 @@
                     <input type="text" class="form-control" name="program_studi" id="program_studi" value="<?= $sk_bebas_ukt->mahasiswa->program_studi ?>" readonly>
                 </div>
                 <div class="form-group mb-3">
+                    <label for="tanggal_sidang" class="form-label">Tanggal Sidang</label>
+                    <input type="date" class="form-control" name="tanggal_sidang" id="tanggal_sidang" value="<?= $sk_bebas_ukt->tanggal_sidang ?>" readonly>
+                </div>
+                <div class="form-group mb-3">
                     <label for="status" class="form-label">Status</label>
                     <input type="text" class="form-control" name="status" id="status" value="<?= $sk_bebas_ukt->getStatus(true) ?>" readonly>
                 </div>
