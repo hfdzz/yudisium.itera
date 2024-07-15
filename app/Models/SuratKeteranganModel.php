@@ -60,7 +60,9 @@ class SuratKeteranganModel extends Model
     protected $beforeInsert   = [];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
+    protected $afterUpdate    = [
+        'removeFileSuratKeterangan'
+    ];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
@@ -149,5 +151,19 @@ class SuratKeteranganModel extends Model
         }
 
         return $sk_bebas_ukt;
+    }
+
+    // afterUpdate
+    protected function removeFileSuratKeterangan($eventData)
+    {
+        // set 'file_surat_keterangan' to null if updated field is not 'file_surat_keterangan'
+        if (!isset($eventData['data']['file_surat_keterangan'])) {
+            return $eventData;
+        }
+        $this->set('file_surat_keterangan', null)
+            ->where('id', $eventData['id'])
+            ->update();
+
+        return $eventData;
     }
 }

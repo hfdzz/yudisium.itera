@@ -63,7 +63,9 @@ class YudisiumPendaftaranModel extends Model
     protected $beforeInsert   = [];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
+    protected $afterUpdate    = [
+        'removeFileTandaTerima'
+    ];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
@@ -107,5 +109,19 @@ class YudisiumPendaftaranModel extends Model
     public function getCurrentTandaTerimaFilePath()
     {
         return PATH_TANDA_TERIMA_YUDISIUM . '/' . date('Y-m');
+    }
+
+    // afterUpdate callback
+    protected function removeFileTandaTerima($eventData)
+    {
+        // set 'file_surat_keterangan' to null if updated field is not 'file_surat_keterangan'
+        if (!isset($eventData['file_tanda_terima'])) {
+            return $eventData;
+        }
+        $this->set('file_tanda_terima', null)
+            ->where('id', $eventData['id'])
+            ->update();
+
+        return $eventData;
     }
 }
