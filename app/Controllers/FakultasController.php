@@ -138,6 +138,10 @@ class FakultasController extends BaseController
         if ($data['tanggal_awal'] > $data['tanggal_akhir']) {
             return redirect()->to('/fakultas/periode-yudisium')->with('error', 'Tanggal awal harus sebelum tanggal akhir');
         }
+        // tanggal_yudisium has to be greater than tanggal_akhir
+        if ($data['tanggal_yudisium'] < $data['tanggal_akhir']) {
+            return redirect()->to('/fakultas/periode-yudisium')->with('error', 'Tanggal yudisium harus setelah tanggal akhir');
+        }
     
         if (isset($data['close_periode']) && $data['close_periode'] == 1) {
             // Close periode
@@ -186,13 +190,22 @@ class FakultasController extends BaseController
         $yudisiumPeriode->clearInformasi();
 
         if(isset($data['link_grup_whatsapp']) && is_array($data['link_grup_whatsapp'])){
-            foreach ($data['link_grup_whatsapp'] as $index => $link) {
-                $informasiModel->insert([
-                    'link_grup_whatsapp' => $link,
-                    'keterangan' => $data['keterangan'][$index],
-                    'yudisium_periode_id' => $periodeId,
-                ]);
-            }
+            // foreach ($data['link_grup_whatsapp'] as $index => $link) {
+            //     $informasiModel->insert([
+            //         'link_grup_whatsapp' => $link,
+            //         'keterangan' => $data['keterangan'][$index],
+            //         'yudisium_periode_id' => $periodeId,
+            //     ]);
+            // }
+            $informasiModel->insertBatch(
+                array_map(function($link, $keterangan) use ($periodeId) {
+                    return [
+                        'link_grup_whatsapp' => $link,
+                        'keterangan' => $keterangan,
+                        'yudisium_periode_id' => $periodeId,
+                    ];
+                }, $data['link_grup_whatsapp'], $data['keterangan'])
+            );
         }
 
         $db->transComplete();
