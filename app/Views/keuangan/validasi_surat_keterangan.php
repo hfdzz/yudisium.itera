@@ -52,7 +52,7 @@
                     <th style="background-color: #EEC01D;">Prodi</th>
                     <th style="background-color: #EEC01D;">Tanggal Sidang</th>
                     <th style="background-color: #EEC01D;">BA Sidang</th>
-                    <th style="background-color: #EEC01D;">KHS (TTD Doswal)</th>
+                    <th style="background-color: #EEC01D;">Transkrip (Tertanda tangan)</th>
                     <th style="background-color: #EEC01D;">SS AVITA</th>
                     <!-- <th style="background-color: #EEC01D;">Detail Berkas</th> -->
                     <th style="background-color: #EEC01D;">Status</th>
@@ -71,7 +71,7 @@
                         <td><?= $sk->tanggal_sidang; ?></td>
                         <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td> -->
                         <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_ba_sidang') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
-                        <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_khs') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
+                        <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_transkrip') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
                         <td><a href="<?= route_to('berkas_bebas_ukt', $sk->id, 'berkas_bukti_bayar_ukt') ?>" target="_blank" class="btn btn-sm btn-warning">Lihat</a></td>
                         <!-- <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#detailBerkas">Lihat</button></td> -->
                         <td>

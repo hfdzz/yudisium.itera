@@ -111,8 +111,8 @@
                         <input type="file" class="form-control" name="berkas_ba_sidang" id="berkas_ba_sidang" required placeholder="berkas_ba_sidang">
                       </div>
                       <div class="form-group col-4">
-                        <label class="form-label" for="berkas_khs">Transkip Nilai (Tertanda tangan) </label>
-                        <input type="file" class="form-control" name="berkas_khs" id="berkas_khs" required placeholder="berkas_khs">
+                        <label class="form-label" for="berkas_transkrip">Transkip Nilai (Tertanda tangan) </label>
+                        <input type="file" class="form-control" name="berkas_transkrip" id="berkas_transkrip" required placeholder="berkas_transkrip">
                       </div>
                       <div class="form-group col-4">
                         <label class="form-label" for="berkas_bukti_bayar_ukt">Screenshot Lunas UKT AVITA (TTD Dosen Wali) </label>

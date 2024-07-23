@@ -199,13 +199,13 @@ class MahasiswaController extends BaseController
                     'ext_in' => 'Berkas BA Sidang harus berformat PDF.',
                 ],
             ],
-            'berkas_khs' => [
+            'berkas_transkrip' => [
                 // required uploaded file (max: 2MB, mime: pdf)
-                'rules' => 'uploaded[berkas_khs]|max_size[berkas_khs,2048]|ext_in[berkas_khs,pdf]',
+                'rules' => 'uploaded[berkas_transkrip]|max_size[berkas_transkrip,2048]|ext_in[berkas_transkrip,pdf]',
                 'errors' => [
-                    'uploaded' => 'Berkas KHS harus diunggah.',
-                    'max_size' => 'Ukuran berkas KHS maksimal 2MB.',
-                    'ext_in' => 'Berkas KHS harus berformat PDF.',
+                    'uploaded' => 'Berkas Transkirp harus diunggah.',
+                    'max_size' => 'Ukuran berkas Transkirp maksimal 2MB.',
+                    'ext_in' => 'Berkas Transkirp harus berformat PDF.',
                 ],
             ],
             'berkas_bukti_bayar_ukt' => [

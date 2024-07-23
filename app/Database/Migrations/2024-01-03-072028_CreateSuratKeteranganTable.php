@@ -54,7 +54,7 @@ class CreateSuratKeteranganTable extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
-            'berkas_khs' => [
+            'berkas_transkrip' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,

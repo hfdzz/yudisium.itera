@@ -529,7 +529,7 @@ class TestSeeder extends Seeder
             'status' => 'menunggu_validasi',
             'nomor_surat' => '110/UN7.1/20240001',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
@@ -543,7 +543,7 @@ class TestSeeder extends Seeder
             'nomor_surat' => '110/UN7.1/20240002',
             'tanggal_terbit' => date('Y-m-d', strtotime('-1 day')), // '2024-03-01
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
@@ -555,7 +555,7 @@ class TestSeeder extends Seeder
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'selesai_mahasiswa_beasiswa',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
@@ -567,7 +567,7 @@ class TestSeeder extends Seeder
             'jenis_surat' => 'sk_bebas_ukt',
             'status' => 'ditolak',
             'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-            'berkas_khs' => 'faker/berkas_khs.pdf',
+            'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
             'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
         ]);
 
@@ -579,7 +579,7 @@ class TestSeeder extends Seeder
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'menunggu_validasi',
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
@@ -595,7 +595,7 @@ class TestSeeder extends Seeder
                 'tanggal_terbit' => date('Y-m-d', strtotime('2024-01-01 +' . rand(0, 78) . ' days')), // '2024-01-01
                 'nomor_surat' => '110/UN7.1/2024000' . ($i + 1),
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
@@ -609,7 +609,7 @@ class TestSeeder extends Seeder
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'selesai_mahasiswa_beasiswa',
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }
@@ -623,7 +623,7 @@ class TestSeeder extends Seeder
                 'jenis_surat' => 'sk_bebas_ukt',
                 'status' => 'ditolak',
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
             ]);
         }

@@ -23,7 +23,7 @@ class SuratKeteranganModel extends Model
         'file_surat_keterangan',
         'tanggal_sidang',
         'berkas_ba_sidang',
-        'berkas_khs',
+        'berkas_transkrip',
         'berkas_bukti_bayar_ukt',
         'mahasiswa_id',
         'peninjau_id',
@@ -46,7 +46,7 @@ class SuratKeteranganModel extends Model
         'keterangan' => 'string|permit_empty',
         'tanggal_sidang' => 'date|permit_empty',
         'berkas_ba_sidang' => 'string|permit_empty',
-        'berkas_khs' => 'string|permit_empty',
+        'berkas_transkrip' => 'string|permit_empty',
         'berkas_bukti_bayar_ukt' => 'string|permit_empty',
         'mahasiswa_id' => 'required',
         'peninjau_id' => 'permit_empty'

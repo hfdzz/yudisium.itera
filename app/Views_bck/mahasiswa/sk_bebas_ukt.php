@@ -21,7 +21,7 @@
                     </div>
                     <div>
                         <ol>
-                            <li>KHS</li>
+                            <li>Transkrip</li>
                             <li>BA</li>
                             <li>Skirnsot AVITA</li>
                             <li>Sholat subuh</li>
@@ -45,10 +45,10 @@
                                     <input type="file" class="form-control-file" id="berkas_ba_sidang" name="berkas_ba_sidang">
                                 </div>
         
-                                <!-- berkas KHS -->
+                                <!-- berkas Transkrip -->
                                 <div class="d-flex flex-column">
-                                    <label for="berkas_khs" class="form-label">Upload KHS</label>
-                                    <input type="file" class="form-control-file" id="berkas_khs" name="berkas_khs">
+                                    <label for="berkas_transkrip" class="form-label">Upload Transkrip</label>
+                                    <input type="file" class="form-control-file" id="berkas_transkrip" name="berkas_transkrip">
                                 </div>
                                 
                                 <!-- berkas bukti bayar AVITA -->

@@ -209,7 +209,7 @@ class TestSeeder extends Seeder
                 'status' => $i == 1 ? 'menunggu_validasi' : ($i == 2 ? 'selesai_mahasiswa_beasiswa' : 'selesai'),
                 'tanggal_sidang' => $i + 1 > 1 ? date('Y-m-d', strtotime("-2 month" . (int) ($i/10) . " day")) : null,
                 'berkas_ba_sidang' => $i + 1 > 1 ? 'faker/berkas_ba_sidang.pdf' : null,
-                'berkas_khs' => $i +1 > 1 ? 'faker/berkas_khs.pdf' : null,
+                'berkas_transkrip' => $i +1 > 1 ? 'faker/berkas_transkrip.pdf' : null,
                 'berkas_bukti_bayar_ukt' => $i + 1 > 1 ? 'faker/berkas_bukti_bayar_ukt.pdf' : null,
                 // 2 month ago + ( $i/10 ) day 
                 'tanggal_pengajuan' => date('Y-m-d', strtotime("-2 month" . (int) ($i/10) . " day")),
@@ -319,7 +319,7 @@ class TestSeeder extends Seeder
                 'status' => 'menunggu_validasi',
                 'tanggal_sidang' => date('Y-m-d', strtotime('-1 day')),
                 'berkas_ba_sidang' => 'faker/berkas_ba_sidang.pdf',
-                'berkas_khs' => 'faker/berkas_khs.pdf',
+                'berkas_transkrip' => 'faker/berkas_transkrip.pdf',
                 'berkas_bukti_bayar_ukt' => 'faker/berkas_bukti_bayar_ukt.pdf',
                 'tanggal_pengajuan' => date('Y-m-d', strtotime('-1 day')),
                 'created_at' => date('Y-m-d', strtotime('-1 day')),

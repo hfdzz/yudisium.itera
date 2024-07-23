@@ -51,7 +51,7 @@ z<?php
                     <label for="file" class="form-label">Berkas</label>
                     <div class="d-flex flex-column flex-shrink-1">
                         <a href="<?= site_url('berkas-bebas-ukt/' . $sk_bebas_perpustakaan->id . '/berkas_ba_sidang') ?>" target="_blank">Berkas BA Sidang</a>
-                        <a href="<?= site_url('berkas-bebas-ukt/' . $sk_bebas_perpustakaan->id . '/berkas_khs') ?>" target="_blank">Berkas KHS</a>
+                        <a href="<?= site_url('berkas-bebas-ukt/' . $sk_bebas_perpustakaan->id . '/berkas_transkrip') ?>" target="_blank">Berkas Transkrip</a>
                         <a href="<?= site_url('berkas-bebas-ukt/' . $sk_bebas_perpustakaan->id . '/berkas_bukti_bayar_ukt') ?>" target="_blank">Berkas Bukti Bayar UKT</a>
                         <a href="<?= site_url('file-surat-keterangan/' . $sk_bebas_perpustakaan->id) ?>" target="_blank" class="btn btn-primary mt-2">Lihat Surat Keterangan</a>
                     </div>

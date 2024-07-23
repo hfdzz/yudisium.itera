@@ -59,7 +59,7 @@
                                                     <div class="modal-body text-start">
                                                         <div class="d-flex flex-column">
                                                             <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_ba_sidang') ?>" target="_blank">BA Sidang</a>
-                                                            <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_khs') ?>" target="_blank">KHS</a>
+                                                            <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_transkrip') ?>" target="_blank">Transkrip</a>
                                                             <a href="<?= route_to('berkas_bebas_ukt', $p->id, 'berkas_bukti_bayar_ukt') ?>" target="_blank">Bukti Bayar UKT</a>
                                                         </div>
                                                     </div>
