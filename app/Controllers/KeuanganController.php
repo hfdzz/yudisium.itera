@@ -40,6 +40,18 @@ class KeuanganController extends BaseController
             /** @var \App\Models\SuratKeteranganModel $suratKeteranganModel */
             $suratKeteranganModel = model('SuratKeteranganModel');
 
+            // month and year for filter (NOT IMPLEMENTED)
+            // $db = db_connect();
+
+            // $sql = "
+            //     SELECT DATE_FORMAT(tanggal_pengajuan, \"%m\") month, DATE_FORMAT(tanggal_pengajuan, \"%Y\") year
+            //     from surat_keterangan
+            //     where surat_keterangan.jenis_surat = 'sk_bebas_ukt'
+            //     group by year(tanggal_pengajuan), month(tanggal_pengajuan)
+            // ";
+
+            // $tanggal_pengajuan_year_month = $db->query($sql)->getResultArray();
+
             $data = [
                 'surat_keterangan' => $suratKeteranganModel->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
                     ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)

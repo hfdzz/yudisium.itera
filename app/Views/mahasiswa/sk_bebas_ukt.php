@@ -101,7 +101,7 @@
                   <form action="<?= route_to('sk_bebas_ukt') ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                       <div class="form-group col-4">
-                        <label class="form-label" for="tanggal_sidang">Tanggal Sidang</label>
+                        <label class="form-label" for="tanggal_sidang">Tanggal Sidang <span class="text-gray">(Sesuai Berita Acara Sidang)</span></label>
                         <input type="date" class="form-control" name="tanggal_sidang" id="tanggal_sidang" required placeholder="tanggal_sidang">
                       </div>
                     </div>
