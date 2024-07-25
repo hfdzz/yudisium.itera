@@ -56,6 +56,24 @@
                 </ul>
               </div>
               <div class="card-header">
+                  <div class="row">
+                    <div class="col-lg-12 col-12">
+                      <br>
+                      <div class="card card-warning card-outline p-3">
+                        <div class="inner">
+                          <i class="fas fa-info-circle"></i>
+                          <span class="card-info">Tahap Pendaftaran Yudisium</span>
+                          <ol>
+                            <li>Pengisian Data, tahap ini adalah tahapan dimana mahasiswa melakukan pengisian data pada form pendaftaran</li>
+                            <li>Pengajuan SK, setelah pengisian data selesai, mahasiswa diwajibkan untuk melakukan pengajuan sk bebas ukt,pustaka, dan lab. flow tidak akan bergerak ke step selanjutnya apabila ketiga sk belum diterima.</li>
+                            <li>Setelah selesai, maka mahasiswa dapat melengkapi seluruh berkas persyaratan dan melakukan submit pendaftaran yudisium.</li>
+                            <li>Berkas akan dicek oleh admin fakultas dan akan divalidasi apabila berkas yang diajukan telah sesuai. mahasiswa dapat mengunduh tanda terima sebagai syarat pengambilan SKL.</li>
+                            <li>Apabila seluruh rangkaian telah selesai, mahasiswa dapat bergabung pada grup whatsapp sesuai dengan program studi masing-masing</li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="d-flex justify-content-center align-items-center">
                       <div class="col-6">
                         <div class="form-group">
@@ -70,9 +88,7 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label class="form-label" for="prodi">Program Studi :</label>
-                          <select class="form-control" disabled name="prodi" id="prodi">
-                            <option value="<?= $user->program_studi ?>" selected><?= $user->program_studi ?></option>
-                          </select>
+                          <input class="form-control" type="text" disabled name="prodi" id="prodi" placeholder="Andi" value="<?= $user->program_studi ?>">
                         </div>
                         <div class="form-group">
                           <label class="form-label" for="status">Status Yudisium :</label>
@@ -170,5 +186,23 @@
 
     </div>
   <!-- /.content-wrapper -->
+
+<?= $this->endSection(); ?>
+
+<?= $this->section('scripts'); ?>
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+    });
+  });
+</script>
 
 <?= $this->endSection(); ?>

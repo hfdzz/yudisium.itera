@@ -105,6 +105,27 @@
                       <?= $yudisium_pendaftaran->keterangan ?>
                     </div>
                     <?php endif; ?>
+
+                    <div class="row">
+                      <div class="col-lg-12 col-12">
+                        <br>
+                        <div class="card card-warning card-outline p-3">
+                          <div class="inner">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="card-info">Informasi Pendaftaran Yudisium</span>
+                            <ol>
+                              <li>Silahkan upload masing-masing berkas persyaratan dengan menggunakan format file pdf (max 2mb)</li>
+                              <li>Pastikan untuk melakukan pengajuan Surat Keterangan Bebas UKT, Surat Keterangan Bebas Perpustakaan, dan Surat Keterangan Bebas Laboratorium terlebih dahulu sebelum berkas lainnya.</li>
+                              <li>Khusus Mahasiswa beasiswa dapat mengajukan pendaftaran yudisium dengan mengupload Surat Keterangan Mahasiswa dari Bagian Akademik ITERA</li>
+                              <li>Pastikan berkas yang diupload terlihat jelas dan tidak blur.</li>
+                              <li>Pendaftaran hanya dapat dilakukan sekali dalam satu periode</li>
+                              <li>Mahasiswa yang telah selesai melakukan pendaftaran yudisium diwajibkan untuk bergabung pada link whatsapp sesuai dengan prodi masing-masing</li>
+                              <li>Apabila terdapat kendala dalam pendaftaran yudisium, silahkan menghubungi administrator fakultas di Gedung C Fakultas Teknologi Industri</li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     
                     <div class="row">
                       <div class="col-4">
