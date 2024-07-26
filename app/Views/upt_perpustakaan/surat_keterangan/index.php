@@ -41,74 +41,70 @@
           <div class="col-12">
             <div class="card mb-5">
               <div class="card-body">
-              <div class="table-responsive">
-                <div class="d-flex justify-content-end mb-3">
-                <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/new') ?>" class="btn btn-primary">Tambah Data</a>
-                </div>
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th style="background-color: #EEC01D;">No</th>
-                    <th style="background-color: #EEC01D;">Tanggal</th>
-                    <th style="background-color: #EEC01D;">Nama</th>
-                    <th style="background-color: #EEC01D;">NIM</th>
-                    <th style="background-color: #EEC01D;">Prodi</th>
-                    <th style="background-color: #EEC01D;">
-                      <select class="rounded font-weight-bold btn btn-default px-0 btn-sm" id="filterStatus" style="width: 120px;">
-                        <option value="">Filter Status</option>
-                        <option value="selesai">Selesai</option>
-                        <option value="menunggu validasi">Menunggu Validasi</option>
-                        <option value="ditolak">Ditolak</option>
-                      </select>
-                    </th>
-                    <!-- <th style="background-color: #EEC01D;">Periode</th> -->
-                    <!-- <th style="background-color: #EEC01D;">Tahun</th> -->
-                    <!-- <th style="background-color: #EEC01D;">SK Bebas Pustaka</th> -->
-                    <th style="background-color: #EEC01D;">Surat</th>
-                    <th style="background-color: #EEC01D;">Aksi</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($sk_bebas_perpustakaan as $sk) : ?>
-                      <tr>
-                        <td></td>
-                        <td><?= $sk->tanggal_pengajuan; ?></td>
-                        <td><?= $sk->mahasiswa_name; ?></td>
-                        <td><?= $sk->mahasiswa_nim; ?></td>
-                        <td><?= $sk->mahasiswa_program_studi; ?></td>
-                        <td class="text-center"><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk->status]) ?></td>
-                        <td>
-                          <?php if ($sk->isSelesai()) : ?>
-                            <a href="<?= route_to('file_surat_keterangan', $sk->id) ?>" class="btn btn-sm btn-warning" target="_blank" >Lihat</a>
-                          <?php endif; ?>
-                        </td>
-                        <td class="text-center">
-                          <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $sk->id) ?>" class="btn btn-warning btn-sm">Edit</a>
-                          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus" data-action="<?= site_url('upt_perpustakaan/bebas-perpustakaan/delete/' . $sk->id) ?>">Hapus</button>
-                          <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/' . $sk->id) ?>" class="btn btn-success btn-sm">Detail</a>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
+                <div class="table-responsive">
+                  <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                      <label for="periode_filter" class="form-label mb-0 flex-shrink-0">
+                        Periode Pengajuan:
+                      </label>
+                      <select class="form-control ml-2" name="periode_filter" id="periode_filter">
+                        <option value="">Semua Periode</option>
+                        <?php foreach ($tanggal_pengajuan_month_year_list as $tanggal_pengajuan) : ?>
+                          <option value="<?= $tanggal_pengajuan['month'] . '_' . $tanggal_pengajuan['year']; ?>"
+                            <?= $tanggal_pengajuan['month'] . '_' . $tanggal_pengajuan['year'] === $tanggal_pengajuan_filter ? 'selected' : ''; ?>
+                          >
+                            <?= $tanggal_pengajuan['month'] . '/' . $tanggal_pengajuan['year']; ?>
+                          </option>
+                        <?php endforeach; ?>
 
-                  <!-- <tr>
-                    <td>1</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><p class="small text-center rounded bg-success" disabled>Diterima</p></td>
-                    <td>Januari</td>
-                    <td>2023</td>
-                    <td>Diterbitkan</td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas">Lihat</button></td>
-                    <td class="text-center">
-                      <a href="edit.html" class="btn btn-warning btn-sm">Edit</a>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button>
-                      <a href="detail.html" class="btn btn-success btn-sm">Detail</a>
-                    </td>
-                  </tr> -->
-                  </tbody>
-                </table>
+                      </select>
+                    </div>
+                    <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/new') ?>" class="btn btn-primary">Tambah Data</a>
+                  </div>
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th style="background-color: #EEC01D;">No</th>
+                      <th style="background-color: #EEC01D;">Tanggal</th>
+                      <th style="background-color: #EEC01D;">Nama</th>
+                      <th style="background-color: #EEC01D;">NIM</th>
+                      <th style="background-color: #EEC01D;">Prodi</th>
+                      <th style="background-color: #EEC01D;">
+                        <select class="rounded font-weight-bold btn btn-default px-0 btn-sm" id="filterStatus" style="width: 120px;">
+                          <option value="">Filter Status</option>
+                          <option value="selesai">Selesai</option>
+                          <option value="menunggu validasi">Menunggu Validasi</option>
+                          <option value="ditolak">Ditolak</option>
+                        </select>
+                      </th>
+                      <th style="background-color: #EEC01D;">Surat</th>
+                      <th style="background-color: #EEC01D;">Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($sk_bebas_perpustakaan as $sk) : ?>
+                        <tr>
+                          <td></td>
+                          <td><?= $sk->tanggal_pengajuan; ?></td>
+                          <td><?= $sk->mahasiswa_name; ?></td>
+                          <td><?= $sk->mahasiswa_nim; ?></td>
+                          <td><?= $sk->mahasiswa_program_studi; ?></td>
+                          <td class="text-center"><?= view_cell('StatusSuratKeterangan::renderBadge', ['status' => $sk->status]) ?></td>
+                          <td>
+                            <?php if ($sk->isSelesai()) : ?>
+                              <a href="<?= route_to('file_surat_keterangan', $sk->id) ?>" class="btn btn-sm btn-warning" target="_blank" >Lihat</a>
+                            <?php endif; ?>
+                          </td>
+                          <td class="text-center">
+                            <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/edit/' . $sk->id) ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapus" data-action="<?= site_url('upt_perpustakaan/bebas-perpustakaan/delete/' . $sk->id) ?>">Hapus</button>
+                            <a href="<?= site_url('upt_perpustakaan/bebas-perpustakaan/' . $sk->id) ?>" class="btn btn-success btn-sm">Detail</a>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -183,6 +179,19 @@
     let action = button.data('action');
     let modal = $(this);
     modal.find('form').attr('action', action);
+  });
+
+  $(document).ready(function() {
+    $('#periode_filter').on('change', function() {
+      let params = new URLSearchParams(window.location.search);
+      if ($(this).val() === '') {
+        params.delete('tanggal_pengajuan');
+        window.location.href = window.location.pathname;
+      } else {
+        params.set('tanggal_pengajuan', $(this).val());
+        window.location.search = params.toString();
+      }
+    });
   });
 </script>
 <?= $this->endSection(); ?>

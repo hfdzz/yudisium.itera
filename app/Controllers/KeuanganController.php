@@ -40,26 +40,41 @@ class KeuanganController extends BaseController
             /** @var \App\Models\SuratKeteranganModel $suratKeteranganModel */
             $suratKeteranganModel = model('SuratKeteranganModel');
 
-            // month and year for filter (NOT IMPLEMENTED)
-            // $db = db_connect();
+            $db = db_connect();
 
-            // $sql = "
-            //     SELECT DATE_FORMAT(tanggal_pengajuan, \"%m\") month, DATE_FORMAT(tanggal_pengajuan, \"%Y\") year
-            //     from surat_keterangan
-            //     where surat_keterangan.jenis_surat = 'sk_bebas_ukt'
-            //     group by year(tanggal_pengajuan), month(tanggal_pengajuan)
-            // ";
+            // list of month and year for filter
+            $tanggal_pengajuan_month_year_list = $db->table('surat_keterangan')
+            ->select('DATE_FORMAT(tanggal_pengajuan, "%m") month, DATE_FORMAT(tanggal_pengajuan, "%Y") year')
+            ->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
+            ->groupBy('year(tanggal_pengajuan), month(tanggal_pengajuan)')
+            ->orderBy('year(tanggal_pengajuan)', 'desc')
+            ->orderBy('month(tanggal_pengajuan)', 'desc')
+            ->get()
+            ->getResultArray();
+        
+            // get filter value
+            $get_tanggal_pengajuan = (string)$this->request->getGet('tanggal_pengajuan');
+            $get_tanggal_pengajuan_array = explode('_', $get_tanggal_pengajuan);
+            
+            $tanggal_pengajuan_filter = count($get_tanggal_pengajuan_array) === 2 ?
+                [['month' => $get_tanggal_pengajuan_array[0], 'year' => $get_tanggal_pengajuan_array[1]]] : null;
 
-            // $tanggal_pengajuan_year_month = $db->query($sql)->getResultArray();
+            // get data
+            $query = $suratKeteranganModel->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
+                ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
+                ->orderBy('tanggal_pengajuan', 'asc')
+                ->join('users', 'users.id = surat_keterangan.mahasiswa_id')
+                ->select('surat_keterangan.*, users.username as mahasiswa_username, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_program_studi');
+            
+            if ($tanggal_pengajuan_filter) {
+                $query->where('YEAR(tanggal_pengajuan)', (int)$tanggal_pengajuan_filter[0]['year'])
+                    ->where('MONTH(tanggal_pengajuan)', (int)$tanggal_pengajuan_filter[0]['month']);
+            }
 
             $data = [
-                'surat_keterangan' => $suratKeteranganModel->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
-                    ->where('surat_keterangan.status', STATUS_MENUNGGU_VALIDASI)
-                    ->orderBy('tanggal_pengajuan', 'asc')
-                    ->join('users', 'users.id = surat_keterangan.mahasiswa_id')
-                    ->select('surat_keterangan.*, users.username as mahasiswa_username, users.nim as mahasiswa_nim, users.program_studi as mahasiswa_program_studi')
-                    // ->paginate(10),
-                    ->findAll(),
+                'surat_keterangan' => $query->findAll(),
+                'tanggal_pengajuan_month_year_list' => $tanggal_pengajuan_month_year_list,
+                'tanggal_pengajuan_filter' => $get_tanggal_pengajuan,
                 'pager' => $suratKeteranganModel->pager,
             ];
 

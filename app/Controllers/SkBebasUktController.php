@@ -20,6 +20,25 @@ class SkBebasUktController extends BaseController
         /** @var \App\Models\SuratKeteranganModel $model */
         $model = model('SuratKeteranganModel');
 
+        $db = db_connect();
+
+        // list of month and year for filter
+        $tanggal_pengajuan_month_year_list = $db->table('surat_keterangan')
+        ->select('DATE_FORMAT(tanggal_pengajuan, "%m") month, DATE_FORMAT(tanggal_pengajuan, "%Y") year')
+        ->where('surat_keterangan.jenis_surat', JENIS_SK_BEBAS_UKT)
+        ->groupBy('year(tanggal_pengajuan), month(tanggal_pengajuan)')
+        ->orderBy('year(tanggal_pengajuan)', 'desc')
+        ->orderBy('month(tanggal_pengajuan)', 'desc')
+        ->get()
+        ->getResultArray();
+    
+        // get filter value
+        $get_tanggal_pengajuan = (string)$this->request->getGet('tanggal_pengajuan');
+        $get_tanggal_pengajuan_array = explode('_', $get_tanggal_pengajuan);
+        
+        $tanggal_pengajuan_filter = count($get_tanggal_pengajuan_array) === 2 ?
+            [['month' => $get_tanggal_pengajuan_array[0], 'year' => $get_tanggal_pengajuan_array[1]]] : null;
+
         $query = $model->where('jenis_surat', JENIS_SK_BEBAS_UKT)
             // Most recent first 
             ->orderBy('created_at', 'desc')
@@ -27,25 +46,18 @@ class SkBebasUktController extends BaseController
             ->join('users as peninjau', 'peninjau.id = surat_keterangan.peninjau_id', 'left')
             ->select('surat_keterangan.*, mahasiswa.username as mahasiswa_name, mahasiswa.nim as mahasiswa_nim, mahasiswa.program_studi as mahasiswa_program_studi, peninjau.username as peninjau_name, peninjau.nip as peninjau_nip');
 
-        if ($search) {
-            $query->groupStart();
-            $fields = ['nomor_surat', 'mahasiswa.username', 'mahasiswa.nim', 'peninjau.username', 'peninjau.nip', 'tanggal_terbit', 'keterangan', 'surat_keterangan.status'];
-            foreach ($fields as $field) {
-                $query->orLike($field, $search);
-            }
-            $query->groupEnd();
-        }
-
-        if ($this->request->getGet('status')) {
-            $model->where('surat_keterangan.status', $this->request->getGet('status'));
+        if ($tanggal_pengajuan_filter) {
+            $query->where('YEAR(tanggal_pengajuan)', (int)$tanggal_pengajuan_filter[0]['year'])
+                ->where('MONTH(tanggal_pengajuan)', (int)$tanggal_pengajuan_filter[0]['month']);
         }
 
         $data = [
             'sk_bebas_ukt' => $query
                 ->orderBy('created_at', 'desc')
-                // ->paginate($perPage),
                 ->findAll(),
             'pager' => $model->pager,
+            'tanggal_pengajuan_month_year_list' => $tanggal_pengajuan_month_year_list,
+            'tanggal_pengajuan_filter' => $get_tanggal_pengajuan,
         ];
 
         return view('keuangan/surat_keterangan/index', $data);

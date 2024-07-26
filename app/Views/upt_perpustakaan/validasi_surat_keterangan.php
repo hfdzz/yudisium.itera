@@ -41,51 +41,51 @@
           <div class="col-12">
             <div class="card mb-5">
               <div class="card-body">
-              <div class="table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th style="background-color: #EEC01D;">No</th>
-                    <th style="background-color: #EEC01D;">Tanggal</th>
-                    <th style="background-color: #EEC01D;">Nama</th>
-                    <th style="background-color: #EEC01D;">NIM</th>
-                    <th style="background-color: #EEC01D;">Prodi</th>
-                    <!-- <th style="background-color: #EEC01D;">Status Peminjaman</th> -->
-                    <th style="background-color: #EEC01D;">Status</th>
-                    <!-- <th style="background-color: #EEC01D;">Surat Bebas Pustaka</th> -->
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($surat_keterangan as $sk) : ?>
-                      <tr>
-                        <td></td>
-                        <td><?= $sk->tanggal_pengajuan; ?></td>
-                        <td><?= $sk->mahasiswa_username; ?></td>
-                        <td><?= $sk->mahasiswa_nim; ?></td>
-                        <td><?= $sk->mahasiswa_program_studi; ?></td>
-                        <td>
-                          <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima" data-id="<?= $sk->id; ?>">Terima</button>
-                          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" data-id="<?= $sk->id; ?>">Tolak</button>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-
-                  <!-- <tr>
-                    <td>1</td>
-                    <td>2020-01-01</td>
-                    <td>Gery</td>
-                    <td>123456</td>
-                    <td>Sistem Informasi</td>
-                    <td><b>Tidak Ada</b></td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima">Terima</button>
-                      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak">Tolak</button>
-                    </td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Buat</button></td>
-                  </tr> -->
-
-                  </tbody>
-                </table>
+                <div class="d-flex justify-content-between mb-3">
+                  <div class="d-flex align-items-center">
+                    <label for="periode_filter" class="form-label mb-0 flex-shrink-0">
+                      Periode Pengajuan:
+                    </label>
+                    <select class="form-control ml-2" name="periode_filter" id="periode_filter">
+                      <option value="">Semua Periode</option>
+                      <?php foreach ($tanggal_pengajuan_month_year_list as $tanggal_pengajuan) : ?>
+                        <option value="<?= $tanggal_pengajuan['month'] . '_' . $tanggal_pengajuan['year']; ?>"
+                          <?= $tanggal_pengajuan['month'] . '_' . $tanggal_pengajuan['year'] === $tanggal_pengajuan_filter ? 'selected' : ''; ?>>
+                          <?= $tanggal_pengajuan['month'] . '/' . $tanggal_pengajuan['year']; ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th style="background-color: #EEC01D;">No</th>
+                      <th style="background-color: #EEC01D;">Tanggal</th>
+                      <th style="background-color: #EEC01D;">Nama</th>
+                      <th style="background-color: #EEC01D;">NIM</th>
+                      <th style="background-color: #EEC01D;">Prodi</th>
+                      <th style="background-color: #EEC01D;">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($surat_keterangan as $sk) : ?>
+                        <tr>
+                          <td></td>
+                          <td><?= $sk->tanggal_pengajuan; ?></td>
+                          <td><?= $sk->mahasiswa_username; ?></td>
+                          <td><?= $sk->mahasiswa_nim; ?></td>
+                          <td><?= $sk->mahasiswa_program_studi; ?></td>
+                          <td>
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalTerima" data-id="<?= $sk->id; ?>">Terima</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" data-id="<?= $sk->id; ?>">Tolak</button>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -178,6 +178,19 @@
     console.log(id);
     var modal = $(this);
     modal.find('input[name="id"]').val(id);
+  });
+
+  $(document).ready(function() {
+    $('#periode_filter').on('change', function() {
+      let params = new URLSearchParams(window.location.search);
+      if ($(this).val() === '') {
+        params.delete('tanggal_pengajuan');
+        window.location.href = window.location.pathname;
+      } else {
+        params.set('tanggal_pengajuan', $(this).val());
+        window.location.search = params.toString();
+      }
+    });
   });
 </script>
 
